@@ -1,0 +1,31 @@
+export const SET_ALERT = 'SET_ALERT';
+export const REMOVE_ALERT = 'REMOVE_ALERT';
+
+export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
+export const REGISTER_FAIL = 'REGISTER_FAIL';
+
+export const USER_LOADED = 'USER_LOADED';
+export const AUTH_ERROR = 'AUTH_ERROR';
+
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
+export const LOGIN_FAIL = 'LOGIN_FAIL';
+
+export const CHANGE_PASSWORD = 'CHANGE_PASSWORD';
+export const CHANGE_PASSWORD_FAIL = 'CHANGE_PASSWORD_FAIL';
+
+export const LOGOUT = 'LOGOUT';
+
+export const GET_DEPARTMENTS = 'GET_DEPARTMENTS';
+export const ADD_DEPARTMENT = 'ADD_DEPARTMENT';
+export const DEPARTMENT_ERROR = 'DEPARTMENT_ERROR';
+export const UPDATE_DEPARTMENT = 'UPDATE_DEPARTMENT';
+
+export const GET_EMPLOYEES = 'GET_EMPLOYEES';
+export const ADD_EMPLOYEE = 'ADD_EMPLOYEE';
+export const EMPLOYEE_ERROR = 'EMPLOYEE_ERROR';
+export const UPDATE_EMPLOYEE = 'UPDATE_EMPLOYEE';
+
+export const GET_LEAVES = 'GET_LEAVES';
+export const ADD_LEAVE = 'ADD_LEAVE';
+export const LEAVE_ERROR = 'LEAVE_ERROR';
+export const UPDATE_LEAVE = 'UPDATE_LEAVE';
