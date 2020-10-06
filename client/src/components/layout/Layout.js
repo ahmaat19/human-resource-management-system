@@ -60,7 +60,7 @@ const Navbar = ({
               Department
             </Link>
           </li>
-          <li>
+          {/* <li>
             <Link to='/leave-type' className='dropdown-item'>
               <svg
                 viewBox='0 0 20 20'
@@ -75,7 +75,7 @@ const Navbar = ({
               </svg>
               Leave Type
             </Link>
-          </li>
+          </li> */}
           <li>
             <Link to='/employee' className='dropdown-item'>
               <svg

@@ -10,6 +10,7 @@ import Alert from './components/layout/Alert';
 import Dashboard from './components/dashboard/Dashboard';
 import Department from './components/department/Department';
 import Employee from './components/employee/Employee';
+import Leave from './components/leave/Leave';
 
 import { loadUser } from './actions/auth';
 import { LOGOUT } from './actions/types';
@@ -59,6 +60,7 @@ const App = () => {
             <PrivateRoute exact path='/' component={Dashboard} />
             <PrivateRoute exact path='/department' component={Department} />
             <PrivateRoute exact path='/employee' component={Employee} />
+            <PrivateRoute exact path='/leave' component={Leave} />
             {/* <Route component={NoMatch} /> */}
           </Layout>
         </Switch>

@@ -48,7 +48,7 @@ router.post(
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
-
+    console.log(req.body);
     const { employee, leave, start_date, end_date, description } = req.body;
     const user = req.user.id;
 
@@ -57,7 +57,6 @@ router.post(
         user,
         employee,
         leave,
-        gender,
         start_date,
         end_date,
         description,
@@ -67,7 +66,7 @@ router.post(
       return res
         .status(200)
         .json(
-          await Leave.findOne({ _id: leaveRequest._id })
+          await Leave.find()
             .sort({ date: -1 })
             .populate('employee', ['emp_id', 'name'])
             .populate('user', ['name'])
@@ -119,7 +118,7 @@ router.put(
       return res
         .status(200)
         .json(
-          await Leave.findOne({ _id: leaveRequest._id })
+          await Leave.find()
             .sort({ date: -1 })
             .populate('employee', ['emp_id', 'name'])
             .populate('user', ['name'])
@@ -143,7 +142,7 @@ router.delete('/:id', [auth, checkObjectId('id')], async (req, res) => {
     return res
       .status(200)
       .json(
-        await Leave.findOne({ _id: req.params.id })
+        await Leave.find()
           .sort({ date: -1 })
           .populate('employee', ['emp_id', 'name'])
           .populate('user', ['name'])

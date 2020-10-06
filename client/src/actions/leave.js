@@ -47,7 +47,7 @@ export const addLeave = (formData) => async (dispatch) => {
   }
 };
 
-// Create leave
+// Update leave
 export const updateLeave = (formData) => async (dispatch) => {
   try {
     const config = {
@@ -76,7 +76,7 @@ export const updateLeave = (formData) => async (dispatch) => {
 };
 
 // Delete leave
-export const deleteBloodStore = (id) => async (dispatch) => {
+export const deleteLeave = (id) => async (dispatch) => {
   try {
     const res = await axios.delete(`/api/leave/${id}`);
     dispatch({
