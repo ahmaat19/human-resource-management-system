@@ -1,6 +1,12 @@
 import React from 'react';
 
-function LeaveForm({ handleChange, handleSubmit, values, employees }) {
+function LeaveForm({
+  handleChange,
+  handleSubmit,
+  values,
+  employees,
+  employee_id,
+}) {
   return (
     <form onSubmit={handleSubmit}>
       <div className='row gy-2'>
@@ -26,17 +32,51 @@ function LeaveForm({ handleChange, handleSubmit, values, employees }) {
             onChange={handleChange}
             value={values.employee}
             className='form-control py-2'
+            required
           >
             <option value='' disabled>
               Employee ID...
             </option>
             {employees &&
               employees.map((employee) => {
-                return (
-                  <option key={employee._id} value={employee._id}>
-                    {employee.emp_id}
-                  </option>
-                );
+                if (employee.active === 'Yes' && employee._id === employee_id) {
+                  return (
+                    <option key={employee._id} value={employee._id}>
+                      {employee.emp_id}
+                    </option>
+                  );
+                }
+              })}
+          </select>
+        </div>
+
+        <div className='input-group'>
+          <span className='input-group-text' id='basic-addon1'>
+            <svg
+              viewBox='0 0 20 20'
+              fill='currentColor'
+              className='identification w-6 h-6'
+            >
+              <path
+                fillRule='evenodd'
+                d='M10 2a1 1 0 00-1 1v1a1 1 0 002 0V3a1 1 0 00-1-1zM4 4h3a3 3 0 006 0h3a2 2 0 012 2v9a2 2 0 01-2 2H4a2 2 0 01-2-2V6a2 2 0 012-2zm2.5 7a1.5 1.5 0 100-3 1.5 1.5 0 000 3zm2.45 4a2.5 2.5 0 10-4.9 0h4.9zM12 9a1 1 0 100 2h3a1 1 0 100-2h-3zm-1 4a1 1 0 011-1h2a1 1 0 110 2h-2a1 1 0 01-1-1z'
+                clipRule='evenodd'
+              />
+            </svg>
+          </span>
+          <select className='form-control py-2' disabled>
+            <option value='' disabled>
+              Employee Name...
+            </option>
+            {employees &&
+              employees.map((employee) => {
+                if (employee.active === 'Yes' && employee._id === employee_id) {
+                  return (
+                    <option key={employee._id} value={employee._id}>
+                      {employee.name}
+                    </option>
+                  );
+                }
               })}
           </select>
         </div>

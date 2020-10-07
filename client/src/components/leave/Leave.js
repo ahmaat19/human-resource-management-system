@@ -11,6 +11,7 @@ import {
 } from '../../actions/leave';
 import { getEmployees } from '../../actions/employee';
 import Spinner from '../layout/Spinner';
+import moment from 'moment';
 
 const initialValues = {
   employee: '',
@@ -28,6 +29,7 @@ function Leave({
   addLeave,
   updateLeave,
   getLeaves,
+  match,
 }) {
   const [values, setValues] = useState(initialValues);
   const [edit, setEdit] = useState(false);
@@ -35,14 +37,17 @@ function Leave({
   const handleChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
   };
+
+  const employee_id = match.params.id;
+
   const handleUpdate = (e) => {
     setValues({
       ...values,
       _id: e._id,
       employee: e.employee._id,
       leave: e.leave,
-      start_date: e.start_date,
-      end_date: e.end_date,
+      start_date: moment(e.start_date).format('YYYY-MM-DD'),
+      end_date: moment(e.end_date).format('YYYY-MM-DD'),
       description: e.description,
     });
     setEdit(true);
@@ -69,8 +74,10 @@ function Leave({
           handleChange={handleChange}
           values={values}
           employees={employees}
+          employee_id={employee_id}
         />
       </div>
+
       <div className='col-md-8'>
         <LeaveList
           handleUpdate={handleUpdate}

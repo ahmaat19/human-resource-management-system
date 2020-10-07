@@ -46,6 +46,7 @@ router.post(
     const { name, gender, mobile, department } = req.body;
     const emp_id = req.body.emp_id.toUpperCase();
     const user = req.user.id;
+    const active = 'Yes';
 
     try {
       let employee = await Employee.findOne({ emp_id });
@@ -63,6 +64,7 @@ router.post(
         gender,
         mobile,
         department,
+        active,
       });
       await employee.save();
 
@@ -105,6 +107,7 @@ router.put(
     const { name, gender, mobile, department } = req.body;
     const emp_id = req.body.emp_id.toUpperCase();
     const user = req.user.id;
+    const active = 'Yes';
 
     try {
       // let employee_id = await Employee.findOne({ _id: req.params.id });
@@ -117,7 +120,7 @@ router.put(
 
       let employee = await Employee.findOneAndUpdate(
         { _id: req.params.id },
-        { $set: { user, emp_id, name, gender, mobile, department } }
+        { $set: { user, emp_id, name, gender, mobile, department, active } }
       );
 
       return res

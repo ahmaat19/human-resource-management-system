@@ -60,7 +60,7 @@ const App = () => {
             <PrivateRoute exact path='/' component={Dashboard} />
             <PrivateRoute exact path='/department' component={Department} />
             <PrivateRoute exact path='/employee' component={Employee} />
-            <PrivateRoute exact path='/leave' component={Leave} />
+            <PrivateRoute exact path='/leave/:id' component={Leave} />
             {/* <Route component={NoMatch} /> */}
           </Layout>
         </Switch>

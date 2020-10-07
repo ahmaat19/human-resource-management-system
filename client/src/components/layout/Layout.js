@@ -10,6 +10,7 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import MenuIcon from '@material-ui/icons/Menu';
 import LockOpenIcon from '@material-ui/icons/LockOpen';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
+import ReportIcon from '@material-ui/icons/Report';
 
 const Navbar = ({
   logout,
@@ -108,6 +109,13 @@ const Navbar = ({
             </Link>
           </li>
         </ul>
+      </li>
+
+      <li className='nav-item'>
+        <Link to='/report' className='nav-link'>
+          <ReportIcon fontSize='small' />
+          Report
+        </Link>
       </li>
 
       <li className='nav-item'>

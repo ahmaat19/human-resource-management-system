@@ -24,6 +24,9 @@ const EmployeeSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'department',
   },
+  active: {
+    type: String,
+  },
   date: {
     type: Date,
     default: Date.now,

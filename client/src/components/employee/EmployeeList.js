@@ -1,8 +1,11 @@
 import React, { Fragment } from 'react';
 import Moment from 'react-moment';
 import moment from 'moment';
+import { Link } from 'react-router-dom';
+
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import EditIcon from '@material-ui/icons/Edit';
+import SendIcon from '@material-ui/icons/Send';
 
 const EmployeeList = ({ handleUpdate, employees, deleteEmployee }) => {
   return (
@@ -25,36 +28,44 @@ const EmployeeList = ({ handleUpdate, employees, deleteEmployee }) => {
           <tbody>
             {employees &&
               employees.map((employee) => {
-                return (
-                  <tr
-                    key={employee._id}
-                    id={employee._id % 2 === 0 ? 'orange' : 'green'}
-                  >
-                    <td>
-                      <Moment format='YYYY-MM-DD HH:mm:ss'>
-                        {moment(employee.date)}
-                      </Moment>
-                    </td>
-                    <td>{employee.emp_id}</td>
-                    <td>{employee.name}</td>
-                    <td>{employee.mobile}</td>
-                    <td>{employee.department.name}</td>
-                    <td>
-                      <button
-                        onClick={() => handleUpdate(employee)}
-                        className='btn btn-outline-info btn-sm'
-                      >
-                        <EditIcon fontSize='small' />
-                      </button>{' '}
-                      <button
-                        onClick={() => deleteEmployee(employee._id)}
-                        className='btn btn-outline-danger btn-sm'
-                      >
-                        <DeleteForeverIcon fontSize='small' />
-                      </button>
-                    </td>
-                  </tr>
-                );
+                if (employee.active === 'Yes') {
+                  return (
+                    <tr
+                      key={employee._id}
+                      id={employee._id % 2 === 0 ? 'orange' : 'green'}
+                    >
+                      <td>
+                        <Moment format='YYYY-MM-DD HH:mm:ss'>
+                          {moment(employee.date)}
+                        </Moment>
+                      </td>
+                      <td>{employee.emp_id}</td>
+                      <td>{employee.name}</td>
+                      <td>{employee.mobile}</td>
+                      <td>{employee.department.name}</td>
+                      <td>
+                        <button
+                          onClick={() => handleUpdate(employee)}
+                          className='btn btn-outline-info btn-sm'
+                        >
+                          <EditIcon fontSize='small' />
+                        </button>{' '}
+                        <button
+                          onClick={() => deleteEmployee(employee._id)}
+                          className='btn btn-outline-danger btn-sm'
+                        >
+                          <DeleteForeverIcon fontSize='small' />
+                        </button>{' '}
+                        <Link
+                          to={`/leave/${employee._id}`}
+                          className='btn btn-outline-info btn-sm'
+                        >
+                          <SendIcon fontSize='small' />
+                        </Link>
+                      </td>
+                    </tr>
+                  );
+                }
               })}
           </tbody>
         </table>

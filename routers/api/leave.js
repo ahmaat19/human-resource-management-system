@@ -13,7 +13,8 @@ router.get('/', auth, async (req, res) => {
   try {
     const leave = await Leave.find()
       .sort({ date: -1 })
-      .populate('employee', ['emp_id', 'name'])
+      .populate('employee', ['emp_id', 'name', 'department'])
+
       .populate('user', ['name']);
     res.json(leave);
   } catch (err) {
@@ -111,7 +112,7 @@ router.put(
 
     try {
       let leaveRequest = await Leave.findOneAndUpdate(
-        { _id: id },
+        { _id: req.params.id },
         { $set: { user, employee, leave, start_date, end_date, description } }
       );
 
