@@ -35,27 +35,32 @@ const Dashboard = ({ leaves: { loading, leaves }, getLeaves }) => {
           <tbody>
             {leaves &&
               leaves.map((leave) => {
-                return (
-                  <tr
-                    key={leave._id}
-                    id={leave._id % 2 === 0 ? 'orange' : 'green'}
-                  >
-                    <td>{leave.employee.name}</td>
-                    <td>@TODO</td>
-                    <td>{leave.leave}</td>
-                    <td>
-                      <Moment format='YYYY-MM-DD'>
-                        {moment(leave.start_date)}
-                      </Moment>
-                    </td>
-                    <td>
-                      <Moment format='YYYY-MM-DD'>
-                        {moment(leave.end_date)}
-                      </Moment>
-                    </td>
-                    <td>{leave.description}</td>
-                  </tr>
-                );
+                if (
+                  moment(leave.end_date).format('YYYY-MM-DD') >=
+                  moment(Date.now()).format('YYYY-MM-DD')
+                ) {
+                  return (
+                    <tr
+                      key={leave._id}
+                      id={leave._id % 2 === 0 ? 'orange' : 'green'}
+                    >
+                      <td>{leave.employee.name}</td>
+                      <td>@TODO</td>
+                      <td>{leave.leave}</td>
+                      <td>
+                        <Moment format='YYYY-MM-DD'>
+                          {moment(leave.start_date)}
+                        </Moment>
+                      </td>
+                      <td>
+                        <Moment format='YYYY-MM-DD'>
+                          {moment(leave.end_date)}
+                        </Moment>
+                      </td>
+                      <td>{leave.description}</td>
+                    </tr>
+                  );
+                }
               })}
           </tbody>
         </table>
