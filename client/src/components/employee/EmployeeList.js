@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import Moment from 'react-moment';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
@@ -15,16 +15,17 @@ const EmployeeList = ({ handleUpdate, employees, deleteEmployee }) => {
       <div className='table-responsive'>
         <table className='table table-sm table-hover table-bordered caption-top'>
           <caption>{employees && employees.length} records were found</caption>
-          <thead>
+          <thead> 
             <tr>
               <th>Date & Time</th>
               <th>Emp. ID</th>
               <th>Name</th>
               <th>Mobile</th>
               <th>Department</th>
-              <>Action</>
+              <th>Action</th>
             </tr>
-          </thead>
+         </thead>
+         
           <tbody>
             {employees &&
               employees.map((employee) => {

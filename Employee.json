@@ -1,0 +1,74 @@
+db.employees.insertMany([
+    {
+      "emp_id": "YH-A0085",
+      "name": "Khadra Mohamed Osman",
+      "gender": "Female",
+      "mobile": "061107831",
+      "department": "5f8158396931c1c9cd164b50",
+      "active": "Yes"
+    },
+    {
+      "emp_id": "YH-A0184",
+      "name": "Abdukadir Ahmed Mohamed",
+      "gender": "Male",
+      "mobile": "0615906189",
+      "department": "5f8158396931c1c9cd164b50",
+      "active": "Yes"
+    },
+    {
+      "emp_id": "YH-A0180",
+      "name": "Mohmed Ibrahim Hussein",
+      "gender": "Male",
+      "mobile": "0616575470",
+      "department": "5f8158396931c1c9cd164b50",
+      "active": "Yes"
+    },
+    {
+      "emp_id": "YH-A0096",
+      "name": "Abdiaziz Noor Ahmed",
+      "gender": "Male",
+      "mobile": "0615994308",
+      "department": "5f8158396931c1c9cd164b50",
+      "active": "Yes"
+    },
+    {
+      "emp_id": "YH-A334",
+      "name": "Dr Abdullahi Yusuf Mohamed",
+      "gender": "Male",
+      "mobile": "0615773110",
+      "department": "5f8158396931c1c9cd164b50",
+      "active": "Yes"
+    },
+    {
+      "emp_id": "YH-A03311",
+      "name": "Ahmed Haji Aways",
+      "gender": "Male",
+      "mobile": "0615949029",
+      "department": "5f8158396931c1c9cd164b50",
+      "active": "Yes"
+    },
+    {
+      "emp_id": "YH-A0172",
+      "name": "Ahmed ibrahim Samow",
+      "gender": "Male",
+      "mobile": "615301507",
+      "department": "5f8158396931c1c9cd164b50",
+      "active": "Yes"
+    },
+    {
+      "emp_id": "YH-A120",
+      "name": "Habibo Barre Mohamed",
+      "gender": "Female",
+      "mobile": "0617988764",
+      "department": "5f8158396931c1c9cd164b50",
+      "active": "Yes"
+    },
+    {
+      "emp_id": "YH-A247",
+      "name": "Fadumo Abdullahi Islow",
+      "gender": "Female",
+      "mobile": "0618195499",
+      "department": "5f8158396931c1c9cd164b50",
+      "active": "Yes"
+    }
+  ])

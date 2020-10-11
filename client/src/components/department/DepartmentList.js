@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import Moment from 'react-moment';
 import moment from 'moment';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
@@ -18,7 +18,7 @@ const DepartmentList = ({ handleUpdate, departments, deleteDepartment }) => {
             <tr>
               <th>Date & Time</th>
               <th>Department</th>
-              <>Action</>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>

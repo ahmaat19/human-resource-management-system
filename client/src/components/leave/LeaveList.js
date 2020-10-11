@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import Moment from 'react-moment';
 import moment from 'moment';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
@@ -19,7 +19,7 @@ const LeaveList = ({ handleUpdate, leaves, deleteLeave }) => {
               <th>Leave</th>
               <th>Start Date</th>
               <th>End Date</th>
-              <>Action</>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>

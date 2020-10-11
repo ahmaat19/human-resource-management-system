@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { logout } from '../../actions/auth';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import logo from './logo.jpg';
+import logo from './logo.png';
 
 // Material UI Icons
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
@@ -21,14 +21,14 @@ const Navbar = ({
     <ul className='navbar-nav mr-right mb-2 mb-lg-0'>
       <li className='nav-item'>
         {' '}
-        <a href='' className='nav-link'>
+        <Link to='?#' className='nav-link text-muted'>
           {' '}
           Welcome {user && user.name}
-        </a>
+        </Link>
       </li>
 
       <li className='nav-item dropdown'>
-        <a
+        <a href="#"
           className='nav-link dropdown-toggle'
           id='navbarDropdown'
           role='button'
@@ -172,14 +172,14 @@ const Navbar = ({
           </button>
           <Link to='/' className='navbar-brand'>
             <img
-              src='https://avatars0.githubusercontent.com/u/25323389?s=400&v=4'
+              src={logo}
               width='30'
               height='30'
-              className='d-inline-block align-top mr-2'
+              className='d-inline-block align-top mr-2 logo'
               alt=''
               loading='lazy'
             />
-            BOILERPLATE
+            LEAVE MANAGEMENT
           </Link>
           <div className='collapse navbar-collapse' id='navbarToggler'>
             <ul className='navbar-nav mr-auto mb-2 mb-lg-0'></ul>

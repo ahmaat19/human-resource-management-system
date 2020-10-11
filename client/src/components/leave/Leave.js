@@ -95,7 +95,7 @@ Leave.propTypes = {
   addLeave: PropTypes.func.isRequired,
   deleteLeave: PropTypes.func.isRequired,
   updateLeave: PropTypes.func.isRequired,
-  employees: PropTypes.object.isRequired,
+  employees: PropTypes.array.isRequired,
   leaves: PropTypes.object.isRequired,
 };
 

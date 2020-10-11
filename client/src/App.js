@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react';
+import React, {  useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import './App.css';
@@ -28,14 +28,14 @@ if (localStorage.token) {
   setAuthToken(localStorage.token);
 }
 
-const NoMatch = ({ location }) => (
-  <div>
-    <h3>
-      {' '}
-      No match for <code>{location.pathname}</code>{' '}
-    </h3>
-  </div>
-);
+// const NoMatch = ({ location }) => (
+//   <div>
+//     <h3>
+//       {' '}
+//       No match for <code>{location.pathname}</code>{' '}
+//     </h3>
+//   </div>
+// );
 const App = () => {
   useEffect(() => {
     // check for token in LS

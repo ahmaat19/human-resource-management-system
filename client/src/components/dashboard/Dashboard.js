@@ -7,6 +7,7 @@ import Moment from 'react-moment';
 import moment from 'moment';
 
 const Dashboard = ({ leaves: { loading, leaves }, getLeaves }) => {
+  
   useEffect(() => {
     getLeaves();
   }, []);

@@ -12,11 +12,12 @@ const Report = ({ leaves: { loading, leaves }, getLeaves }) => {
   useEffect(() => {
     getLeaves();
   }, []);
+  
   return loading ? (
     <Spinner />
   ) : (
     <div className='row pt-4'>
-      <div className='col-lg-2 mt-4'>
+      <div className='col-lg-3 mt-4'>
         <h3 className='text-center form-title mb-4'>Search</h3>
         <hr />
         <div className='input-group'>
@@ -43,7 +44,7 @@ const Report = ({ leaves: { loading, leaves }, getLeaves }) => {
         </div>
       </div>
 
-      <div className='col-lg-10'>
+      <div className='col-lg-9'>
         <div className='mt-4'>
           <h3 className='text-center form-title mb-4'>Leave Report</h3>
           <hr />
