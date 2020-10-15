@@ -44,7 +44,7 @@ function Department({
 
   useEffect(() => {
     getDepartments();
-  }, []);
+  }, [getDepartments]);
 
   return loading ? (
     <Spinner />

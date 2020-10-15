@@ -11,7 +11,7 @@ const Report = ({ leaves: { loading, leaves }, getLeaves }) => {
 
   useEffect(() => {
     getLeaves();
-  }, []);
+  }, [getLeaves]);
   
   return loading ? (
     <Spinner />

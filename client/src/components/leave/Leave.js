@@ -62,7 +62,7 @@ function Leave({
   useEffect(() => {
     getEmployees();
     getLeaves();
-  }, []);
+  }, [getLeaves]);
 
   return loading ? (
     <Spinner />

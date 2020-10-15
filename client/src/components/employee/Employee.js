@@ -56,7 +56,7 @@ function Employee({
   useEffect(() => {
     getEmployees();
     getDepartments();
-  }, []);
+  }, [getEmployees]);
 
   return loading ? (
     <Spinner />
