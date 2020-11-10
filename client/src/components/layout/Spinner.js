@@ -1,14 +1,14 @@
-import React, { Fragment } from 'react';
-import spinner from './spinner.gif';
+import React, { Fragment } from "react";
 
 export default () => {
   return (
     <Fragment>
-      <img
-        src={spinner}
-        style={{ width: '200px', margin: 'auto', display: 'block' }}
-        alt='Loading...'
-      />
+      <div className='text-center text-light'>
+        <span
+          className='spinner-border mt-5'
+          style={{ width: "200px", height: "200px" }}
+        ></span>
+      </div>
     </Fragment>
   );
 };

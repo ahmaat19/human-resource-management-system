@@ -34,109 +34,104 @@ const Register = ({ setAlert, register, isAuthenticated, history }) => {
     }
   };
 
-  // Redirect if logged in
-  // if (isAuthenticated) {
-  //   return <Redirect to="/dashboard" />;
-  // }
-
   return (
     <div>
-      <div className="container__body">
+      <div className='container'>
         <form onSubmit={(e) => onSubmit(e)}>
-          <div className="row">
-            <h3 className="text-center form-title mb-4">Signup</h3>
+          <div className='row d-block'>
+            <h3 className='text-center form-title mb-4'>Signup</h3>
 
-            <div className="col-lg-7 col-sm-12 mx-auto mb-3">
-              <div className="input-group shadow">
-                <span className="input-group-text" id="basic-addon1">
-                  <FaceIcon />
+            <div className='col-lg-5 col-md-6 col-sm-10 col-12 mx-auto mb-2'>
+              <div className='input-group shadow'>
+                <span className='input-group-text' id='basic-addon1'>
+                  <FaceIcon fontSize='small' />
                 </span>
                 <input
-                  name="name"
+                  name='name'
                   value={name}
                   onChange={(e) => onChange(e)}
-                  type="text"
-                  className="form-control py-2"
-                  placeholder="Enter name"
+                  type='text'
+                  className='form-control py-2'
+                  placeholder='Enter name'
                 />
               </div>
             </div>
 
-            <div className="col-lg-7 col-sm-12 mx-auto mb-3">
-              <div className="input-group shadow">
-                <span className="input-group-text" id="basic-addon1">
-                  <EmailIcon />
+            <div className='col-lg-5 col-md-6 col-sm-10 col-12 mx-auto mb-2'>
+              <div className='input-group shadow'>
+                <span className='input-group-text' id='basic-addon1'>
+                  <EmailIcon fontSize='small' />
                 </span>
                 <input
-                  name="email"
+                  name='email'
                   value={email}
                   onChange={(e) => onChange(e)}
-                  type="email"
-                  className="form-control py-2"
-                  placeholder="Enter email"
+                  type='email'
+                  className='form-control py-2'
+                  placeholder='Enter email'
                 />
               </div>
             </div>
 
-            <div className="col-lg-7 col-sm-12 mx-auto mb-3">
-              <div className="input-group shadow">
-                <span className="input-group-text" id="basic-addon1">
-                  <SupervisorAccountIcon />
+            <div className='col-lg-5 col-md-6 col-sm-10 col-12 mx-auto mb-2'>
+              <div className='input-group shadow'>
+                <span className='input-group-text' id='basic-addon1'>
+                  <SupervisorAccountIcon fontSize='small' />
                 </span>
                 <select
-                  name="role"
+                  name='role'
                   value={role}
                   onChange={(e) => onChange(e)}
-                  className="form-control py-2"
+                  className='form-control py-2'
                 >
-                  <option value="" disabled>
+                  <option value='' disabled>
                     Role...
                   </option>
-                  <option value="User">User</option>
-                  <option value="Admin">Admin</option>
+                  <option value='User'>User</option>
+                  <option value='Admin'>Admin</option>
                 </select>
               </div>
             </div>
 
-            <div className="col-lg-7 col-sm-12 mx-auto mb-3">
-              <div className="input-group shadow">
-                <span className="input-group-text" id="basic-addon1">
-                  <VpnKeyIcon />
+            <div className='col-lg-5 col-md-6 col-sm-10 col-12 mx-auto mb-2'>
+              <div className='input-group shadow'>
+                <span className='input-group-text' id='basic-addon1'>
+                  <VpnKeyIcon fontSize='small' />
                 </span>
                 <input
-                  name="password"
+                  name='password'
                   value={password}
                   onChange={(e) => onChange(e)}
-                  type="password"
-                  className="form-control py-2"
-                  placeholder="Enter password"
+                  type='password'
+                  className='form-control py-2'
+                  placeholder='Enter password'
                 />
               </div>
             </div>
 
-            <div className="col-lg-7 col-sm-12 mx-auto mb-3">
-              <div className="input-group shadow">
-                <span className="input-group-text" id="basic-addon1">
-                  <VpnKeyIcon />
+            <div className='col-lg-5 col-md-6 col-sm-10 col-12 mx-auto mb-2'>
+              <div className='input-group shadow'>
+                <span className='input-group-text' id='basic-addon1'>
+                  <VpnKeyIcon fontSize='small' />
                 </span>
                 <input
-                  name="password2"
+                  name='password2'
                   value={password2}
                   onChange={(e) => onChange(e)}
-                  type="password"
-                  className="form-control py-2"
-                  placeholder="Enter confirm password"
+                  type='password'
+                  className='form-control py-2'
+                  placeholder='Enter confirm password'
                 />
               </div>
             </div>
-            <div className="col-lg-7 col-sm-12 mx-auto mb-3">
+            <div className='col-lg-5 col-md-6 col-sm-10 col-12 mx-auto mb-2'>
               {/* <div className="form-group light">
                 Already have an account? <Link to="/login">login</Link>
               </div> */}
-              <div className="input-group mx-auto d-block text-right">
+              <div className='input-group mx-auto d-block text-right'>
                 <button
-                  type="submit"
-                  className="btn-submit btn btn-primary shadow p-2 px-4"
+                  type='submit'
+                  className='btn-submit btn btn-primary shadow p-2 px-4'
                 >
                   Signup
                 </button>
