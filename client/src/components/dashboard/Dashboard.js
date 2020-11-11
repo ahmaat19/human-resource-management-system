@@ -1,13 +1,12 @@
-import React, { useEffect } from 'react';
-import Spinner from '../layout/Spinner';
-import { connect } from 'react-redux';
-import { getLeaves } from '../../actions/leave';
-import PropTypes from 'prop-types';
-import Moment from 'react-moment';
-import moment from 'moment';
+import React, { useEffect } from "react";
+import Spinner from "../layout/Spinner";
+import { connect } from "react-redux";
+import { getLeaves } from "../../actions/leave";
+import PropTypes from "prop-types";
+import Moment from "react-moment";
+import moment from "moment";
 
 const Dashboard = ({ leaves: { loading, leaves }, getLeaves }) => {
-  
   useEffect(() => {
     getLeaves();
   }, [getLeaves]);
@@ -35,15 +34,13 @@ const Dashboard = ({ leaves: { loading, leaves }, getLeaves }) => {
           </thead>
           <tbody>
             {leaves &&
-              leaves.map((leave) => {
-                if (
-                  moment(leave.end_date).format('YYYY-MM-DD') >=
-                  moment(Date.now()).format('YYYY-MM-DD')
-                ) {
-                  return (
+              leaves.map(
+                (leave) =>
+                  moment(leave.end_date).format("YYYY-MM-DD") >=
+                    moment(Date.now()).format("YYYY-MM-DD") && (
                     <tr
                       key={leave._id}
-                      id={leave._id % 2 === 0 ? 'orange' : 'green'}
+                      id={leave._id % 2 === 0 ? "orange" : "green"}
                     >
                       <td>{leave.employee.name}</td>
                       <td>@TODO</td>
@@ -60,9 +57,8 @@ const Dashboard = ({ leaves: { loading, leaves }, getLeaves }) => {
                       </td>
                       <td>{leave.description}</td>
                     </tr>
-                  );
-                }
-              })}
+                  )
+              )}
           </tbody>
         </table>
       </div>

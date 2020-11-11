@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 function LeaveForm({
   handleChange,
@@ -38,15 +38,15 @@ function LeaveForm({
               Employee ID...
             </option>
             {employees &&
-              employees.map((employee) => {
-                if (employee.active === 'Yes' && employee._id === employee_id) {
-                  return (
+              employees.map(
+                (employee) =>
+                  employee.active === "Yes" &&
+                  employee._id === employee_id && (
                     <option key={employee._id} value={employee._id}>
                       {employee.emp_id}
                     </option>
-                  );
-                }
-              })}
+                  )
+              )}
           </select>
         </div>
 
@@ -69,15 +69,15 @@ function LeaveForm({
               Employee Name...
             </option>
             {employees &&
-              employees.map((employee) => {
-                if (employee.active === 'Yes' && employee._id === employee_id) {
-                  return (
+              employees.map(
+                (employee) =>
+                  employee.active === "Yes" &&
+                  employee._id === employee_id && (
                     <option key={employee._id} value={employee._id}>
                       {employee.name}
                     </option>
-                  );
-                }
-              })}
+                  )
+              )}
           </select>
         </div>
 

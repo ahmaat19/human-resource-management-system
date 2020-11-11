@@ -1,11 +1,11 @@
-import React from 'react';
-import Moment from 'react-moment';
-import moment from 'moment';
-import { Link } from 'react-router-dom';
+import React from "react";
+import Moment from "react-moment";
+import moment from "moment";
+import { Link } from "react-router-dom";
 
-import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
-import EditIcon from '@material-ui/icons/Edit';
-import SendIcon from '@material-ui/icons/Send';
+import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
+import EditIcon from "@material-ui/icons/Edit";
+import SendIcon from "@material-ui/icons/Send";
 
 const EmployeeList = ({ handleUpdate, employees, deleteEmployee }) => {
   return (
@@ -15,7 +15,7 @@ const EmployeeList = ({ handleUpdate, employees, deleteEmployee }) => {
       <div className='table-responsive'>
         <table className='table table-sm table-hover table-bordered caption-top'>
           <caption>{employees && employees.length} records were found</caption>
-          <thead> 
+          <thead>
             <tr>
               <th>Date & Time</th>
               <th>Emp. ID</th>
@@ -24,16 +24,16 @@ const EmployeeList = ({ handleUpdate, employees, deleteEmployee }) => {
               <th>Department</th>
               <th>Action</th>
             </tr>
-         </thead>
-         
+          </thead>
+
           <tbody>
             {employees &&
-              employees.map((employee) => {
-                if (employee.active === 'Yes') {
-                  return (
+              employees.map(
+                (employee) =>
+                  employee.active === "Yes" && (
                     <tr
                       key={employee._id}
-                      id={employee._id % 2 === 0 ? 'orange' : 'green'}
+                      id={employee._id % 2 === 0 ? "orange" : "green"}
                     >
                       <td>
                         <Moment format='YYYY-MM-DD HH:mm:ss'>
@@ -50,13 +50,13 @@ const EmployeeList = ({ handleUpdate, employees, deleteEmployee }) => {
                           className='btn btn-outline-info btn-sm'
                         >
                           <EditIcon fontSize='small' />
-                        </button>{' '}
+                        </button>{" "}
                         <button
                           onClick={() => deleteEmployee(employee._id)}
                           className='btn btn-outline-danger btn-sm'
                         >
                           <DeleteForeverIcon fontSize='small' />
-                        </button>{' '}
+                        </button>{" "}
                         <Link
                           to={`/leave/${employee._id}`}
                           className='btn btn-outline-info btn-sm'
@@ -65,9 +65,8 @@ const EmployeeList = ({ handleUpdate, employees, deleteEmployee }) => {
                         </Link>
                       </td>
                     </tr>
-                  );
-                }
-              })}
+                  )
+              )}
           </tbody>
         </table>
       </div>

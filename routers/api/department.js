@@ -1,21 +1,21 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const auth = require('../../middleware/auth');
-const { check, validationResult } = require('express-validator');
-const checkObjectId = require('../../middleware/checkObjectId');
+const auth = require("../../middleware/auth");
+const { check, validationResult } = require("express-validator");
+const checkObjectId = require("../../middleware/checkObjectId");
 
-const Department = require('../../models/Department');
+const Department = require("../../models/Department");
 
 // @route    GET api/departments
 // @desc     Get all departments
 // @access   Private
-router.get('/', auth, async (req, res) => {
+router.get("/", async (req, res) => {
   try {
     const department = await Department.find().sort({ date: -1 });
     res.json(department);
   } catch (err) {
     console.error(err.message);
-    res.status(500).send('Server Error');
+    res.status(500).send("Server Error");
   }
 });
 
@@ -23,8 +23,8 @@ router.get('/', auth, async (req, res) => {
 // @desc     Create department
 // @access   Private
 router.post(
-  '/',
-  [auth, [check('name', 'Department is required').not().isEmpty()]],
+  "/",
+  [auth, [check("name", "Department is required").not().isEmpty()]],
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -40,7 +40,7 @@ router.post(
       if (department) {
         return res
           .status(400)
-          .json({ errors: [{ msg: 'Department already exists' }] });
+          .json({ errors: [{ msg: "Department already exists" }] });
       }
 
       department = new Department({
@@ -52,7 +52,7 @@ router.post(
       return res.status(200).json(await Department.find().sort({ date: -1 }));
     } catch (err) {
       console.error(err.message);
-      res.status(500).send('Server error');
+      res.status(500).send("Server error");
     }
   }
 );
@@ -61,11 +61,11 @@ router.post(
 // @desc     Update department
 // @access   Private
 router.put(
-  '/:id',
+  "/:id",
   [
     auth,
-    checkObjectId('id'),
-    [check('name', 'Department is required').not().isEmpty()],
+    checkObjectId("id"),
+    [check("name", "Department is required").not().isEmpty()],
   ],
   async (req, res) => {
     const errors = validationResult(req);
@@ -86,7 +86,7 @@ router.put(
       return res.status(200).json(await Department.find().sort({ date: -1 }));
     } catch (err) {
       console.error(err.message);
-      res.status(500).send('Server error');
+      res.status(500).send("Server error");
     }
   }
 );
@@ -94,7 +94,7 @@ router.put(
 // @route    DELETE api/department
 // @desc     Delete department
 // @access   Private
-router.delete('/:id', [auth, checkObjectId('id')], async (req, res) => {
+router.delete("/:id", [auth, checkObjectId("id")], async (req, res) => {
   try {
     const department = await Department.findOneAndRemove({
       _id: req.params.id,
@@ -103,7 +103,7 @@ router.delete('/:id', [auth, checkObjectId('id')], async (req, res) => {
     return res.status(200).json(await Department.find().sort({ date: -1 }));
   } catch (err) {
     console.error(err.message);
-    res.status(500).send('Server error');
+    res.status(500).send("Server error");
   }
 });
 
