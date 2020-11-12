@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { getDepartments } from "../../actions/department";
+import DiscountValidate from "../../validations/DiscountValidate";
 
 const Discount = ({ getDepartments, departments }) => {
+  const [errors, setErrors] = useState({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const [formData, setFormData] = useState({
     empId: "",
     empName: "",
@@ -41,12 +45,34 @@ const Discount = ({ getDepartments, departments }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
+    setErrors(DiscountValidate(formData));
+    setIsSubmitting(true);
   };
+
+  useEffect(() => {
+    if (Object.keys(errors).length === 0 && isSubmitting) {
+      console.log(formData);
+      setFormData({
+        ...formData,
+        empId: "",
+        empName: "",
+        department: "",
+        fatherName: "",
+        motherName: "",
+        isSingle: true,
+        isMale: true,
+        wives: "",
+        husband: "",
+        hasChildren: false,
+        children: "",
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [errors]);
 
   return (
     <div className='container mt-2'>
-      <h5 className='text-center'>Employee Discount Record</h5> <hr />
+      <h5 className='text-center'>Employee Discount Form Request</h5> <hr />
       <form onSubmit={(e) => handleSubmit(e)}>
         <div className='row'>
           <div className='col-lg-10 col-md-12 col-sm-12 col-12 mx-auto'>
@@ -66,6 +92,9 @@ const Discount = ({ getDepartments, departments }) => {
                     value={empId}
                     onChange={(e) => handleChange(e)}
                   />
+                  {errors.empId && (
+                    <div className='form-text text-danger'>{errors.empId}</div>
+                  )}
                 </div>
               </div>
               <div className='col-lg-4 col-md-4 col-sm-12 col-12 '>
@@ -79,6 +108,11 @@ const Discount = ({ getDepartments, departments }) => {
                     value={empName}
                     onChange={(e) => handleChange(e)}
                   />
+                  {errors.empName && (
+                    <div className='form-text text-danger'>
+                      {errors.empName}
+                    </div>
+                  )}
                 </div>
               </div>
               <div className='col-lg-4 col-md-4 col-sm-12 col-12 '>
@@ -106,6 +140,11 @@ const Discount = ({ getDepartments, departments }) => {
                         );
                       })}
                   </select>
+                  {errors.department && (
+                    <div className='form-text text-danger'>
+                      {errors.department}
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
@@ -210,6 +249,11 @@ const Discount = ({ getDepartments, departments }) => {
                             Please use comma separated wives name if you have
                             more than one wife (eg. Fatima,Zahra,Maria,Sophia)
                           </div>
+                          {errors.wives && (
+                            <div className='form-text text-danger'>
+                              {errors.wives}
+                            </div>
+                          )}
                         </div>
                       </div>
                     </div>
@@ -232,6 +276,11 @@ const Discount = ({ getDepartments, departments }) => {
                             value={husband}
                             onChange={(e) => handleChange(e)}
                           />
+                          {errors.husband && (
+                            <div className='form-text text-danger'>
+                              {errors.husband}
+                            </div>
+                          )}
                         </div>
                       </div>
                     </div>
@@ -284,6 +333,11 @@ const Discount = ({ getDepartments, departments }) => {
                             have more than one child (eg.
                             Mohamed,Fatima,Ahmed,Leila)
                           </div>
+                          {errors.children && (
+                            <div className='form-text text-danger'>
+                              {errors.children}
+                            </div>
+                          )}
                         </div>
                       </div>
                     </div>
