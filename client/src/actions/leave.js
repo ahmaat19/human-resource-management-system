@@ -1,12 +1,12 @@
-import axios from 'axios';
-import { setAlert } from './alert';
+import axios from "axios";
+import { setAlert } from "./alert";
 
-import { ADD_LEAVE, GET_LEAVES, LEAVE_ERROR, UPDATE_LEAVE } from './types';
+import { ADD_LEAVE, GET_LEAVES, LEAVE_ERROR, UPDATE_LEAVE } from "./types";
 
 // Get leaves
 export const getLeaves = () => async (dispatch) => {
   try {
-    const res = await axios.get('/api/leave');
+    const res = await axios.get("/api/leave");
     dispatch({
       type: GET_LEAVES,
       payload: res.data,
@@ -14,7 +14,7 @@ export const getLeaves = () => async (dispatch) => {
   } catch (err) {
     const errors = err.response.data.errors;
     if (errors) {
-      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
+      errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
     }
   }
 };
@@ -23,21 +23,21 @@ export const getLeaves = () => async (dispatch) => {
 export const addLeave = (formData) => async (dispatch) => {
   try {
     const config = {
-      headers: { 'Content-Type': 'application/json' },
+      headers: { "Content-Type": "application/json" },
     };
 
-    const res = await axios.post('/api/leave', formData, config);
+    const res = await axios.post("/api/leave", formData, config);
 
     dispatch({
       type: ADD_LEAVE,
       payload: res.data,
     });
 
-    dispatch(setAlert('Successfully Added Leave', 'success'));
+    dispatch(setAlert("Successfully Added Leave", "success"));
   } catch (err) {
     const errors = err.response.data.errors;
     if (errors) {
-      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
+      errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
     }
 
     dispatch({
@@ -51,7 +51,7 @@ export const addLeave = (formData) => async (dispatch) => {
 export const updateLeave = (formData) => async (dispatch) => {
   try {
     const config = {
-      headers: { 'Content-Type': 'application/json' },
+      headers: { "Content-Type": "application/json" },
     };
 
     const res = await axios.put(`/api/leave/${formData._id}`, formData, config);
@@ -61,11 +61,11 @@ export const updateLeave = (formData) => async (dispatch) => {
       payload: res.data,
     });
 
-    dispatch(setAlert('Successfully Updated Leave', 'success'));
+    dispatch(setAlert("Successfully Updated Leave", "success"));
   } catch (err) {
     const errors = err.response.data.errors;
     if (errors) {
-      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
+      errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
     }
 
     dispatch({
@@ -77,18 +77,20 @@ export const updateLeave = (formData) => async (dispatch) => {
 
 // Delete leave
 export const deleteLeave = (id) => async (dispatch) => {
-  try {
-    const res = await axios.delete(`/api/leave/${id}`);
-    dispatch({
-      type: UPDATE_LEAVE,
-      payload: res.data,
-    });
+  if (window.confirm("Are you sure? This can NOT be undone!")) {
+    try {
+      const res = await axios.delete(`/api/leave/${id}`);
+      dispatch({
+        type: UPDATE_LEAVE,
+        payload: res.data,
+      });
 
-    dispatch(setAlert('Successfully Deleted Leave', 'success'));
-  } catch (err) {
-    dispatch({
-      type: LEAVE_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status },
-    });
+      dispatch(setAlert("Successfully Deleted Leave", "success"));
+    } catch (err) {
+      dispatch({
+        type: LEAVE_ERROR,
+        payload: { msg: err.response.statusText, status: err.response.status },
+      });
+    }
   }
 };

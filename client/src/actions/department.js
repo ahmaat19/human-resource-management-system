@@ -1,17 +1,17 @@
-import axios from 'axios';
-import { setAlert } from './alert';
+import axios from "axios";
+import { setAlert } from "./alert";
 
 import {
   ADD_DEPARTMENT,
   DEPARTMENT_ERROR,
   GET_DEPARTMENTS,
   UPDATE_DEPARTMENT,
-} from './types';
+} from "./types";
 
 // Get departments
 export const getDepartments = () => async (dispatch) => {
   try {
-    const res = await axios.get('/api/department');
+    const res = await axios.get("/api/department");
     dispatch({
       type: GET_DEPARTMENTS,
       payload: res.data,
@@ -19,7 +19,7 @@ export const getDepartments = () => async (dispatch) => {
   } catch (err) {
     const errors = err.response.data.errors;
     if (errors) {
-      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
+      errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
     }
   }
 };
@@ -28,21 +28,21 @@ export const getDepartments = () => async (dispatch) => {
 export const addDepartment = (formData) => async (dispatch) => {
   try {
     const config = {
-      headers: { 'Content-Type': 'application/json' },
+      headers: { "Content-Type": "application/json" },
     };
 
-    const res = await axios.post('/api/department', formData, config);
+    const res = await axios.post("/api/department", formData, config);
 
     dispatch({
       type: ADD_DEPARTMENT,
       payload: res.data,
     });
 
-    dispatch(setAlert('Successfully Added Department', 'success'));
+    dispatch(setAlert("Successfully Added Department", "success"));
   } catch (err) {
     const errors = err.response.data.errors;
     if (errors) {
-      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
+      errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
     }
 
     dispatch({
@@ -56,7 +56,7 @@ export const addDepartment = (formData) => async (dispatch) => {
 export const updateDepartment = (formData) => async (dispatch) => {
   try {
     const config = {
-      headers: { 'Content-Type': 'application/json' },
+      headers: { "Content-Type": "application/json" },
     };
 
     const res = await axios.put(
@@ -70,11 +70,11 @@ export const updateDepartment = (formData) => async (dispatch) => {
       payload: res.data,
     });
 
-    dispatch(setAlert('Successfully Updated Department', 'success'));
+    dispatch(setAlert("Successfully Updated Department", "success"));
   } catch (err) {
     const errors = err.response.data.errors;
     if (errors) {
-      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
+      errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
     }
 
     dispatch({
@@ -86,18 +86,20 @@ export const updateDepartment = (formData) => async (dispatch) => {
 
 // Delete department
 export const deleteDepartment = (id) => async (dispatch) => {
-  try {
-    const res = await axios.delete(`/api/department/${id}`);
-    dispatch({
-      type: UPDATE_DEPARTMENT,
-      payload: res.data,
-    });
+  if (window.confirm("Are you sure? This can NOT be undone!")) {
+    try {
+      const res = await axios.delete(`/api/department/${id}`);
+      dispatch({
+        type: UPDATE_DEPARTMENT,
+        payload: res.data,
+      });
 
-    dispatch(setAlert('Successfully Deleted Department', 'success'));
-  } catch (err) {
-    dispatch({
-      type: DEPARTMENT_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status },
-    });
+      dispatch(setAlert("Successfully Deleted Department", "success"));
+    } catch (err) {
+      dispatch({
+        type: DEPARTMENT_ERROR,
+        payload: { msg: err.response.statusText, status: err.response.status },
+      });
+    }
   }
 };

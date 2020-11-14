@@ -86,18 +86,20 @@ export const updateDiscount = (formData) => async (dispatch) => {
 
 // Delete discount
 export const deleteDiscount = (id) => async (dispatch) => {
-  try {
-    const res = await axios.delete(`/api/discount/${id}`);
-    dispatch({
-      type: UPDATE_DISCOUNT,
-      payload: res.data,
-    });
+  if (window.confirm("Are you sure? This can NOT be undone!")) {
+    try {
+      const res = await axios.delete(`/api/discount/${id}`);
+      dispatch({
+        type: UPDATE_DISCOUNT,
+        payload: res.data,
+      });
 
-    dispatch(setAlert("Successfully Deleted Discount", "success"));
-  } catch (err) {
-    dispatch({
-      type: DISCOUNT_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status },
-    });
+      dispatch(setAlert("Successfully Deleted Discount", "success"));
+    } catch (err) {
+      dispatch({
+        type: DISCOUNT_ERROR,
+        payload: { msg: err.response.statusText, status: err.response.status },
+      });
+    }
   }
 };

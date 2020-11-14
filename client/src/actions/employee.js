@@ -1,17 +1,17 @@
-import axios from 'axios';
-import { setAlert } from './alert';
+import axios from "axios";
+import { setAlert } from "./alert";
 
 import {
   ADD_EMPLOYEE,
   EMPLOYEE_ERROR,
   GET_EMPLOYEES,
   UPDATE_EMPLOYEE,
-} from './types';
+} from "./types";
 
 // Get employees
 export const getEmployees = () => async (dispatch) => {
   try {
-    const res = await axios.get('/api/employee');
+    const res = await axios.get("/api/employee");
     dispatch({
       type: GET_EMPLOYEES,
       payload: res.data,
@@ -19,7 +19,7 @@ export const getEmployees = () => async (dispatch) => {
   } catch (err) {
     const errors = err.response.data.errors;
     if (errors) {
-      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
+      errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
     }
   }
 };
@@ -28,21 +28,21 @@ export const getEmployees = () => async (dispatch) => {
 export const addEmployee = (formData) => async (dispatch) => {
   try {
     const config = {
-      headers: { 'Content-Type': 'application/json' },
+      headers: { "Content-Type": "application/json" },
     };
 
-    const res = await axios.post('/api/employee', formData, config);
+    const res = await axios.post("/api/employee", formData, config);
 
     dispatch({
       type: ADD_EMPLOYEE,
       payload: res.data,
     });
 
-    dispatch(setAlert('Successfully Added Employee', 'success'));
+    dispatch(setAlert("Successfully Added Employee", "success"));
   } catch (err) {
     const errors = err.response.data.errors;
     if (errors) {
-      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
+      errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
     }
 
     dispatch({
@@ -56,7 +56,7 @@ export const addEmployee = (formData) => async (dispatch) => {
 export const updateEmployee = (formData) => async (dispatch) => {
   try {
     const config = {
-      headers: { 'Content-Type': 'application/json' },
+      headers: { "Content-Type": "application/json" },
     };
 
     const res = await axios.put(
@@ -70,11 +70,11 @@ export const updateEmployee = (formData) => async (dispatch) => {
       payload: res.data,
     });
 
-    dispatch(setAlert('Successfully Updated Employee', 'success'));
+    dispatch(setAlert("Successfully Updated Employee", "success"));
   } catch (err) {
     const errors = err.response.data.errors;
     if (errors) {
-      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
+      errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
     }
 
     dispatch({
@@ -86,18 +86,20 @@ export const updateEmployee = (formData) => async (dispatch) => {
 
 // Delete employee
 export const deleteEmployee = (id) => async (dispatch) => {
-  try {
-    const res = await axios.delete(`/api/employee/${id}`);
-    dispatch({
-      type: UPDATE_EMPLOYEE,
-      payload: res.data,
-    });
+  if (window.confirm("Are you sure? This can NOT be undone!")) {
+    try {
+      const res = await axios.delete(`/api/employee/${id}`);
+      dispatch({
+        type: UPDATE_EMPLOYEE,
+        payload: res.data,
+      });
 
-    dispatch(setAlert('Successfully Deleted Employee', 'success'));
-  } catch (err) {
-    dispatch({
-      type: EMPLOYEE_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status },
-    });
+      dispatch(setAlert("Successfully Deleted Employee", "success"));
+    } catch (err) {
+      dispatch({
+        type: EMPLOYEE_ERROR,
+        payload: { msg: err.response.statusText, status: err.response.status },
+      });
+    }
   }
 };

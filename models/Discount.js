@@ -1,12 +1,7 @@
 const mongoose = require("mongoose");
 
-const DepartmentSchema = new mongoose.Schema(
+const DiscountSchema = new mongoose.Schema(
   {
-    user: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "user",
-      required: true,
-    },
     department: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "department",
@@ -34,7 +29,7 @@ const DepartmentSchema = new mongoose.Schema(
       type: Boolean,
       required: true,
     },
-    waves: {
+    wives: {
       type: [String],
     },
     husband: {
@@ -55,4 +50,4 @@ const DepartmentSchema = new mongoose.Schema(
   { timestamp: true }
 );
 
-module.exports = mongoose.model("department", DepartmentSchema);
+module.exports = mongoose.model("discount", DiscountSchema);

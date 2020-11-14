@@ -62,6 +62,7 @@ const Discount = ({
   const handleUpdate = (e) => {
     setFormData({
       ...formData,
+      _id: e._id,
       empId: e.empId,
       empName: e.empName,
       department: e.department,
@@ -91,7 +92,7 @@ const Discount = ({
   useEffect(() => {
     if (Object.keys(errors).length === 0 && isSubmitting) {
       console.log(formData);
-      // edit ? updateDiscount(formData) : addDiscount(formData);
+      edit ? updateDiscount(formData) : addDiscount(formData);
 
       setFormData({
         ...formData,
