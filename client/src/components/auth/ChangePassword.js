@@ -1,16 +1,16 @@
-import React, { useState } from "react";
-import { connect } from "react-redux";
-import { setAlert } from "../../actions/alert";
-import { register, changePassword } from "../../actions/auth";
-import PropTypes from "prop-types";
+import React, { useState } from 'react';
+import { connect } from 'react-redux';
+import { setAlert } from '../../actions/alert';
+import { register, changePassword } from '../../actions/auth';
+import PropTypes from 'prop-types';
 
 // Material UI Icons
-import VpnKeyIcon from "@material-ui/icons/VpnKey";
+import VpnKeyIcon from '@material-ui/icons/VpnKey';
 
 const ChangePassword = ({ setAlert, changePassword, history }) => {
   const [formData, setFormData] = useState({
-    password: "",
-    password2: "",
+    password: '',
+    password2: '',
   });
 
   const { password, password2 } = formData;
@@ -21,7 +21,7 @@ const ChangePassword = ({ setAlert, changePassword, history }) => {
   const onSubmit = async (e) => {
     e.preventDefault();
     if (password !== password2) {
-      setAlert("Password confirmation does not match password", "danger", 5000);
+      setAlert('Password confirmation does not match password', 'danger', 5000);
     } else {
       changePassword(formData, history);
       // console.log(formData);
@@ -70,7 +70,7 @@ const ChangePassword = ({ setAlert, changePassword, history }) => {
               <div className='input-group mx-auto d-block text-right'>
                 <button
                   type='submit'
-                  className='btn-submit btn btn-primary shadow p-2 px-4'
+                  className='btn btn-outline-success btn-sm'
                 >
                   Change
                 </button>

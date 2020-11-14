@@ -1,17 +1,17 @@
-import React, { useState } from "react";
-import { Redirect } from "react-router-dom";
-import { login } from "../../actions/auth";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
+import React, { useState } from 'react';
+import { Redirect } from 'react-router-dom';
+import { login } from '../../actions/auth';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 // Material UI Icons
-import VpnKeyIcon from "@material-ui/icons/VpnKey";
-import EmailIcon from "@material-ui/icons/Email";
+import VpnKeyIcon from '@material-ui/icons/VpnKey';
+import EmailIcon from '@material-ui/icons/Email';
 
 const Login = ({ login, isAuthenticated }) => {
   const [formData, setFormData] = useState({
-    email: "",
-    password: "",
+    email: '',
+    password: '',
   });
 
   const { email, password } = formData;
@@ -79,10 +79,7 @@ const Login = ({ login, isAuthenticated }) => {
             </div>
 
             <div className='input-group mx-auto d-block text-right'>
-              <button
-                type='submit'
-                className='btn-submit btn btn-primary shadow p-2 px-4'
-              >
+              <button type='submit' className='btn btn-outline-success btn-sm'>
                 Login
               </button>
             </div>

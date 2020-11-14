@@ -32,10 +32,7 @@ function DepartmentForm({ handleChange, handleSubmit, values }) {
         </div>
 
         <div className='input-group mx-auto d-block text-right mt-2'>
-          <button
-            type='submit'
-            className='btn-submit btn btn-primary shadow p-2 px-4'
-          >
+          <button type='submit' className='btn btn-outline-success btn-sm'>
             Submit
           </button>
         </div>

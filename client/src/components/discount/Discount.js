@@ -1,17 +1,17 @@
-import React, { useState, useEffect } from "react";
-import { connect } from "react-redux";
-import { getDepartments } from "../../actions/department";
+import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
+import { getDepartments } from '../../actions/department';
 import {
   getDiscounts,
   updateDiscount,
   deleteDiscount,
   addDiscount,
-} from "../../actions/discount";
-import DiscountValidate from "../../validations/DiscountValidate";
-import Moment from "react-moment";
-import moment from "moment";
-import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
-import EditIcon from "@material-ui/icons/Edit";
+} from '../../actions/discount';
+import DiscountValidate from '../../validations/DiscountValidate';
+import Moment from 'react-moment';
+import moment from 'moment';
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+import EditIcon from '@material-ui/icons/Edit';
 
 const Discount = ({
   getDepartments,
@@ -28,17 +28,17 @@ const Discount = ({
   const [edit, setEdit] = useState(false);
 
   const [formData, setFormData] = useState({
-    empId: "",
-    empName: "",
-    department: "",
-    fatherName: "",
-    motherName: "",
+    empId: '',
+    empName: '',
+    department: '',
+    fatherName: '',
+    motherName: '',
     isSingle: true,
     isMale: true,
-    wives: "",
-    husband: "",
+    wives: '',
+    husband: '',
     hasChildren: false,
-    children: "",
+    children: '',
   });
 
   const {
@@ -96,17 +96,17 @@ const Discount = ({
 
       setFormData({
         ...formData,
-        empId: "",
-        empName: "",
-        department: "",
-        fatherName: "",
-        motherName: "",
+        empId: '',
+        empName: '',
+        department: '',
+        fatherName: '',
+        motherName: '',
         isSingle: true,
         isMale: true,
-        wives: "",
-        husband: "",
+        wives: '',
+        husband: '',
         hasChildren: false,
-        children: "",
+        children: '',
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -237,7 +237,7 @@ const Discount = ({
                 className='form-check-label'
                 htmlFor='genderSwitchCheckChecked'
               >
-                Are you male?{" "}
+                Are you male?{' '}
                 <span role='img' aria-label='img'>
                   👨
                 </span>
@@ -259,7 +259,7 @@ const Discount = ({
                 className='form-check-label'
                 htmlFor='statusSwitchCheckChecked'
               >
-                Are you still single?{" "}
+                Are you still single?{' '}
                 <span role='img' aria-label='img'>
                   😂
                 </span>
@@ -344,7 +344,7 @@ const Discount = ({
                     className='form-check-label'
                     htmlFor='childrenSwitchCheckChecked'
                   >
-                    Do you have any children?{" "}
+                    Do you have any children?{' '}
                     <span role='img' aria-label='img'>
                       🧒
                     </span>
@@ -390,7 +390,9 @@ const Discount = ({
 
             <div className='row mb-5'>
               <div className='col-12'>
-                <button className='btn form-control btn-info'>Submit</button>
+                <button className='btn btn-outline-success btn-sm form-control'>
+                  Submit
+                </button>
               </div>
             </div>
           </div>
@@ -423,7 +425,7 @@ const Discount = ({
                     return (
                       <tr
                         key={discount._id}
-                        id={discount._id % 2 === 0 ? "orange" : "green"}
+                        id={discount._id % 2 === 0 ? 'orange' : 'green'}
                       >
                         <td>
                           <Moment format='YYYY-MM-DD HH:mm:ss'>
@@ -439,7 +441,7 @@ const Discount = ({
                             className='btn btn-outline-info btn-sm'
                           >
                             <EditIcon fontSize='small' />
-                          </button>{" "}
+                          </button>{' '}
                           <button
                             onClick={() => deleteDiscount(discount._id)}
                             className='btn btn-outline-danger btn-sm'

@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 function LeaveForm({
   handleChange,
@@ -40,7 +40,7 @@ function LeaveForm({
             {employees &&
               employees.map(
                 (employee) =>
-                  employee.active === "Yes" &&
+                  employee.active === 'Yes' &&
                   employee._id === employee_id && (
                     <option key={employee._id} value={employee._id}>
                       {employee.emp_id}
@@ -71,7 +71,7 @@ function LeaveForm({
             {employees &&
               employees.map(
                 (employee) =>
-                  employee.active === "Yes" &&
+                  employee.active === 'Yes' &&
                   employee._id === employee_id && (
                     <option key={employee._id} value={employee._id}>
                       {employee.name}
@@ -187,10 +187,7 @@ function LeaveForm({
         </div>
 
         <div className='input-group mx-auto d-block text-right mt-2'>
-          <button
-            type='submit'
-            className='btn-submit btn btn-primary shadow p-2 px-4'
-          >
+          <button type='submit' className='btn btn-outline-success btn-sm'>
             Submit
           </button>
         </div>
