@@ -1,11 +1,31 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { getDepartments } from "../../actions/department";
+import {
+  getDiscounts,
+  updateDiscount,
+  deleteDiscount,
+  addDiscount,
+} from "../../actions/discount";
 import DiscountValidate from "../../validations/DiscountValidate";
+import Moment from "react-moment";
+import moment from "moment";
+import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
+import EditIcon from "@material-ui/icons/Edit";
 
-const Discount = ({ getDepartments, departments }) => {
+const Discount = ({
+  getDepartments,
+  departments,
+  getDiscounts,
+  discounts,
+  updateDiscount,
+  deleteDiscount,
+  addDiscount,
+  isAuthenticated,
+}) => {
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [edit, setEdit] = useState(false);
 
   const [formData, setFormData] = useState({
     empId: "",
@@ -39,9 +59,28 @@ const Discount = ({ getDepartments, departments }) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const handleUpdate = (e) => {
+    setFormData({
+      ...formData,
+      empId: e.empId,
+      empName: e.empName,
+      department: e.department,
+      fatherName: e.fatherName,
+      motherName: e.motherName,
+      isSingle: e.isSingle,
+      isMale: e.isMale,
+      wives: e.wives,
+      husband: e.husband,
+      hasChildren: e.hasChildren,
+      children: e.children,
+    });
+    setEdit(true);
+  };
+
   useEffect(() => {
     getDepartments();
-  }, [getDepartments]);
+    getDiscounts();
+  }, [getDepartments, getDiscounts]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -52,6 +91,8 @@ const Discount = ({ getDepartments, departments }) => {
   useEffect(() => {
     if (Object.keys(errors).length === 0 && isSubmitting) {
       console.log(formData);
+      // edit ? updateDiscount(formData) : addDiscount(formData);
+
       setFormData({
         ...formData,
         empId: "",
@@ -354,12 +395,79 @@ const Discount = ({ getDepartments, departments }) => {
           </div>
         </div>
       </form>
+      {/* tables */}
+      {isAuthenticated && (
+        <>
+          <h3 className='text-center form-title mb-4'>
+            Employee Discount List
+          </h3>
+          <hr />
+          <div className='table-responsive'>
+            <table className='table table-sm table-hover table-bordered caption-top'>
+              <caption>
+                {discounts && discounts.length} records were found
+              </caption>
+              <thead>
+                <tr>
+                  <th>Date & Time</th>
+                  <th>Employee ID</th>
+                  <th>Employee Name</th>
+                  <th>Department</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {discounts &&
+                  discounts.map((discount) => {
+                    return (
+                      <tr
+                        key={discount._id}
+                        id={discount._id % 2 === 0 ? "orange" : "green"}
+                      >
+                        <td>
+                          <Moment format='YYYY-MM-DD HH:mm:ss'>
+                            {moment(discount.date)}
+                          </Moment>
+                        </td>
+                        <td>{discount.empId}</td>
+                        <td>{discount.empName}</td>
+                        <td>{discount.department.name}</td>
+                        <td>
+                          <button
+                            onClick={() => handleUpdate(discount)}
+                            className='btn btn-outline-info btn-sm'
+                          >
+                            <EditIcon fontSize='small' />
+                          </button>{" "}
+                          <button
+                            onClick={() => deleteDiscount(discount._id)}
+                            className='btn btn-outline-danger btn-sm'
+                          >
+                            <DeleteForeverIcon fontSize='small' />
+                          </button>
+                        </td>
+                      </tr>
+                    );
+                  })}
+              </tbody>
+            </table>
+          </div>
+        </>
+      )}
     </div>
   );
 };
 
 const mapStateToProps = (state) => ({
   departments: state.department.departments,
+  discounts: state.discount.discounts,
+  isAuthenticated: state.auth.isAuthenticated,
 });
 
-export default connect(mapStateToProps, { getDepartments })(Discount);
+export default connect(mapStateToProps, {
+  getDepartments,
+  getDiscounts,
+  updateDiscount,
+  addDiscount,
+  deleteDiscount,
+})(Discount);

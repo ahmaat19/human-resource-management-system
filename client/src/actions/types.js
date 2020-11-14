@@ -29,3 +29,9 @@ export const GET_LEAVES = 'GET_LEAVES';
 export const ADD_LEAVE = 'ADD_LEAVE';
 export const LEAVE_ERROR = 'LEAVE_ERROR';
 export const UPDATE_LEAVE = 'UPDATE_LEAVE';
+
+export const GET_DISCOUNTS = 'GET_DISCOUNTS';
+export const ADD_DISCOUNT = 'ADD_DISCOUNT';
+export const DISCOUNT_ERROR = 'DISCOUNT_ERROR';
+export const UPDATE_DISCOUNT = 'UPDATE_DISCOUNT';
+

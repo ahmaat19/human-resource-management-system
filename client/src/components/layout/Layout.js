@@ -26,6 +26,12 @@ const Navbar = ({
         </Link>
       </li>
 
+      <li className='nav-item'>
+        <Link to='/discount' className='nav-link'>
+          Discount
+        </Link>
+      </li>
+
       <li className='nav-item dropdown'>
         <span
           disabled
@@ -131,7 +137,6 @@ const Navbar = ({
     <ul className='navbar-nav mr-right mb-2 mb-lg-0'>
       <li className='nav-item'>
         <Link to='/discount' className='nav-link'>
-          <ExitToAppIcon fontSize='small' />
           Discount
         </Link>
       </li>
