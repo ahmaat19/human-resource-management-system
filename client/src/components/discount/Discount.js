@@ -12,6 +12,8 @@ import Moment from 'react-moment';
 import moment from 'moment';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import EditIcon from '@material-ui/icons/Edit';
+import InfoIcon from '@material-ui/icons/Info';
+import DiscountInfo from './DiscountInfo';
 
 const Discount = ({
   getDepartments,
@@ -26,6 +28,7 @@ const Discount = ({
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [edit, setEdit] = useState(false);
+  const [dInfo, setDInfo] = useState({});
 
   const [formData, setFormData] = useState({
     empId: '',
@@ -91,7 +94,6 @@ const Discount = ({
 
   useEffect(() => {
     if (Object.keys(errors).length === 0 && isSubmitting) {
-      console.log(formData);
       edit ? updateDiscount(formData) : addDiscount(formData);
 
       setFormData({
@@ -111,6 +113,10 @@ const Discount = ({
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [errors]);
+
+  const discountInfo = (e) => {
+    setDInfo(e);
+  };
 
   return (
     <div className='container mt-2'>
@@ -447,6 +453,14 @@ const Discount = ({
                             className='btn btn-outline-danger btn-sm'
                           >
                             <DeleteForeverIcon fontSize='small' />
+                          </button>{' '}
+                          <button
+                            className='btn btn-outline-success btn-sm'
+                            data-toggle='modal'
+                            data-target='#discountInfoModal'
+                            onClick={() => discountInfo(discount)}
+                          >
+                            <InfoIcon fontSize='small' />
                           </button>
                         </td>
                       </tr>
@@ -454,6 +468,35 @@ const Discount = ({
                   })}
               </tbody>
             </table>
+
+            <div
+              className='modal fade'
+              id='discountInfoModal'
+              data-backdrop='static'
+              data-keyboard='false'
+              tabIndex='-1'
+              aria-labelledby='staticBackdropLabel'
+              aria-hidden='true'
+            >
+              <div className='modal-dialog modal-lg'>
+                <div className='modal-content'>
+                  <div className='modal-header'>
+                    <h5 className='modal-title' id='staticBackdropLabel'>
+                      {dInfo.empId && dInfo.empName} - Discount Details
+                    </h5>
+                    <button
+                      type='button'
+                      className='btn-close'
+                      data-dismiss='modal'
+                      aria-label='Close'
+                    ></button>
+                  </div>
+                  <div className='modal-body'>
+                    <DiscountInfo info={dInfo} />
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </>
       )}
