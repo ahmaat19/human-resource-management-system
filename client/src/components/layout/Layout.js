@@ -19,11 +19,9 @@ const Navbar = ({
   const authLinks = (
     <ul className='navbar-nav mr-right mb-2 mb-lg-0'>
       <li className='nav-item'>
-        {' '}
-        <Link to='?#' className='nav-link text-muted'>
-          {' '}
+        <span className='nav-link' disabled>
           Welcome {user && user.name}
-        </Link>
+        </span>
       </li>
 
       <li className='nav-item'>
