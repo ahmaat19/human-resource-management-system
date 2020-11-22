@@ -160,7 +160,6 @@ const Navbar = ({
               alt=''
               loading='lazy'
             />
-            LEAVE MANAGEMENT
           </Link>
           <button
             className='navbar-toggler'

@@ -66,12 +66,12 @@ router.post(
         isMale,
         wives: Array.isArray(wives)
           ? wives
-          : wives.split(',').map((wife) => ' ' + wife.trim()),
+          : wives.split(',').map((wife) => '' + wife.trim()),
         husband,
         hasChildren,
         children: Array.isArray(children)
           ? children
-          : children.split(',').map((child) => ' ' + child.trim()),
+          : children.split(',').map((child) => '' + child.trim()),
       });
       await discount.save();
 
@@ -135,12 +135,12 @@ router.put(
             isMale,
             wives: Array.isArray(wives)
               ? wives
-              : wives.split(',').map((wife) => ' ' + wife.trim()),
+              : wives.split(',').map((wife) => '' + wife.trim()),
             husband,
             hasChildren,
             children: Array.isArray(children)
               ? children
-              : children.split(',').map((child) => ' ' + child.trim()),
+              : children.split(',').map((child) => '' + child.trim()),
           },
         }
       );
