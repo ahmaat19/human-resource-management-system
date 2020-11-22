@@ -13,9 +13,13 @@ router.get('/', auth, async (req, res) => {
   try {
     const leave = await Leave.find()
       .sort({ date: -1 })
-      .populate('employee', ['emp_id', 'name', 'department'])
+      .populate({
+        path: 'employee',
+        populate: {
+          path: 'department',
+        },
+      });
 
-      .populate('user', ['name']);
     res.json(leave);
   } catch (err) {
     console.error(err.message);

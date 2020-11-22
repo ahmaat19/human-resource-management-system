@@ -12,7 +12,7 @@ const Report = ({ leaves: { loading, leaves }, getLeaves }) => {
   useEffect(() => {
     getLeaves();
   }, [getLeaves]);
-  
+
   return loading ? (
     <Spinner />
   ) : (
@@ -73,7 +73,7 @@ const Report = ({ leaves: { loading, leaves }, getLeaves }) => {
                       id={leave._id % 2 === 0 ? 'orange' : 'green'}
                     >
                       <td>{leave.employee.name}</td>
-                      <td>@TODO</td>
+                      <td>{leave.employee.department.name}</td>
                       <td>{leave.leave}</td>
                       <td>
                         <Moment format='YYYY-MM-DD'>
