@@ -57,7 +57,7 @@ const DiscountInfo = ({ info }) => {
               </div>
             </>
           )}
-          {info.wives && info.isMale && (
+          {info.wives && info.isMale && !info.isSingle && (
             <>
               <h5 className='text-center text-uppercase text-light bg-success p-3'>
                 Wives Info
