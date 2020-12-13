@@ -11,6 +11,34 @@ import {
   userUpdateReducer,
 } from './reducers/userReducers'
 
+import {
+  departmentListReducer,
+  departmentCreateReducer,
+  departmentUpdateReducer,
+  departmentDeleteReducer,
+} from './reducers/departmentReducers'
+
+import {
+  discountListReducer,
+  discountCreateReducer,
+  discountUpdateReducer,
+  discountDeleteReducer,
+} from './reducers/discountReducers'
+
+import {
+  employeeListReducer,
+  employeeCreateReducer,
+  employeeUpdateReducer,
+  employeeDeleteReducer,
+} from './reducers/employeeReducers'
+
+import {
+  leaveListReducer,
+  leaveCreateReducer,
+  leaveUpdateReducer,
+  leaveDeleteReducer,
+} from './reducers/leaveReducers'
+
 const reducer = combineReducers({
   userLogin: userLoginReducer,
   userRegister: userRegisterReducer,
@@ -19,6 +47,26 @@ const reducer = combineReducers({
   userList: userListReducer,
   userDelete: userDeleteReducer,
   userUpdate: userUpdateReducer,
+
+  departmentList: departmentListReducer,
+  departmentCreate: departmentCreateReducer,
+  departmentUpdate: departmentUpdateReducer,
+  departmentDelete: departmentDeleteReducer,
+
+  discountList: discountListReducer,
+  discountCreate: discountCreateReducer,
+  discountUpdate: discountUpdateReducer,
+  discountDelete: discountDeleteReducer,
+
+  employeeList: employeeListReducer,
+  employeeCreate: employeeCreateReducer,
+  employeeUpdate: employeeUpdateReducer,
+  employeeDelete: employeeDeleteReducer,
+
+  leaveList: leaveListReducer,
+  leaveCreate: leaveCreateReducer,
+  leaveUpdate: leaveUpdateReducer,
+  leaveDelete: leaveDeleteReducer,
 })
 
 const userInfoFromStorage = localStorage.getItem('userInfo')
