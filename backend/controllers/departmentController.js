@@ -12,9 +12,11 @@ export const postDepartment = asyncHandler(async (req, res) => {
 
   let department = await DepartmentModel.findOne({ name })
 
-  if (department.name.toLowerCase() === name.toLowerCase()) {
-    res.status(400)
-    throw new Error('Department already exists')
+  if (department) {
+    if (department.name.toLowerCase() === name.toLowerCase()) {
+      res.status(400)
+      throw new Error('Department already exists')
+    }
   }
 
   department = new DepartmentModel({

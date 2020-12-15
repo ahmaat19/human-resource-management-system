@@ -13,6 +13,6 @@ router.route('/').post(protect, postDepartment).get(protect, getDepartment)
 router
   .route('/:id')
   .delete(protect, deleteDepartment)
-  .get(protect, putDepartment)
+  .put(protect, putDepartment)
 
 export default router

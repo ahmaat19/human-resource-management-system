@@ -14,11 +14,22 @@ import {
   DEPARTMENT_DELETE_FAIL,
 } from '../constants/departmentConstants'
 
-export const listDepartment = () => async (dispatch) => {
+export const listDepartment = () => async (dispatch, getState) => {
   try {
     dispatch({ type: DEPARTMENT_REQUEST })
 
-    const { data } = await axios.get(`/api/department`)
+    const {
+      userLogin: { userInfo },
+    } = getState()
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    }
+
+    const { data } = await axios.get(`/api/departments`, config)
 
     dispatch({
       type: DEPARTMENT_SUCCESS,
@@ -50,7 +61,7 @@ export const createDepartment = (depData) => async (dispatch, getState) => {
       },
     }
 
-    const { data } = await axios.post(`/api/department`, depData, config)
+    const { data } = await axios.post(`/api/departments`, depData, config)
 
     dispatch({
       type: DEPARTMENT_CREATE_SUCCESS,
@@ -82,7 +93,7 @@ export const updateDepartment = (depData) => async (dispatch, getState) => {
       },
     }
 
-    await axios.put(`/api/department/${depData._id}`, depData, config)
+    await axios.put(`/api/departments/${depData.id}`, depData, config)
 
     dispatch({
       type: DEPARTMENT_UPDATE_SUCCESS,
@@ -112,7 +123,7 @@ export const deleteDepartment = (id) => async (dispatch, getState) => {
       },
     }
 
-    await axios.delete(`/api/department/${id}`, config)
+    await axios.delete(`/api/departments/${id}`, config)
 
     dispatch({
       type: DEPARTMENT_DELETE_SUCCESS,

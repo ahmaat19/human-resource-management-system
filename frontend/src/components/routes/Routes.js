@@ -10,6 +10,8 @@ import NotFound from '../NotFound'
 
 import PrivateRoute from '../routes/PrivateRoute'
 import AdminPrivateRoute from '../routes/AdminPrivateRoute'
+import DepartmentScreen from '../../screens/DepartmentScreen'
+import EmployeeScreen from '../../screens/EmployeeScreen'
 
 const Routes = () => {
   return (
@@ -18,6 +20,8 @@ const Routes = () => {
         <Route path='/login' component={LoginScreen} />
         <Route path='/register' component={RegisterScreen} />
         <PrivateRoute path='/profile' component={ProfileScreen} />
+        <PrivateRoute path='/department' component={DepartmentScreen} />
+        <PrivateRoute path='/employee' component={EmployeeScreen} />
         <AdminPrivateRoute
           exact
           path='/admin/users'

@@ -14,11 +14,22 @@ import {
   EMPLOYEE_DELETE_FAIL,
 } from '../constants/employeeConstants'
 
-export const listEmployee = () => async (dispatch) => {
+export const listEmployee = () => async (dispatch, getState) => {
   try {
     dispatch({ type: EMPLOYEE_REQUEST })
 
-    const { data } = await axios.get(`/api/employee`)
+    const {
+      userLogin: { userInfo },
+    } = getState()
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    }
+
+    const { data } = await axios.get(`/api/employees`, config)
 
     dispatch({
       type: EMPLOYEE_SUCCESS,
@@ -50,7 +61,7 @@ export const createEmployee = (empData) => async (dispatch, getState) => {
       },
     }
 
-    const { data } = await axios.post(`/api/employee`, empData, config)
+    const { data } = await axios.post(`/api/employees`, empData, config)
 
     dispatch({
       type: EMPLOYEE_CREATE_SUCCESS,
@@ -82,7 +93,7 @@ export const updateEmployee = (empData) => async (dispatch, getState) => {
       },
     }
 
-    await axios.put(`/api/employee/${empData._id}`, empData, config)
+    await axios.put(`/api/employees/${empData._id}`, empData, config)
 
     dispatch({
       type: EMPLOYEE_UPDATE_SUCCESS,
@@ -112,7 +123,7 @@ export const deleteEmployee = (id) => async (dispatch, getState) => {
       },
     }
 
-    await axios.delete(`/api/employee/${id}`, config)
+    await axios.delete(`/api/employees/${id}`, config)
 
     dispatch({
       type: EMPLOYEE_DELETE_SUCCESS,
