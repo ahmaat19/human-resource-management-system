@@ -14,11 +14,22 @@ import {
   LEAVE_DELETE_FAIL,
 } from '../constants/leaveConstants'
 
-export const listLeave = () => async (dispatch) => {
+export const listLeave = () => async (dispatch, getState) => {
   try {
     dispatch({ type: LEAVE_REQUEST })
 
-    const { data } = await axios.get(`/api/leave`)
+    const {
+      userLogin: { userInfo },
+    } = getState()
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    }
+
+    const { data } = await axios.get(`/api/leaves`, config)
 
     dispatch({
       type: LEAVE_SUCCESS,
@@ -50,7 +61,7 @@ export const createLeave = (leaData) => async (dispatch, getState) => {
       },
     }
 
-    const { data } = await axios.post(`/api/leave`, leaData, config)
+    const { data } = await axios.post(`/api/leaves`, leaData, config)
 
     dispatch({
       type: LEAVE_CREATE_SUCCESS,
@@ -82,7 +93,7 @@ export const updateLeave = (leaData) => async (dispatch, getState) => {
       },
     }
 
-    await axios.put(`/api/leave/${leaData._id}`, leaData, config)
+    await axios.put(`/api/leaves/${leaData._id}`, leaData, config)
 
     dispatch({
       type: LEAVE_UPDATE_SUCCESS,
@@ -112,7 +123,7 @@ export const deleteLeave = (id) => async (dispatch, getState) => {
       },
     }
 
-    await axios.delete(`/api/leave/${id}`, config)
+    await axios.delete(`/api/leaves/${id}`, config)
 
     dispatch({
       type: LEAVE_DELETE_SUCCESS,

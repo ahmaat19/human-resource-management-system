@@ -9,7 +9,7 @@ import { protect } from '../middleware/authMiddleware.js'
 
 const router = express.Router()
 
-router.route('/').post(postDiscount).get(protect, getDiscount)
+router.route('/').post(postDiscount).get(getDiscount)
 router.route('/:id').delete(protect, deleteDiscount).put(protect, putDiscount)
 
 export default router

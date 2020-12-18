@@ -11,6 +11,7 @@ import NotFound from '../NotFound'
 import PrivateRoute from '../routes/PrivateRoute'
 import AdminPrivateRoute from '../routes/AdminPrivateRoute'
 import DepartmentScreen from '../../screens/DepartmentScreen'
+import DiscountScreen from '../../screens/DiscountScreen'
 import EmployeeScreen from '../../screens/EmployeeScreen'
 
 const Routes = () => {
@@ -21,6 +22,7 @@ const Routes = () => {
         <Route path='/register' component={RegisterScreen} />
         <PrivateRoute path='/profile' component={ProfileScreen} />
         <PrivateRoute path='/department' component={DepartmentScreen} />
+        <Route path='/discount' component={DiscountScreen} />
         <PrivateRoute path='/employee' component={EmployeeScreen} />
         <AdminPrivateRoute
           exact

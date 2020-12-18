@@ -2,7 +2,14 @@ import asyncHandler from 'express-async-handler'
 import LeaveModel from '../models/leaveModel.js'
 
 export const getLeave = asyncHandler(async (req, res) => {
-  const Leave = await LeaveModel.find({}).sort({ createdAt: -1 })
+  const Leave = await LeaveModel.find({})
+    .sort({ createdAt: -1 })
+    .populate({
+      path: 'employee',
+      populate: {
+        path: 'department',
+      },
+    })
   res.json(Leave)
 })
 

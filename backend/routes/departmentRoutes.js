@@ -9,7 +9,7 @@ import { protect } from '../middleware/authMiddleware.js'
 
 const router = express.Router()
 
-router.route('/').post(protect, postDepartment).get(protect, getDepartment)
+router.route('/').post(protect, postDepartment).get(getDepartment)
 router
   .route('/:id')
   .delete(protect, deleteDepartment)

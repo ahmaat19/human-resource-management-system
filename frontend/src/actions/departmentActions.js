@@ -14,22 +14,11 @@ import {
   DEPARTMENT_DELETE_FAIL,
 } from '../constants/departmentConstants'
 
-export const listDepartment = () => async (dispatch, getState) => {
+export const listDepartment = () => async (dispatch) => {
   try {
     dispatch({ type: DEPARTMENT_REQUEST })
 
-    const {
-      userLogin: { userInfo },
-    } = getState()
-
-    const config = {
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${userInfo.token}`,
-      },
-    }
-
-    const { data } = await axios.get(`/api/departments`, config)
+    const { data } = await axios.get(`/api/departments`)
 
     dispatch({
       type: DEPARTMENT_SUCCESS,

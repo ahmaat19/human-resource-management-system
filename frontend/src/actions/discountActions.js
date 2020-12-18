@@ -18,7 +18,7 @@ export const listDiscount = () => async (dispatch) => {
   try {
     dispatch({ type: DISCOUNT_REQUEST })
 
-    const { data } = await axios.get(`/api/discount`)
+    const { data } = await axios.get(`/api/discounts`)
 
     dispatch({
       type: DISCOUNT_SUCCESS,
@@ -35,22 +35,11 @@ export const listDiscount = () => async (dispatch) => {
   }
 }
 
-export const createDiscount = (disData) => async (dispatch, getState) => {
+export const createDiscount = (disData) => async (dispatch) => {
   try {
     dispatch({ type: DISCOUNT_CREATE_REQUEST })
 
-    const {
-      userLogin: { userInfo },
-    } = getState()
-
-    const config = {
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${userInfo.token}`,
-      },
-    }
-
-    const { data } = await axios.post(`/api/discount`, disData, config)
+    const { data } = await axios.post(`/api/discounts`, disData)
 
     dispatch({
       type: DISCOUNT_CREATE_SUCCESS,
@@ -82,7 +71,7 @@ export const updateDiscount = (disData) => async (dispatch, getState) => {
       },
     }
 
-    await axios.put(`/api/discount/${disData._id}`, disData, config)
+    await axios.put(`/api/discounts/${disData._id}`, disData, config)
 
     dispatch({
       type: DISCOUNT_UPDATE_SUCCESS,
@@ -112,7 +101,7 @@ export const deleteDiscount = (id) => async (dispatch, getState) => {
       },
     }
 
-    await axios.delete(`/api/discount/${id}`, config)
+    await axios.delete(`/api/discounts/${id}`, config)
 
     dispatch({
       type: DISCOUNT_DELETE_SUCCESS,
