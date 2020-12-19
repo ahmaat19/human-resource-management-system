@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 
 const DiscountInfo = ({ info }) => {
   return (
@@ -7,7 +7,7 @@ const DiscountInfo = ({ info }) => {
         <>
           {info.empId && (
             <>
-              <h5 className='text-center text-uppercase text-light bg-success p-3'>
+              <h5 className='text-center text-uppercase text-light bg-dark p-3'>
                 Employee Info
               </h5>
               <div className='row'>
@@ -38,7 +38,7 @@ const DiscountInfo = ({ info }) => {
           )}
           {info.fatherName && (
             <>
-              <h5 className='text-center text-uppercase text-light bg-success p-3'>
+              <h5 className='text-center text-uppercase text-light bg-dark p-3'>
                 Parent Info
               </h5>
               <div className='row'>
@@ -59,7 +59,7 @@ const DiscountInfo = ({ info }) => {
           )}
           {info.wives && info.isMale && !info.isSingle && (
             <>
-              <h5 className='text-center text-uppercase text-light bg-success p-3'>
+              <h5 className='text-center text-uppercase text-light bg-dark p-3'>
                 Wives Info
               </h5>
               <div className='row'>
@@ -73,7 +73,7 @@ const DiscountInfo = ({ info }) => {
                     info.wives.map((wife, index) => (
                       <h6 key={index}>
                         {index + 1}:{' '}
-                        <span className='badge bg-success'>{wife}</span>
+                        <span className='badge bg-dark'>{wife}</span>
                       </h6>
                     ))}
                 </div>
@@ -82,7 +82,7 @@ const DiscountInfo = ({ info }) => {
           )}
           {info.husband && (
             <>
-              <h5 className='text-center text-uppercase text-light bg-success p-3'>
+              <h5 className='text-center text-uppercase text-light bg-dark p-3'>
                 Husband Info
               </h5>
               <div className='row'>
@@ -100,7 +100,7 @@ const DiscountInfo = ({ info }) => {
 
           {info.hasChildren && (
             <>
-              <h5 className='text-center text-uppercase text-light bg-success p-3'>
+              <h5 className='text-center text-uppercase text-light bg-dark p-3'>
                 Children Info
               </h5>
               <div className='row'>
@@ -114,7 +114,7 @@ const DiscountInfo = ({ info }) => {
                     info.children.map((child, index) => (
                       <h6 key={index}>
                         {index + 1}:{' '}
-                        <span className='badge bg-success'>{child}</span>
+                        <span className='badge bg-dark'>{child}</span>
                       </h6>
                     ))}
                 </div>
@@ -124,7 +124,7 @@ const DiscountInfo = ({ info }) => {
         </>
       )}
     </>
-  );
-};
+  )
+}
 
-export default DiscountInfo;
+export default DiscountInfo

@@ -34,7 +34,7 @@ const Routes = () => {
           component={UserListScreen}
         />
 
-        <Route exact path='/' component={HomeScreen} />
+        <PrivateRoute exact path='/' component={HomeScreen} />
         <Route component={NotFound} />
       </Switch>
     </section>

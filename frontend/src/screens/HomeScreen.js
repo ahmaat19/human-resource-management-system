@@ -26,7 +26,7 @@ const HomeScreen = ({ match }) => {
     )
   const currentItems =
     onLeave && onLeave.slice(indexOfFirstItem, indexOfLastItem)
-  const totalItems = leaves && Math.ceil(leaves.length / itemsPerPage)
+  const totalItems = onLeave && Math.ceil(onLeave.length / itemsPerPage)
 
   useEffect(() => {
     dispatch(listLeave())
@@ -57,30 +57,24 @@ const HomeScreen = ({ match }) => {
             </thead>
             <tbody>
               {currentItems &&
-                currentItems.map(
-                  (leave) =>
-                    moment(leave.end_date).format('YYYY-MM-DD') >=
-                      moment(Date.now()).format('YYYY-MM-DD') && (
-                      <tr key={leave._id}>
-                        <td>{leave.employee && leave.employee.name}</td>
-                        <td>
-                          {leave.employee && leave.employee.department.name}
-                        </td>
-                        <td>{leave.leave}</td>
-                        <td>
-                          <Moment format='YYYY-MM-DD'>
-                            {moment(leave.start_date)}
-                          </Moment>
-                        </td>
-                        <td>
-                          <Moment format='YYYY-MM-DD'>
-                            {moment(leave.end_date)}
-                          </Moment>
-                        </td>
-                        <td>{leave.description}</td>
-                      </tr>
-                    )
-                )}
+                currentItems.map((leave) => (
+                  <tr key={leave._id}>
+                    <td>{leave.employee && leave.employee.name}</td>
+                    <td>{leave.employee && leave.employee.department.name}</td>
+                    <td>{leave.leave}</td>
+                    <td>
+                      <Moment format='YYYY-MM-DD'>
+                        {moment(leave.start_date)}
+                      </Moment>
+                    </td>
+                    <td>
+                      <Moment format='YYYY-MM-DD'>
+                        {moment(leave.end_date)}
+                      </Moment>
+                    </td>
+                    <td>{leave.description}</td>
+                  </tr>
+                ))}
             </tbody>
           </table>
 
