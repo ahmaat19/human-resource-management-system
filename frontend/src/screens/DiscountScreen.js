@@ -325,7 +325,7 @@ const DiscountScreen = () => {
       ) : (
         <form onSubmit={submitHandler}>
           <div className='row'>
-            <div className='col-lg-10 col-md-12 col-sm-12 col-12 mx-auto'>
+            <div className='col-lg-12 col-md-12 col-sm-12 col-12 mx-auto'>
               {/* Employee Info */}
               <div className='row my-2 border border-secondary'>
                 <h5 className='text-center text-uppercase text-light  '>

@@ -141,8 +141,6 @@ const DepartmentScreen = () => {
               ) : (
                 <form onSubmit={submitHandler}>
                   <div className='row gy-2'>
-                    <hr className='mt-0' />
-
                     <div className='form-group'>
                       <label htmlFor='name'>Department Name</label>
                       <input

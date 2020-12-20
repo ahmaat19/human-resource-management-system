@@ -14,15 +14,17 @@ import DepartmentScreen from '../../screens/DepartmentScreen'
 import DiscountScreen from '../../screens/DiscountScreen'
 import EmployeeScreen from '../../screens/EmployeeScreen'
 import LeaveScreen from '../../screens/LeaveScreen'
+import ReportScreen from '../../screens/ReportScreen'
 
 const Routes = () => {
   return (
     <section className='container'>
       <Switch>
         <Route path='/login' component={LoginScreen} />
-        <Route path='/register' component={RegisterScreen} />
+        <PrivateRoute path='/register' component={RegisterScreen} />
         <PrivateRoute path='/profile' component={ProfileScreen} />
         <PrivateRoute path='/department' component={DepartmentScreen} />
+        <PrivateRoute path='/report' component={ReportScreen} />
         <PrivateRoute path='/leave/:id' component={LeaveScreen} />
         <Route path='/discount' component={DiscountScreen} />
         <PrivateRoute path='/employee' component={EmployeeScreen} />

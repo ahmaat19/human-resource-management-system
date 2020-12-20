@@ -18,5 +18,11 @@ h2 {
 
 body,
 .modal-background {
-  background-color: rgb(209, 208, 208);
+  background: #bfc0c0;
+}
+.bg-dark {
+  background-color: #364f6b !important;
+}
+.table {
+  color: #273b52 !important;
 }
