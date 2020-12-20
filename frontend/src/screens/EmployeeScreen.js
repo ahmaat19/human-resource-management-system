@@ -327,7 +327,7 @@ const EmployeeScreen = () => {
                       <td>{employee.name}</td>
                       <td>{employee.mobile}</td>
                       <td>{employee.department.name}</td>
-                      <td>
+                      <td className='btn-group'>
                         <button
                           onClick={() => editHandler(employee)}
                           className='btn btn-light btn-sm'

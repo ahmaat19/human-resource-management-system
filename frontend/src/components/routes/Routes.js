@@ -13,6 +13,7 @@ import AdminPrivateRoute from '../routes/AdminPrivateRoute'
 import DepartmentScreen from '../../screens/DepartmentScreen'
 import DiscountScreen from '../../screens/DiscountScreen'
 import EmployeeScreen from '../../screens/EmployeeScreen'
+import LeaveScreen from '../../screens/LeaveScreen'
 
 const Routes = () => {
   return (
@@ -22,6 +23,7 @@ const Routes = () => {
         <Route path='/register' component={RegisterScreen} />
         <PrivateRoute path='/profile' component={ProfileScreen} />
         <PrivateRoute path='/department' component={DepartmentScreen} />
+        <PrivateRoute path='/leave/:id' component={LeaveScreen} />
         <Route path='/discount' component={DiscountScreen} />
         <PrivateRoute path='/employee' component={EmployeeScreen} />
         <AdminPrivateRoute

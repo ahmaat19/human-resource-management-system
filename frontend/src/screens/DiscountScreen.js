@@ -194,7 +194,7 @@ const DiscountScreen = () => {
                             <td>{discount.empId}</td>
                             <td>{discount.empName}</td>
                             <td>{discount.department.name}</td>
-                            <td className='form-group'>
+                            <td className='btn-group'>
                               <button
                                 onClick={() => editHandler(discount)}
                                 className='btn btn-info btn-sm'

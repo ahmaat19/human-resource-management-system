@@ -17,6 +17,11 @@ export const postLeave = asyncHandler(async (req, res) => {
   const { employee, leave, start_date, end_date, description } = req.body
   const user = req.user.id
 
+  if (end_date <= start_date) {
+    res.status(400)
+    throw new Error('Start date needs to be from the past')
+  }
+
   let LeaveRequest = new LeaveModel({
     user,
     employee,
@@ -38,6 +43,11 @@ export const postLeave = asyncHandler(async (req, res) => {
 export const putLeave = asyncHandler(async (req, res) => {
   const { employee, leave, start_date, end_date, description } = req.body
   const user = req.user.id
+
+  if (end_date <= start_date) {
+    res.status(400)
+    throw new Error('Start date needs to be from the past')
+  }
 
   let LeaveRequest = await LeaveModel.findById(req.params.id)
 

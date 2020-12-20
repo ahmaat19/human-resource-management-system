@@ -18,11 +18,7 @@ const Header = () => {
           Discount
         </Link>
       </li>
-      <li className='nav-item'>
-        <Link to='/leave-request' className='nav-link'>
-          Leave Request
-        </Link>
-      </li>
+
       <li className='nav-item dropdown'>
         <span
           className='nav-link dropdown-toggle'
@@ -122,9 +118,9 @@ const Header = () => {
   return (
     <nav className='navbar navbar-expand-lg navbar-dark bg-dark'>
       <div className='container'>
-        <a className='navbar-brand' href='/'>
-          Navbar
-        </a>
+        <Link className='navbar-brand' to='/'>
+          HUMAN RESOURCE
+        </Link>
         <button
           className='navbar-toggler'
           type='button'
