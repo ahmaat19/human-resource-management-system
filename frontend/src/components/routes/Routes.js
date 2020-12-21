@@ -23,11 +23,11 @@ const Routes = () => {
         <Route path='/login' component={LoginScreen} />
         <PrivateRoute path='/register' component={RegisterScreen} />
         <PrivateRoute path='/profile' component={ProfileScreen} />
-        <PrivateRoute path='/department' component={DepartmentScreen} />
-        <PrivateRoute path='/report' component={ReportScreen} />
-        <PrivateRoute path='/leave/:id' component={LeaveScreen} />
+        <AdminPrivateRoute path='/department' component={DepartmentScreen} />
+        <AdminPrivateRoute path='/report' component={ReportScreen} />
+        <AdminPrivateRoute path='/leave/:id' component={LeaveScreen} />
         <Route path='/discount' component={DiscountScreen} />
-        <PrivateRoute path='/employee' component={EmployeeScreen} />
+        <AdminPrivateRoute path='/employee' component={EmployeeScreen} />
         <AdminPrivateRoute
           exact
           path='/admin/users'
@@ -38,7 +38,7 @@ const Routes = () => {
           component={UserListScreen}
         />
 
-        <PrivateRoute exact path='/' component={HomeScreen} />
+        <AdminPrivateRoute exact path='/' component={HomeScreen} />
         <Route component={NotFound} />
       </Switch>
     </section>

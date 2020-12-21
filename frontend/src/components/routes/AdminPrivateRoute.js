@@ -13,7 +13,7 @@ const AdminPrivateRoute = ({ component: Component, ...rest }) => {
         !userInfo && !loading ? (
           <Redirect to='/login' />
         ) : userInfo && !userInfo.isAdmin ? (
-          <Redirect to='/' />
+          <Redirect to='/discount' />
         ) : (
           <Component {...props} />
         )
