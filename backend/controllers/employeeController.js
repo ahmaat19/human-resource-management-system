@@ -12,7 +12,7 @@ export const postEmployee = asyncHandler(async (req, res) => {
   const { name, gender, mobile, department } = req.body
   const emp_id = req.body.emp_id.toUpperCase()
   const user = req.user.id
-  const active = true
+  const active = req.body.active
 
   let employee = await EmployeeModel.findOne({ emp_id })
 
@@ -44,7 +44,7 @@ export const putEmployee = asyncHandler(async (req, res) => {
   const { name, gender, mobile, department } = req.body
   const emp_id = req.body.emp_id.toUpperCase()
   const user = req.user.id
-  const active = true
+  const active = req.body.active
 
   let employee = await EmployeeModel.findById(req.params.id)
 

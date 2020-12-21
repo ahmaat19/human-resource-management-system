@@ -28,7 +28,7 @@ const employeeScheme = mongoose.Schema(
       ref: 'Department',
     },
     active: {
-      type: String,
+      type: Boolean,
       default: true,
       required: true,
     },

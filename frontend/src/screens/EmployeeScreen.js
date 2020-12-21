@@ -27,6 +27,7 @@ const initialValues = {
 const EmployeeScreen = () => {
   const [values, setValues] = useState(initialValues)
   const [edit, setEdit] = useState(false)
+  const [active, setActive] = useState(true)
 
   const dispatch = useDispatch()
 
@@ -70,6 +71,7 @@ const EmployeeScreen = () => {
       gender: '',
       department: '',
     })
+    setActive(true)
     setEdit(false)
   }
 
@@ -95,7 +97,18 @@ const EmployeeScreen = () => {
   const submitHandler = (e) => {
     e.preventDefault()
 
-    edit ? dispatch(updateEmployee(values)) : dispatch(createEmployee(values))
+    const objValues = {
+      emp_id: values.emp_id,
+      name: values.name,
+      mobile: values.mobile,
+      gender: values.gender,
+      department: values.department,
+      active,
+      _id: values._id,
+    }
+    edit
+      ? dispatch(updateEmployee(objValues))
+      : dispatch(createEmployee(objValues))
   }
 
   const editHandler = (e) => {
@@ -108,6 +121,7 @@ const EmployeeScreen = () => {
       gender: e.gender,
       department: e.department._id,
     })
+    setActive(e.active)
     setEdit(true)
   }
 
@@ -215,7 +229,7 @@ const EmployeeScreen = () => {
                     </div>
 
                     <div className='form-group'>
-                      <label htmlFor='mobbile'>Mobile</label>
+                      <label htmlFor='mobile'>Mobile</label>
                       <input
                         name='mobile'
                         onChange={handleChange}
@@ -249,6 +263,19 @@ const EmployeeScreen = () => {
                             )
                           })}
                       </select>
+                    </div>
+
+                    <div className='form-group'>
+                      <input
+                        type='checkbox'
+                        id='active'
+                        label='active'
+                        checked={active}
+                        onChange={(e) => setActive(e.target.checked)}
+                      />{' '}
+                      <label htmlFor='active' id='active'>
+                        Active?
+                      </label>
                     </div>
 
                     <div className='modal-footer'>
@@ -316,7 +343,7 @@ const EmployeeScreen = () => {
                   currentItems.map((employee) => (
                     <tr
                       key={employee._id}
-                      id={employee._id % 2 === 0 ? 'orange' : 'green'}
+                      id={!employee.active ? 'inActiveRow' : ''}
                     >
                       <td>
                         <Moment format='YYYY-MM-DD HH:mm:ss'>
@@ -344,12 +371,14 @@ const EmployeeScreen = () => {
                             <i className='fas fa-trash'></i>
                           </button>
                         )}
-                        <Link
-                          to={`/leave/${employee._id}`}
-                          className='btn btn-dark btn-sm'
-                        >
-                          <i className='fas fa-share'></i>
-                        </Link>
+                        {employee.active && (
+                          <Link
+                            to={`/leave/${employee._id}`}
+                            className='btn btn-dark btn-sm'
+                          >
+                            <i className='fas fa-share'></i>
+                          </Link>
+                        )}
                       </td>
                     </tr>
                   ))}
