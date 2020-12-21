@@ -106,7 +106,7 @@ const ReportScreen = () => {
             </div>
             <div className='col-8 text-primary'>
               <Moment format='YYYY-MM-DD '>{moment(data.start_date)}</Moment>-
-              <Moment format=' YYYY-MM-DD '>{moment(data.start_date)}</Moment>
+              <Moment format=' YYYY-MM-DD '>{moment(data.end_date)}</Moment>
             </div>
 
             <div className='col-4'>
