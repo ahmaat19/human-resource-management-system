@@ -27,7 +27,7 @@ export const postDiscount = asyncHandler(async (req, res) => {
 
   if (discount) {
     res.status(400)
-    throw new Error(' Already filled the form')
+    throw new Error('Already filled the form')
   }
 
   discount = new DiscountModel({
@@ -75,14 +75,6 @@ export const putDiscount = asyncHandler(async (req, res) => {
 
   let discount = await DiscountModel.findById(req.params.id)
 
-  wives = Array.isArray(wives)
-    ? wives
-    : wives.split(',').map((wife) => '' + wife.trim())
-
-  children = Array.isArray(children)
-    ? children
-    : children.split(',').map((child) => '' + child.trim())
-
   if (discount) {
     discount.empName = empName
     discount.department = department
@@ -90,10 +82,14 @@ export const putDiscount = asyncHandler(async (req, res) => {
     discount.motherName = motherName
     discount.isSingle = isSingle
     discount.isMale = isMale
-    discount.wives = wives
+    discount.wives = Array.isArray(wives)
+      ? wives
+      : wives.split(',').map((wife) => '' + wife.trim())
     discount.husband = husband
     discount.hasChildren = hasChildren
-    discount.children = children
+    discount.children = Array.isArray(children)
+      ? children
+      : children.split(',').map((child) => '' + child.trim())
   }
 
   const dis = await discount.save()

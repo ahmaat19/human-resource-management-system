@@ -13,44 +13,36 @@ import {
 } from '../actions/discountActions'
 import { listDepartment } from '../actions/departmentActions'
 import DiscountInfo from './DiscountInfo'
-import DiscountValidate from '../validations/DiscountValidate'
+import { useForm } from 'react-hook-form'
 
 const DiscountScreen = () => {
-  const [errors, setErrors] = useState({})
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [edit, setEdit] = useState(false)
-  const [dInfo, setDInfo] = useState({})
-  const [formData, setFormData] = useState({
-    empId: '',
-    empName: '',
-    department: '',
-    fatherName: '',
-    motherName: '',
-    isSingle: true,
-    isMale: true,
-    wives: '',
-    husband: '',
-    hasChildren: false,
-    children: '',
+  const {
+    register,
+    handleSubmit,
+    errors,
+    setValue,
+    watch,
+    reset,
+    getValues,
+  } = useForm({
+    mode: 'onBlur',
+    defaultValues: {
+      empId: '',
+      empName: '',
+      department: '',
+      fatherName: '',
+      motherName: '',
+      isSingle: true,
+      isMale: true,
+      wives: '',
+      husband: '',
+      hasChildren: false,
+      children: '',
+    },
   })
 
-  const {
-    empId,
-    empName,
-    department,
-    fatherName,
-    motherName,
-    isSingle,
-    isMale,
-    wives,
-    husband,
-    hasChildren,
-    children,
-  } = formData
-
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value })
-  }
+  const [edit, setEdit] = useState(false)
+  const [dInfo, setDInfo] = useState({})
 
   const dispatch = useDispatch()
   const discountList = useSelector((state) => state.discountList)
@@ -84,19 +76,20 @@ const DiscountScreen = () => {
   const { userInfo } = userLogin
 
   const formCleanHandler = () => {
-    setFormData({
-      ...formData,
-      empId: '',
-      empName: '',
-      department: '',
-      fatherName: '',
-      motherName: '',
-      isSingle: true,
-      isMale: true,
-      wives: '',
-      husband: '',
-      hasChildren: false,
-      children: '',
+    reset({
+      defaultValues: {
+        empId: '',
+        empName: '',
+        department: '',
+        fatherName: '',
+        motherName: '',
+        isSingle: true,
+        isMale: true,
+        wives: '',
+        husband: '',
+        hasChildren: false,
+        children: '',
+      },
     })
     setEdit(false)
   }
@@ -118,38 +111,32 @@ const DiscountScreen = () => {
   }
 
   const submitHandler = (e) => {
-    e.preventDefault()
-    setErrors(DiscountValidate(formData))
-    setIsSubmitting(true)
+    // edit
+    //   ? dispatch(updateDiscount(formData))
+    //   : dispatch(createDiscount(formData))
+    edit ? console.log('Update', e) : console.log('Create', e)
+    formCleanHandler()
   }
-
-  useEffect(() => {
-    if (Object.keys(errors).length === 0 && isSubmitting) {
-      edit
-        ? dispatch(updateDiscount(formData))
-        : dispatch(createDiscount(formData))
-    }
-    // eslint-disable-next-line
-  }, [errors, dispatch])
 
   const editHandler = (e) => {
-    setFormData({
-      ...formData,
-      _id: e._id,
-      empId: e.empId,
-      empName: e.empName,
-      department: e.department._id,
-      fatherName: e.fatherName,
-      motherName: e.motherName,
-      isSingle: e.isSingle,
-      isMale: e.isMale,
-      wives: e.wives,
-      husband: e.husband,
-      hasChildren: e.hasChildren,
-      children: e.children,
-    })
+    setValue('empId', e.empId)
+    setValue('empName', e.empName)
+    setValue('department', e.department._id)
+    setValue('fatherName', e.fatherName)
+    setValue('motherName', e.motherName)
+    setValue('isSingle', e.isSingle)
+    setValue('isMale', e.isMale)
+    setValue('wives', e.wives)
+    setValue('husband', e.husband)
+    setValue('hasChildren', e.hasChildren)
+    setValue('children', e.children)
     setEdit(true)
+
+    // setValue(e)
+    console.log(watch())
   }
+
+  const { isSingle, isMale, hasChildren } = watch()
 
   const [currentPage, setCurrentPage] = useState(1)
 
@@ -281,7 +268,8 @@ const DiscountScreen = () => {
                   <div className='modal-content'>
                     <div className='modal-header'>
                       <h5 className='modal-title' id='discountInfoModalLabel'>
-                        {dInfo.empId && dInfo.empName} - Discount Details
+                        {' '}
+                        {dInfo.empId && dInfo.empName} - Discount Details{' '}
                       </h5>
                       <button
                         type='button'
@@ -333,7 +321,7 @@ const DiscountScreen = () => {
       ) : error ? (
         <Message variant='danger'>{error}</Message>
       ) : (
-        <form onSubmit={submitHandler}>
+        <form onSubmit={handleSubmit(submitHandler)}>
           <div className='row'>
             <div className='col-lg-12 col-md-12 col-sm-12 col-12 mx-auto'>
               {/* Employee Info */}
@@ -347,15 +335,15 @@ const DiscountScreen = () => {
                     <input
                       type='text'
                       className='form-control'
+                      ref={register({ required: 'This field is required' })}
                       placeholder='Enter your ID'
                       name='empId'
-                      value={empId}
-                      onChange={(e) => handleChange(e)}
                     />
+
                     {errors.empId && (
-                      <div className='form-text text-danger'>
-                        {errors.empId}
-                      </div>
+                      <span className='form-text text-danger'>
+                        {errors.empId.message}
+                      </span>
                     )}
                   </div>
                 </div>
@@ -365,15 +353,15 @@ const DiscountScreen = () => {
                     <input
                       type='text'
                       className='form-control'
+                      ref={register({ required: 'This field is required' })}
                       placeholder='Enter your name'
                       name='empName'
-                      value={empName}
-                      onChange={(e) => handleChange(e)}
                     />
+
                     {errors.empName && (
-                      <div className='form-text text-danger'>
-                        {errors.empName}
-                      </div>
+                      <span className='form-text text-danger'>
+                        {errors.empName.message}
+                      </span>
                     )}
                   </div>
                 </div>
@@ -382,9 +370,8 @@ const DiscountScreen = () => {
                     <label htmlFor=''>Department</label>
                     <select
                       name='department'
-                      value={department}
-                      onChange={(e) => handleChange(e)}
                       className='form-control py-2'
+                      ref={register({ required: 'This field is required' })}
                     >
                       <option value='' disabled>
                         Department...
@@ -392,20 +379,17 @@ const DiscountScreen = () => {
                       {departments &&
                         departments.map((department) => {
                           return (
-                            <option
-                              key={department._id}
-                              value={department._id}
-                              onChange={(e) => handleChange(e)}
-                            >
+                            <option key={department._id} value={department._id}>
                               {department.name}
                             </option>
                           )
                         })}
                     </select>
+
                     {errors.department && (
-                      <div className='form-text text-danger'>
-                        {errors.department}
-                      </div>
+                      <span className='form-text text-danger'>
+                        {errors.department.message}
+                      </span>
                     )}
                   </div>
                 </div>
@@ -422,11 +406,16 @@ const DiscountScreen = () => {
                     <input
                       type='text'
                       className='form-control'
+                      ref={register({ required: 'This field is required' })}
                       placeholder='Enter your father name'
                       name='fatherName'
-                      value={fatherName}
-                      onChange={(e) => handleChange(e)}
                     />
+
+                    {errors.fatherName && (
+                      <span className='form-text text-danger'>
+                        {errors.fatherName.message}
+                      </span>
+                    )}
                   </div>
                 </div>
                 <div className='col-lg-6 col-md-6 col-sm-12 col-12 '>
@@ -435,11 +424,16 @@ const DiscountScreen = () => {
                     <input
                       type='text'
                       className='form-control'
+                      ref={register({ required: 'This field is required' })}
                       placeholder='Enter your mother name'
                       name='motherName'
-                      value={motherName}
-                      onChange={(e) => handleChange(e)}
                     />
+
+                    {errors.motherName && (
+                      <span className='form-text text-danger'>
+                        {errors.motherName.message}
+                      </span>
+                    )}
                   </div>
                 </div>
               </div>
@@ -450,10 +444,7 @@ const DiscountScreen = () => {
                   type='checkbox'
                   id='genderSwitchCheckChecked'
                   name='isMale'
-                  checked={isMale}
-                  onChange={(e) =>
-                    setFormData({ ...formData, isMale: !isMale })
-                  }
+                  ref={register}
                 />
                 <label
                   className='form-check-label'
@@ -472,19 +463,13 @@ const DiscountScreen = () => {
                   type='checkbox'
                   id='statusSwitchCheckChecked'
                   name='isSingle'
-                  checked={isSingle}
-                  onChange={(e) =>
-                    setFormData({ ...formData, isSingle: !isSingle })
-                  }
+                  ref={register}
                 />
                 <label
                   className='form-check-label'
                   htmlFor='statusSwitchCheckChecked'
                 >
-                  Are you still single?{' '}
-                  <span role='img' aria-label='img'>
-                    😂
-                  </span>
+                  Are you still single?
                 </label>
               </div>
 
@@ -503,21 +488,22 @@ const DiscountScreen = () => {
                             <input
                               type='text'
                               className='form-control'
+                              ref={register({
+                                required: 'This field is required',
+                              })}
                               placeholder='Enter the name of your wives'
                               name='wives'
-                              value={wives}
-                              onChange={(e) => handleChange(e)}
-                              id='wives'
                             />
+
+                            {errors.wives && (
+                              <span className='form-text text-danger'>
+                                {errors.wives.message}
+                              </span>
+                            )}
                             <div id='wives' className='form-text'>
                               Please use comma separated wives name if you have
                               more than one wife (eg. Fatima,Zahra,Maria,Sophia)
                             </div>
-                            {errors.wives && (
-                              <div className='form-text text-danger'>
-                                {errors.wives}
-                              </div>
-                            )}
                           </div>
                         </div>
                       </div>
@@ -535,15 +521,16 @@ const DiscountScreen = () => {
                             <input
                               type='text'
                               className='form-control'
+                              ref={register({
+                                required: 'This field is required',
+                              })}
                               placeholder='Enter the name of your husband'
                               name='husband'
-                              value={husband}
-                              onChange={(e) => handleChange(e)}
                             />
                             {errors.husband && (
-                              <div className='form-text text-danger'>
-                                {errors.husband}
-                              </div>
+                              <span className='form-text text-danger'>
+                                {errors.husband.message}
+                              </span>
                             )}
                           </div>
                         </div>
@@ -557,22 +544,13 @@ const DiscountScreen = () => {
                       type='checkbox'
                       id='childrenSwitchCheckChecked'
                       name='hasChildren'
-                      checked={hasChildren}
-                      onChange={(e) =>
-                        setFormData({
-                          ...formData,
-                          hasChildren: !hasChildren,
-                        })
-                      }
+                      ref={register}
                     />
                     <label
                       className='form-check-label'
                       htmlFor='childrenSwitchCheckChecked'
                     >
-                      Do you have any children?{' '}
-                      <span role='img' aria-label='img'>
-                        🧒
-                      </span>
+                      Do you have any children?
                     </label>
                   </div>
 
@@ -589,22 +567,23 @@ const DiscountScreen = () => {
                             <input
                               type='text'
                               className='form-control'
+                              ref={register({
+                                required: 'This field is required',
+                              })}
                               placeholder='Enter the name of your children'
                               name='children'
-                              value={children}
-                              onChange={(e) => handleChange(e)}
                               id='children'
                             />
+                            {errors.children && (
+                              <span className='form-text text-danger'>
+                                {errors.children.message}
+                              </span>
+                            )}
                             <div id='children' className='form-text'>
                               Please use comma separated children's name if you
                               have more than one child (eg.
                               Mohamed,Fatima,Ahmed,Leila)
                             </div>
-                            {errors.children && (
-                              <div className='form-text text-danger'>
-                                {errors.children}
-                              </div>
-                            )}
                           </div>
                         </div>
                       </div>
