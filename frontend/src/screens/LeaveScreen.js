@@ -254,6 +254,7 @@ const LeaveScreen = ({ match }) => {
                         <option value='Maternity'>Maternity</option>
                         <option value='Annual'>Annual</option>
                         <option value='Sick'>Sick</option>
+                        <option value='Marriage'>Marriage</option>
                       </select>
                     </div>
 

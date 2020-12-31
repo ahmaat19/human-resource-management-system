@@ -20,7 +20,7 @@ export default function DiscountValidate(formData) {
   } else if (!department) {
     errors.department = 'Department is required'
   } else if (!isSingle && isMale && (!wives || wives[0] === '')) {
-    errors.wives = 'Wives is required'
+    errors.wives = 'Wife is required'
   } else if (!isSingle && !isMale && !husband) {
     errors.husband = 'Husband is required'
   } else if (hasChildren && !children) {
