@@ -15,12 +15,17 @@ import DiscountScreen from '../../screens/DiscountScreen'
 import EmployeeScreen from '../../screens/EmployeeScreen'
 import LeaveScreen from '../../screens/LeaveScreen'
 import ReportScreen from '../../screens/ReportScreen'
+import UserLogHistoryScreen from '../../screens/LogHistoryScreen'
 
 const Routes = () => {
   return (
     <section className='container'>
       <Switch>
         <Route path='/login' component={LoginScreen} />
+        <PrivateRoute
+          path='/admin/users/logs'
+          component={UserLogHistoryScreen}
+        />
         <PrivateRoute path='/register' component={RegisterScreen} />
         <PrivateRoute path='/profile' component={ProfileScreen} />
         <AdminPrivateRoute path='/department' component={DepartmentScreen} />
