@@ -15,6 +15,7 @@ import {
   EMPLOYEE_DELETE_SUCCESS,
   EMPLOYEE_DELETE_FAIL,
 } from '../constants/employeeConstants'
+import { CLEAR_ALERTS } from '../constants/userConstants'
 
 export const employeeListReducer = (state = { employees: [] }, action) => {
   switch (action.type) {
@@ -60,7 +61,10 @@ export const employeeCreateReducer = (state = {}, action) => {
       }
     case EMPLOYEE_CREATE_RESET:
       return {}
-
+    case CLEAR_ALERTS:
+      return {
+        success: false,
+      }
     default:
       return state
   }
@@ -84,6 +88,10 @@ export const employeeUpdateReducer = (state = {}, action) => {
       }
     case EMPLOYEE_UPDATE_RESET:
       return {}
+    case CLEAR_ALERTS:
+      return {
+        success: false,
+      }
 
     default:
       return state
@@ -105,6 +113,10 @@ export const employeeDeleteReducer = (state = {}, action) => {
       return {
         loading: false,
         error: action.payload,
+      }
+    case CLEAR_ALERTS:
+      return {
+        success: false,
       }
 
     default:

@@ -15,6 +15,7 @@ import {
   DEPARTMENT_DELETE_SUCCESS,
   DEPARTMENT_DELETE_FAIL,
 } from '../constants/departmentConstants'
+import { CLEAR_ALERTS } from '../constants/userConstants'
 
 export const departmentListReducer = (state = { departments: [] }, action) => {
   switch (action.type) {
@@ -60,6 +61,10 @@ export const departmentCreateReducer = (state = {}, action) => {
       }
     case DEPARTMENT_CREATE_RESET:
       return {}
+    case CLEAR_ALERTS:
+      return {
+        success: false,
+      }
 
     default:
       return state
@@ -84,6 +89,10 @@ export const departmentUpdateReducer = (state = {}, action) => {
       }
     case DEPARTMENT_UPDATE_RESET:
       return {}
+    case CLEAR_ALERTS:
+      return {
+        success: false,
+      }
 
     default:
       return state
@@ -105,6 +114,10 @@ export const departmentDeleteReducer = (state = {}, action) => {
       return {
         loading: false,
         error: action.payload,
+      }
+    case CLEAR_ALERTS:
+      return {
+        success: false,
       }
 
     default:

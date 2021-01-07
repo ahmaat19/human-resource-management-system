@@ -12,7 +12,8 @@ import {
   updateEmployee,
   deleteEmployee,
 } from '../actions/employeeActions'
-
+import { confirmAlert } from 'react-confirm-alert'
+import { Confirm } from '../components/Confirm'
 import { listDepartment } from '../actions/departmentActions'
 
 const initialValues = {
@@ -89,9 +90,7 @@ const EmployeeScreen = () => {
   }, [dispatch, successCreate, successUpdate, successDelete])
 
   const deleteHandler = (id) => {
-    if (window.confirm('Are you use?')) {
-      dispatch(deleteEmployee(id))
-    }
+    confirmAlert(Confirm(() => dispatch(deleteEmployee(id))))
   }
 
   const submitHandler = (e) => {

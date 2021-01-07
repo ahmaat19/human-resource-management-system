@@ -12,6 +12,8 @@ import {
   deleteLeave,
 } from '../actions/leaveActions'
 import { listEmployee } from '../actions/employeeActions'
+import { confirmAlert } from 'react-confirm-alert'
+import { Confirm } from '../components/Confirm'
 
 const LeaveScreen = ({ match }) => {
   const [values, setValues] = useState({
@@ -77,9 +79,7 @@ const LeaveScreen = ({ match }) => {
   }, [dispatch, successCreate, successUpdate, successDelete])
 
   const deleteHandler = (id) => {
-    if (window.confirm('Are you use?')) {
-      dispatch(deleteLeave(id))
-    }
+    confirmAlert(Confirm(() => dispatch(deleteLeave(id))))
   }
 
   const submitHandler = (e) => {

@@ -9,6 +9,8 @@ import {
   register,
 } from '../actions/userActions'
 import ReactPaginate from 'react-paginate'
+import { confirmAlert } from 'react-confirm-alert'
+import { Confirm } from '../components/Confirm'
 
 const UserListScreen = () => {
   const [id, setId] = useState(null)
@@ -58,9 +60,7 @@ const UserListScreen = () => {
   }, [dispatch, successDelete, successUpdate, successCreateRegister])
 
   const deleteHandler = (id) => {
-    if (window.confirm('Are you use?')) {
-      dispatch(deleteUser(id))
-    }
+    confirmAlert(Confirm(() => dispatch(deleteUser(id))))
   }
 
   const submitHandler = (e) => {

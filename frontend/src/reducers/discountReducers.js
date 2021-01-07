@@ -15,6 +15,7 @@ import {
   DISCOUNT_DELETE_SUCCESS,
   DISCOUNT_DELETE_FAIL,
 } from '../constants/discountConstants'
+import { CLEAR_ALERTS } from '../constants/userConstants'
 
 export const discountListReducer = (state = { discounts: [] }, action) => {
   switch (action.type) {
@@ -60,6 +61,10 @@ export const discountCreateReducer = (state = {}, action) => {
       }
     case DISCOUNT_CREATE_RESET:
       return {}
+    case CLEAR_ALERTS:
+      return {
+        success: false,
+      }
 
     default:
       return state
@@ -84,6 +89,10 @@ export const discountUpdateReducer = (state = {}, action) => {
       }
     case DISCOUNT_UPDATE_RESET:
       return {}
+    case CLEAR_ALERTS:
+      return {
+        success: false,
+      }
 
     default:
       return state
@@ -105,6 +114,10 @@ export const discountDeleteReducer = (state = {}, action) => {
       return {
         loading: false,
         error: action.payload,
+      }
+    case CLEAR_ALERTS:
+      return {
+        success: false,
       }
 
     default:

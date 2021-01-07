@@ -11,6 +11,8 @@ import {
   updateDepartment,
   deleteDepartment,
 } from '../actions/departmentActions'
+import { confirmAlert } from 'react-confirm-alert'
+import { Confirm } from '../components/Confirm'
 
 const DepartmentScreen = () => {
   const [id, setId] = useState(null)
@@ -59,9 +61,7 @@ const DepartmentScreen = () => {
   }, [dispatch, successCreate, successUpdate, successDelete])
 
   const deleteHandler = (id) => {
-    if (window.confirm('Are you use?')) {
-      dispatch(deleteDepartment(id))
-    }
+    confirmAlert(Confirm(() => dispatch(deleteDepartment(id))))
   }
 
   const submitHandler = (e) => {

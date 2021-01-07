@@ -14,6 +14,8 @@ import {
 import { listDepartment } from '../actions/departmentActions'
 import DiscountInfo from './DiscountInfo'
 import DiscountValidate from '../validations/DiscountValidate'
+import { confirmAlert } from 'react-confirm-alert'
+import { Confirm } from '../components/Confirm'
 
 const DiscountScreen = () => {
   const [errors, setErrors] = useState({})
@@ -112,9 +114,7 @@ const DiscountScreen = () => {
   }, [dispatch, successDelete, successCreate, successUpdate])
 
   const deleteHandler = (id) => {
-    if (window.confirm('Are you use?')) {
-      dispatch(deleteDiscount(id))
-    }
+    confirmAlert(Confirm(() => dispatch(deleteDiscount(id))))
   }
 
   const submitHandler = (e) => {

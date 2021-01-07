@@ -15,6 +15,7 @@ import {
   LEAVE_DELETE_SUCCESS,
   LEAVE_DELETE_FAIL,
 } from '../constants/leaveConstants'
+import { CLEAR_ALERTS } from '../constants/userConstants'
 
 export const leaveListReducer = (state = { leaves: [] }, action) => {
   switch (action.type) {
@@ -60,6 +61,10 @@ export const leaveCreateReducer = (state = {}, action) => {
       }
     case LEAVE_CREATE_RESET:
       return {}
+    case CLEAR_ALERTS:
+      return {
+        success: false,
+      }
 
     default:
       return state
@@ -84,6 +89,10 @@ export const leaveUpdateReducer = (state = {}, action) => {
       }
     case LEAVE_UPDATE_RESET:
       return {}
+    case CLEAR_ALERTS:
+      return {
+        success: false,
+      }
 
     default:
       return state
@@ -105,6 +114,10 @@ export const leaveDeleteReducer = (state = {}, action) => {
       return {
         loading: false,
         error: action.payload,
+      }
+    case CLEAR_ALERTS:
+      return {
+        success: false,
       }
 
     default:
