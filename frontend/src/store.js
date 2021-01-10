@@ -40,6 +40,13 @@ import {
   leaveDeleteReducer,
 } from './reducers/leaveReducers'
 
+import {
+  writeUpListReducer,
+  writeUpCreateReducer,
+  writeUpUpdateReducer,
+  writeUpDeleteReducer,
+} from './reducers/writeUpReducers'
+
 const reducer = combineReducers({
   userLogin: userLoginReducer,
   userRegister: userRegisterReducer,
@@ -69,6 +76,11 @@ const reducer = combineReducers({
   leaveCreate: leaveCreateReducer,
   leaveUpdate: leaveUpdateReducer,
   leaveDelete: leaveDeleteReducer,
+
+  writeUpList: writeUpListReducer,
+  writeUpCreate: writeUpCreateReducer,
+  writeUpUpdate: writeUpUpdateReducer,
+  writeUpDelete: writeUpDeleteReducer,
 })
 
 const userInfoFromStorage = localStorage.getItem('userInfo')

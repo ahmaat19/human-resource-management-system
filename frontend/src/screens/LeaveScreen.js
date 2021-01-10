@@ -141,7 +141,7 @@ const LeaveScreen = ({ match }) => {
             <div className='modal-body'>
               {successCreate && (
                 <Message variant='success'>
-                  Department Registered Successfully
+                  Leave Request Registered Successfully
                 </Message>
               )}
               {loadingCreate ? (
@@ -152,7 +152,7 @@ const LeaveScreen = ({ match }) => {
 
               {successUpdate && (
                 <Message variant='success'>
-                  Department Updated Successfully
+                  Leave Request Updated Successfully
                 </Message>
               )}
               {loadingUpdate ? (
@@ -319,14 +319,13 @@ const LeaveScreen = ({ match }) => {
         </div>
       </div>
 
-      <div className='d-flex justify-content-between'>
+      <div className='d-flex justify-content-between align-items-center'>
         <h1>Leave</h1>
         <button
           className='btn btn-light btn-sm'
           data-bs-toggle='modal'
           data-bs-target='#leaveModal'
         >
-          {' '}
           <i className='fas fa-plus'></i> REGISTER NEW LEAVE REQUEST
         </button>
       </div>
@@ -383,13 +382,13 @@ const LeaveScreen = ({ match }) => {
                             data-bs-toggle='modal'
                             data-bs-target='#leaveModal'
                           >
-                            <i className='fa fa-edit'></i>{' '}
+                            <i className='fa fa-edit'></i> Edit
                           </button>{' '}
                           <button
                             className='btn btn-danger btn-sm'
                             onClick={() => deleteHandler(leave._id)}
                           >
-                            <i className='fa fa-trash'></i>{' '}
+                            <i className='fa fa-trash'></i> Delete
                           </button>
                         </td>
                       </tr>

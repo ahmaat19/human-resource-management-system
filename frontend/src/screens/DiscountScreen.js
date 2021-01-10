@@ -214,7 +214,7 @@ const DiscountScreen = () => {
                                     data-bs-placement='top'
                                     title='Edit Info'
                                   >
-                                    <i className='fa fa-edit'></i>
+                                    <i className='fa fa-edit'></i> Edit
                                   </button>
                                   <button
                                     onClick={() => deleteHandler(discount._id)}
@@ -222,7 +222,7 @@ const DiscountScreen = () => {
                                     data-bs-placement='top'
                                     title='Delete employee '
                                   >
-                                    <i className='fa fa-trash'></i>
+                                    <i className='fa fa-trash'></i> Delete
                                   </button>
                                 </>
                               )}
@@ -234,7 +234,7 @@ const DiscountScreen = () => {
                                 data-bs-placement='top'
                                 title='Employee Info'
                               >
-                                <i className='fa fa-info'></i>
+                                <i className='fa fa-info'></i> View
                               </button>
                             </td>
                           </tr>

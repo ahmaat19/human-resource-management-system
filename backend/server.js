@@ -10,6 +10,7 @@ import leaveRoutes from './routes/leaveRoutes.js'
 import discountRoutes from './routes/discountRoutes.js'
 import departmentRoutes from './routes/departmentRoutes.js'
 import employeeRoutes from './routes/employeeRoutes.js'
+import writeUpRoutes from './routes/writeUpRoutes.js'
 
 dotenv.config()
 
@@ -28,6 +29,7 @@ app.use('/api/leaves', leaveRoutes)
 app.use('/api/departments', departmentRoutes)
 app.use('/api/discounts', discountRoutes)
 app.use('/api/employees', employeeRoutes)
+app.use('/api/writeUp', writeUpRoutes)
 
 const __dirname = path.resolve()
 

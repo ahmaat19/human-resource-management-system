@@ -175,7 +175,7 @@ const DepartmentScreen = () => {
         </div>
       </div>
 
-      <div className='d-flex justify-content-between'>
+      <div className='d-flex justify-content-between align-items-center'>
         <h1>Department</h1>
         <button
           className='btn btn-light btn-sm'
@@ -229,14 +229,14 @@ const DepartmentScreen = () => {
                           data-bs-toggle='modal'
                           data-bs-target='#departmentModal'
                         >
-                          <i className='fas fa-edit'></i>
+                          <i className='fas fa-edit'></i> Edit
                         </button>
                         {userInfo && userInfo.isAdmin && (
                           <button
                             className='btn btn-danger btn-sm'
                             onClick={() => deleteHandler(dep._id)}
                           >
-                            <i className='fas fa-trash'></i>
+                            <i className='fas fa-trash'></i> Delete
                           </button>
                         )}
                       </td>

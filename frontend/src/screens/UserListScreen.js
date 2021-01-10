@@ -218,7 +218,7 @@ const UserListScreen = () => {
         </div>
       </div>
 
-      <div className='d-flex justify-content-between'>
+      <div className='d-flex justify-content-between align-items-center'>
         <h1>Users</h1>
         <button
           className='btn btn-light btn-sm'
@@ -279,14 +279,14 @@ const UserListScreen = () => {
                         data-bs-toggle='modal'
                         data-bs-target='#editUserModal'
                       >
-                        <i className='fas fa-edit'></i>
+                        <i className='fas fa-edit'></i> Edit
                       </button>
 
                       <button
                         className='btn btn-danger btn-sm'
                         onClick={() => deleteHandler(user._id)}
                       >
-                        <i className='fas fa-trash'></i>
+                        <i className='fas fa-trash'></i> Delete
                       </button>
                     </td>
                   </tr>

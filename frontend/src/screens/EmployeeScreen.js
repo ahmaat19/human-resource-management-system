@@ -298,7 +298,7 @@ const EmployeeScreen = () => {
         </div>
       </div>
 
-      <div className='d-flex justify-content-between'>
+      <div className='d-flex justify-content-between align-items-center'>
         <h1>Employee</h1>
         <button
           className='btn btn-light btn-sm'
@@ -328,7 +328,6 @@ const EmployeeScreen = () => {
             <table className='table table-sm hover bordered striped'>
               <thead>
                 <tr>
-                  <th>Date & Time</th>
                   <th>Emp. ID</th>
                   <th>Name</th>
                   <th>Mobile</th>
@@ -344,11 +343,6 @@ const EmployeeScreen = () => {
                       key={employee._id}
                       id={!employee.active ? 'inActiveRow' : ''}
                     >
-                      <td>
-                        <Moment format='YYYY-MM-DD HH:mm:ss'>
-                          {moment(employee.date)}
-                        </Moment>
-                      </td>
                       <td>{employee.emp_id}</td>
                       <td>{employee.name}</td>
                       <td>{employee.mobile}</td>
@@ -360,23 +354,32 @@ const EmployeeScreen = () => {
                           data-bs-toggle='modal'
                           data-bs-target='#employeeModal'
                         >
-                          <i className='fas fa-edit'></i>
+                          <i className='fas fa-edit'></i> Edit
                         </button>{' '}
                         {userInfo && userInfo.isAdmin && (
                           <button
                             className='btn btn-danger btn-sm'
                             onClick={() => deleteHandler(employee._id)}
                           >
-                            <i className='fas fa-trash'></i>
+                            <i className='fas fa-trash'></i> Delete
                           </button>
                         )}
                         {employee.active && (
-                          <Link
-                            to={`/leave/${employee._id}`}
-                            className='btn btn-dark btn-sm'
-                          >
-                            <i className='fas fa-share'></i>
-                          </Link>
+                          <>
+                            <Link
+                              to={`/leave/${employee._id}`}
+                              className='btn btn-dark btn-sm'
+                            >
+                              <i className='fas fa-share'></i> L. Request
+                            </Link>
+                            <Link
+                              to={`/write-up/${employee._id}`}
+                              className='btn btn-warning btn-sm'
+                            >
+                              <i className='fas fa-exclamation-triangle'></i>{' '}
+                              Write Up
+                            </Link>
+                          </>
                         )}
                       </td>
                     </tr>
