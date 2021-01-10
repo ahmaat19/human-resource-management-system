@@ -5,37 +5,60 @@ import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 import { listLeave } from '../actions/leaveActions'
+import { listWriteUp } from '../actions/writeUpActions'
+import LeaveReportScreen from './LeaveReportScreen'
+import WriteUpReportScreen from './WriteUpReportScreen'
 
 const ReportScreen = () => {
   const [search, setSearch] = useState('')
+  const [reportType, setReportType] = useState('Leave Report')
 
   const dispatch = useDispatch()
   const leaveList = useSelector((state) => state.leaveList)
   const { leaves, error, loading } = leaveList
 
+  const writeUpList = useSelector((state) => state.writeUpList)
+  const { writeUps, error: writeUpError, loading: writeUpLoading } = writeUpList
+
   useEffect(() => {
     dispatch(listLeave())
+    dispatch(listWriteUp())
   }, [dispatch])
 
   const submitHandler = (e) => {
     e.preventDefault()
   }
 
-  const newSearchedArray =
+  const newSearchedLeaveArray =
     leaves &&
     leaves.filter(
       (lea) => lea.employee.emp_id.toLowerCase() === search.toLowerCase()
     )
 
-  return loading ? (
+  const newSearchedWriteUpArray =
+    writeUps &&
+    writeUps.filter(
+      (write) => write.employee.emp_id.toLowerCase() === search.toLowerCase()
+    )
+
+  return loading || writeUpLoading ? (
     <Loader />
-  ) : error ? (
+  ) : error || writeUpError ? (
     <Message variant='danger'>{error}</Message>
   ) : (
     <>
       <form onSubmit={submitHandler}>
         <label htmlFor='search'>Search Employee By ID</label>
         <div className='input-group mb-3'>
+          <select
+            className='btn border-1 border-light bt-sm dropdown-toggle'
+            name='reportType'
+            onChange={(e) => setReportType(e.target.value)}
+            value={reportType}
+          >
+            <option value='Leave Report'>Leave Report</option>
+            <option value='Write Up Report'>Write Up Report</option>
+          </select>
           <input
             required
             name='search'
@@ -45,80 +68,21 @@ const ReportScreen = () => {
             className='form-control '
             placeholder='e.g. YH-A###'
           />
-
-          <span
-            className='input-group-text bg-dark text-light'
-            id='basic-addon2'
-          >
-            <i className='fa fa-search'></i>
-          </span>
         </div>
       </form>
 
-      {newSearchedArray.length > 0 ? (
-        newSearchedArray.map((data, index) => (
-          <div className='row' key={data._id}>
-            <div className='col-12'>
-              <h5 className='text-center text-uppercase text-light bg-dark p-3'>
-                {index + 1} - Leave -
-                {moment(data.start_date).format('Do MMM YYYY ')}
-              </h5>
-            </div>
-
-            <div className='col-4'>
-              <label htmlFor='' className='font-weight-bolder'>
-                Employee ID
-              </label>
-            </div>
-            <div className='col-8 text-primary'>
-              {data.employee && data.employee.emp_id}
-            </div>
-
-            <div className='col-4'>
-              <label htmlFor='' className='font-weight-bolder'>
-                Employee Name
-              </label>
-            </div>
-            <div className='col-8 text-primary'>
-              {data.employee && data.employee.name}
-            </div>
-
-            <div className='col-4'>
-              <label htmlFor='' className='font-weight-bolder'>
-                Department
-              </label>
-            </div>
-            <div className='col-8 text-primary'>
-              {data.employee && data.employee.department.name}
-            </div>
-
-            <div className='col-4'>
-              <label htmlFor='' className='font-weight-bolder'>
-                Leave Type
-              </label>
-            </div>
-            <div className='col-8 text-primary'> {data.leave}</div>
-
-            <div className='col-4'>
-              <label htmlFor='' className='font-weight-bolder'>
-                Date
-              </label>
-            </div>
-            <div className='col-8 text-primary'>
-              <Moment format='YYYY-MM-DD '>{moment(data.start_date)}</Moment>-
-              <Moment format=' YYYY-MM-DD '>{moment(data.end_date)}</Moment>
-            </div>
-
-            <div className='col-4'>
-              <label htmlFor='' className='font-weight-bolder'>
-                Description
-              </label>
-            </div>
-            <div className='col-8 text-primary'>{data.description}</div>
-          </div>
-        ))
+      {reportType === 'Leave Report' ? (
+        <LeaveReportScreen
+          newSearchedLeaveArray={newSearchedLeaveArray}
+          moment={moment}
+          Moment={Moment}
+        />
       ) : (
-        <p className='text-center text-danger'>No leave records was found!</p>
+        <WriteUpReportScreen
+          newSearchedWriteUpArray={newSearchedWriteUpArray}
+          moment={moment}
+          Moment={Moment}
+        />
       )}
     </>
   )

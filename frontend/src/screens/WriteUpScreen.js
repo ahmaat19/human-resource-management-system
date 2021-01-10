@@ -364,7 +364,7 @@ const WriteUpScreen = ({ match }) => {
                     return (
                       <tr key={writeUp._id}>
                         <td>
-                          <Moment format='YYYY-MM-DD'>
+                          <Moment format='YYYY-MM-DD HH:mm'>
                             {moment(writeUp.createdAt)}
                           </Moment>
                         </td>
