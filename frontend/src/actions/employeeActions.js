@@ -78,7 +78,7 @@ export const createEmployee = (empData) => async (dispatch, getState) => {
   }
 }
 
-export const updateEmployee = (empData) => async (dispatch, getState) => {
+export const updateEmployee = (empData, _id) => async (dispatch, getState) => {
   try {
     dispatch({ type: EMPLOYEE_UPDATE_REQUEST })
 
@@ -93,7 +93,7 @@ export const updateEmployee = (empData) => async (dispatch, getState) => {
       },
     }
 
-    await axios.put(`/api/employees/${empData._id}`, empData, config)
+    await axios.put(`/api/employees/${_id}`, empData, config)
 
     dispatch({
       type: EMPLOYEE_UPDATE_SUCCESS,

@@ -7,11 +7,11 @@ const employeeScheme = mongoose.Schema(
       ref: 'User',
       required: true,
     },
-    emp_id: {
+    employeeId: {
       type: String,
       required: true,
     },
-    name: {
+    employeeName: {
       type: String,
       required: true,
     },
@@ -20,6 +20,34 @@ const employeeScheme = mongoose.Schema(
       required: true,
     },
     mobile: {
+      type: Number,
+      required: true,
+    },
+    employmentType: {
+      type: String,
+      required: true,
+    },
+    hiredDate: {
+      type: Date,
+      required: true,
+    },
+    national: {
+      type: String,
+      required: true,
+    },
+    birthday: {
+      type: Date,
+      required: true,
+    },
+    position: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Position',
+    },
+    address: {
+      type: String,
+      required: true,
+    },
+    email: {
       type: String,
       required: true,
     },
@@ -27,10 +55,17 @@ const employeeScheme = mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Department',
     },
+    document: {
+      documentName: {
+        type: String,
+      },
+      documentPath: {
+        type: String,
+      },
+    },
     active: {
       type: Boolean,
       default: true,
-      required: true,
     },
   },
   {

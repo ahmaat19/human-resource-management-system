@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import ReactPaginate from 'react-paginate'
+import moment from 'moment'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
@@ -14,25 +14,39 @@ import {
 import { confirmAlert } from 'react-confirm-alert'
 import { Confirm } from '../components/Confirm'
 import { listDepartment } from '../actions/departmentActions'
-
-const initialValues = {
-  _id: null,
-  name: '',
-  emp_id: '',
-  mobile: '',
-  gender: '',
-  department: '',
-}
+import { listPosition } from '../actions/positionActions'
+import { FaMinus, FaPlus } from 'react-icons/fa'
+import Pagination from '../components/Pagination'
 
 const EmployeeScreen = () => {
-  const [values, setValues] = useState(initialValues)
+  const [activeProfile, setActiveProfile] = useState(true)
+  const [activePrivate, setActivePrivate] = useState(false)
+  const [activeDocuments, setActiveDocuments] = useState(false)
+
+  const [employeeId, setEmployeeId] = useState('')
+  const [employeeName, setEmployeeName] = useState('')
+  const [employmentType, setEmploymentType] = useState('')
+  const [department, setDepartment] = useState('')
+  const [position, setPosition] = useState('')
+  const [hiredDate, setHiredDate] = useState('')
+  const [national, setNational] = useState('')
+  const [birthday, setBirthday] = useState('')
+  const [address, setAddress] = useState('')
+  const [mobile, setMobile] = useState('')
+  const [email, setEmail] = useState('')
+  const [gender, setGender] = useState('')
+  const [document, setDocument] = useState('')
   const [edit, setEdit] = useState(false)
   const [active, setActive] = useState(true)
+  const [_id, set_id] = useState(null)
 
   const dispatch = useDispatch()
 
   const departmentList = useSelector((state) => state.departmentList)
   const { departments } = departmentList
+
+  const positionList = useSelector((state) => state.positionList)
+  const { positions } = positionList
 
   const employeeList = useSelector((state) => state.employeeList)
   const { employees, error, loading } = employeeList
@@ -62,26 +76,27 @@ const EmployeeScreen = () => {
   const { userInfo } = userLogin
 
   const formCleanHandler = () => {
-    setValues({
-      ...values,
-      _id: '',
-      name: '',
-      emp_id: '',
-      mobile: '',
-      gender: '',
-      department: '',
-    })
+    setEmployeeId('')
+    setEmployeeName('')
+    setEmploymentType('')
+    setDepartment('')
+    setPosition('')
+    setHiredDate('')
+    setNational()
+    setBirthday('')
+    setAddress('')
+    setMobile('')
+    setEmail('')
+    setGender('')
+    setDocument('')
     setActive(true)
     setEdit(false)
-  }
-
-  const handleChange = (e) => {
-    setValues({ ...values, [e.target.name]: e.target.value })
   }
 
   useEffect(() => {
     dispatch(listEmployee())
     dispatch(listDepartment())
+    dispatch(listPosition())
     if (successCreate || successUpdate) {
       formCleanHandler()
     }
@@ -95,30 +110,45 @@ const EmployeeScreen = () => {
   const submitHandler = (e) => {
     e.preventDefault()
 
-    const objValues = {
-      emp_id: values.emp_id,
-      name: values.name,
-      mobile: values.mobile,
-      gender: values.gender,
-      department: values.department,
-      active,
-      _id: values._id,
-    }
+    const formData = new FormData()
+
+    formData.append('employeeId', employeeId)
+    formData.append('employeeName', employeeName)
+    formData.append('gender', gender)
+    formData.append('mobile', mobile)
+    formData.append('employmentType', employmentType)
+    formData.append('hiredDate', hiredDate)
+    formData.append('national', national)
+    formData.append('birthday', birthday)
+    formData.append('position', position)
+    formData.append('address', address)
+    formData.append('email', email)
+    formData.append('department', department)
+    formData.append('active', active)
+    formData.append('document', document)
+
     edit
-      ? dispatch(updateEmployee(objValues))
-      : dispatch(createEmployee(objValues))
+      ? dispatch(updateEmployee(formData, _id))
+      : dispatch(createEmployee(formData))
+    console.log('form submitted')
   }
 
   const editHandler = (e) => {
-    setValues({
-      ...values,
-      _id: e._id,
-      name: e.name,
-      emp_id: e.emp_id,
-      mobile: e.mobile,
-      gender: e.gender,
-      department: e.department._id,
-    })
+    console.log(e)
+    setEmployeeId(e.employeeId)
+    setEmployeeName(e.employeeName)
+    setEmploymentType(e.employmentType)
+    setDepartment(e.department._id)
+    setPosition(e.position._id)
+    setHiredDate(moment(e.hiredDate).format('YYYY-MM-DD'))
+    setNational(e.national)
+    setBirthday(moment(e.birthday).format('YYYY-MM-DD'))
+    setAddress(e.address)
+    setMobile(e.mobile)
+    setEmail(e.email)
+    setGender(e.gender)
+    set_id(e._id)
+
     setActive(e.active)
     setEdit(true)
   }
@@ -143,8 +173,8 @@ const EmployeeScreen = () => {
         aria-labelledby='employeeModalLabel'
         aria-hidden='true'
       >
-        <div className='modal-dialog'>
-          <div className='modal-content modal-background'>
+        <div className='modal-dialog modal-lg modal-dialog-scrollable'>
+          <div className='modal-content modal-background '>
             <div className='modal-header'>
               <h5 className='modal-title' id='employeeModalLabel'>
                 {edit ? 'Edit Employee' : 'Add Employee'}
@@ -184,113 +214,254 @@ const EmployeeScreen = () => {
               ) : error ? (
                 <Message variant='danger'>{error}</Message>
               ) : (
-                <form onSubmit={submitHandler}>
-                  <div className='row gy-2'>
-                    <div className='form-group'>
-                      <label htmlFor='emp_id'>Employee ID</label>
-                      <input
-                        name='emp_id'
-                        onChange={handleChange}
-                        type='text'
-                        value={values.emp_id}
-                        className='form-control py-2'
-                        placeholder='Enter employee ID'
-                      />
-                    </div>
+                <div>
+                  <form onSubmit={(e) => submitHandler(e)}>
+                    <div className='row g-3'>
+                      <div className='col-12'>
+                        <span className='form-control text-center bg-dark text-light fs-6 fw-light'>
+                          PROFILE INFO
+                          <span className='float-end'>
+                            {activeProfile ? (
+                              <FaMinus
+                                onClick={() => setActiveProfile(false)}
+                              />
+                            ) : (
+                              <FaPlus onClick={() => setActiveProfile(true)} />
+                            )}
+                          </span>
+                        </span>
+                      </div>
+                      {activeProfile && (
+                        <>
+                          <div className='col-lg-4 col-md-6 col-sm-12 col-12'>
+                            <label htmlFor='employeeId'>Employee ID</label>
+                            <input
+                              type='text'
+                              className='form-control'
+                              placeholder='Employee ID'
+                              name='employeeId'
+                              value={employeeId}
+                              onChange={(e) => setEmployeeId(e.target.value)}
+                            />
+                          </div>
 
-                    <div className='form-group'>
-                      <label htmlFor='name'>Employee Name</label>
-                      <input
-                        name='name'
-                        onChange={handleChange}
-                        type='text'
-                        value={values.name}
-                        className='form-control py-2'
-                        placeholder='Enter employee name'
-                      />
-                    </div>
+                          <div className='col-lg-4 col-md-6 col-sm-12 col-12'>
+                            <label htmlFor='employeeName'>Employee Name</label>
+                            <input
+                              type='text'
+                              className='form-control'
+                              placeholder='Employee Name'
+                              name='employeeName'
+                              value={employeeName}
+                              onChange={(e) => setEmployeeName(e.target.value)}
+                            />
+                          </div>
 
-                    <div className='form-group'>
-                      <label htmlFor='gender'>Gender</label>
-                      <select
-                        name='gender'
-                        onChange={handleChange}
-                        value={values.gender}
-                        className='form-control py-2'
-                      >
-                        <option value='' disabled>
-                          Gender...
-                        </option>
-                        <option value='Male'>Male</option>
-                        <option value='Female'>Female</option>
-                      </select>
-                    </div>
+                          <div className='col-lg-4 col-md-6 col-sm-12 col-12'>
+                            <label htmlFor='employmentType'>
+                              Employment Type
+                            </label>
+                            <select
+                              type='text'
+                              className='form-control'
+                              name='employmentType'
+                              value={employmentType}
+                              onChange={(e) =>
+                                setEmploymentType(e.target.value)
+                              }
+                            >
+                              <option value=''>---------</option>
+                              <option value='Permanent'>Permanent</option>
+                              <option value='Temporary'>Temporary</option>
+                            </select>
+                          </div>
 
-                    <div className='form-group'>
-                      <label htmlFor='mobile'>Mobile</label>
-                      <input
-                        name='mobile'
-                        onChange={handleChange}
-                        type='text'
-                        value={values.mobile}
-                        className='form-control py-2'
-                        placeholder='Enter mobile'
-                      />
-                    </div>
+                          <div className='col-lg-4 col-md-6 col-sm-12 col-12'>
+                            <label htmlFor='department'>Department</label>
+                            <select
+                              type='text'
+                              className='form-control'
+                              name='department'
+                              value={department}
+                              onChange={(e) => setDepartment(e.target.value)}
+                            >
+                              <option value=''>---------</option>
+                              {departments &&
+                                departments.map((department) => (
+                                  <option
+                                    key={department._id}
+                                    value={department._id}
+                                  >
+                                    {department.name}
+                                  </option>
+                                ))}
+                            </select>
+                          </div>
 
-                    <div className='form-group'>
-                      <label htmlFor='department'>Department Name</label>
-                      <select
-                        name='department'
-                        onChange={handleChange}
-                        value={values.department}
-                        className='form-control py-2'
-                      >
-                        <option value='' disabled>
-                          Department...
-                        </option>
-                        {departments &&
-                          departments.map((department) => {
-                            return (
-                              <option
-                                key={department._id}
-                                value={department._id}
-                              >
-                                {department.name}
-                              </option>
-                            )
-                          })}
-                      </select>
-                    </div>
+                          <div className='col-lg-4 col-md-6 col-sm-12 col-12'>
+                            <label htmlFor='position'>Position</label>
+                            <select
+                              type='text'
+                              className='form-control'
+                              name='position'
+                              value={position}
+                              onChange={(e) => setPosition(e.target.value)}
+                            >
+                              <option value=''>---------</option>
+                              {positions &&
+                                positions.map((position) => (
+                                  <option
+                                    key={position._id}
+                                    value={position._id}
+                                  >
+                                    {position.name}
+                                  </option>
+                                ))}
+                            </select>
+                          </div>
 
-                    <div className='form-group'>
-                      <input
-                        type='checkbox'
-                        id='active'
-                        label='active'
-                        checked={active}
-                        onChange={(e) => setActive(e.target.checked)}
-                      />{' '}
-                      <label htmlFor='active' id='active'>
-                        Active?
-                      </label>
-                    </div>
+                          <div className='col-lg-4 col-md-6 col-sm-12 col-12'>
+                            <label htmlFor='hiredDate'>Hired Date</label>
+                            <input
+                              type='date'
+                              className='form-control'
+                              name='hiredDate'
+                              value={hiredDate}
+                              onChange={(e) => setHiredDate(e.target.value)}
+                            />
+                          </div>
+                        </>
+                      )}
+                      <div className='col-12'>
+                        <span className='form-control text-center bg-dark text-light fs-6 fw-light'>
+                          PRIVATE INFO
+                          <span className='float-end'>
+                            {activePrivate ? (
+                              <FaMinus
+                                onClick={() => setActivePrivate(false)}
+                              />
+                            ) : (
+                              <FaPlus onClick={() => setActivePrivate(true)} />
+                            )}
+                          </span>
+                        </span>
+                      </div>
 
-                    <div className='modal-footer'>
-                      <button
-                        type='button'
-                        className='btn btn-secondary'
-                        data-bs-dismiss='modal'
-                        onClick={formCleanHandler}
-                      >
-                        Close
-                      </button>
-                      <button type='submit' className='btn btn-primary'>
-                        Submit
-                      </button>
+                      {activePrivate && (
+                        <>
+                          <div className='col-lg-4 col-md-6 col-sm-12 col-12'>
+                            <label htmlFor='national'>National</label>
+                            <input
+                              type='text'
+                              className='form-control'
+                              placeholder='National'
+                              name='national'
+                              value={national}
+                              onChange={(e) => setNational(e.target.value)}
+                            />
+                          </div>
+
+                          <div className='col-lg-4 col-md-6 col-sm-12 col-12'>
+                            <label htmlFor='birthday'>Birthday</label>
+                            <input
+                              type='date'
+                              className='form-control'
+                              name='birthday'
+                              value={birthday}
+                              onChange={(e) => setBirthday(e.target.value)}
+                            />
+                          </div>
+
+                          <div className='col-lg-4 col-md-6 col-sm-12 col-12'>
+                            <label htmlFor='address'>Address</label>
+                            <input
+                              type='text'
+                              className='form-control'
+                              placeholder='Address'
+                              name='address'
+                              value={address}
+                              onChange={(e) => setAddress(e.target.value)}
+                            />
+                          </div>
+
+                          <div className='col-lg-4 col-md-6 col-sm-12 col-12'>
+                            <label htmlFor='mobile'>Mobile</label>
+                            <input
+                              type='number'
+                              min='0'
+                              className='form-control'
+                              placeholder='Mobile'
+                              name='mobile'
+                              value={mobile}
+                              onChange={(e) => setMobile(e.target.value)}
+                            />
+                          </div>
+
+                          <div className='col-lg-4 col-md-6 col-sm-12 col-12'>
+                            <label htmlFor='email'>Email</label>
+                            <input
+                              type='email'
+                              className='form-control'
+                              placeholder='Email'
+                              name='email'
+                              value={email}
+                              onChange={(e) => setEmail(e.target.value)}
+                            />
+                          </div>
+
+                          <div className='col-lg-4 col-md-6 col-md-12 col-sm-12 col-12'>
+                            <label htmlFor='gender'>Gender</label>
+                            <select
+                              type='text'
+                              className='form-control'
+                              name='gender'
+                              value={gender}
+                              onChange={(e) => setGender(e.target.value)}
+                            >
+                              <option value=''>---------</option>
+                              <option value='Male'>Male</option>
+                              <option value='Female'>Female</option>
+                            </select>
+                          </div>
+                        </>
+                      )}
+                      <div className='col-12'>
+                        <span className='form-control text-center bg-dark text-light fs-6 fw-light'>
+                          DOCUMENTS INFO
+                          <span className='float-end'>
+                            {activeDocuments ? (
+                              <FaMinus
+                                onClick={() => setActiveDocuments(false)}
+                              />
+                            ) : (
+                              <FaPlus
+                                onClick={() => setActiveDocuments(true)}
+                              />
+                            )}
+                          </span>
+                        </span>
+                      </div>
+                      {activeDocuments && (
+                        <div className='col-12'>
+                          <label htmlFor='document formFile'>
+                            Upload Employee Related Documents
+                          </label>
+                          <input
+                            type='file'
+                            className='form-control'
+                            id='formFile'
+                            name='document'
+                            onChange={(e) => setDocument(e.target.files[0])}
+                          />
+                        </div>
+                      )}
+
+                      <div className='col-12 text-right'>
+                        <button className='btn btn-dark  '>Submit</button>
+                      </div>
                     </div>
-                  </div>
-                </form>
+                  </form>
+                </div>
               )}
             </div>
           </div>
@@ -329,8 +500,8 @@ const EmployeeScreen = () => {
                 <tr>
                   <th>Emp. ID</th>
                   <th>Name</th>
-                  <th>Mobile</th>
                   <th>Department</th>
+                  <th>Mobile</th>
                   <th>Action</th>
                 </tr>
               </thead>
@@ -342,10 +513,10 @@ const EmployeeScreen = () => {
                       key={employee._id}
                       id={!employee.active ? 'inActiveRow' : ''}
                     >
-                      <td>{employee.emp_id}</td>
-                      <td>{employee.name}</td>
-                      <td>{employee.mobile}</td>
+                      <td>{employee.employeeId}</td>
+                      <td>{employee.employeeName}</td>
                       <td>{employee.department.name}</td>
+                      <td>{employee.mobile}</td>
                       <td className='btn-group'>
                         <button
                           onClick={() => editHandler(employee)}
@@ -390,25 +561,11 @@ const EmployeeScreen = () => {
               </span>
             )}
             <div className='d-flex justify-content-center'>
-              <ReactPaginate
-                previousLabel='previous'
-                previousClassName='page-item'
-                previousLinkClassName='page-link'
-                nextLabel='next'
-                nextClassName='page-item'
-                nextLinkClassName='page-link'
-                pageClassName='page-item'
-                pageLinkClassName='page-link'
-                activeClassName='page-item active'
-                activeLinkClassName={'page-link'}
-                breakLabel={'...'}
-                breakClassName={'page-item'}
-                breakLinkClassName={'page-link'}
-                pageCount={totalItems && totalItems}
-                marginPagesDisplayed={2}
-                pageRangeDisplayed={2}
-                onPageChange={(e) => setCurrentPage(e.selected + 1)}
-                containerClassName={'page pagination'}
+              <Pagination
+                setCurrentPage={setCurrentPage}
+                totalItems={totalItems}
+                arrayLength={employees && employees.length}
+                itemsPerPage={itemsPerPage}
               />
             </div>
           </div>

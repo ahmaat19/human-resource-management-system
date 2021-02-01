@@ -32,13 +32,14 @@ const ReportScreen = () => {
   const newSearchedLeaveArray =
     leaves &&
     leaves.filter(
-      (lea) => lea.employee.emp_id.toLowerCase() === search.toLowerCase()
+      (lea) => lea.employee.employeeId.toLowerCase() === search.toLowerCase()
     )
 
   const newSearchedWriteUpArray =
     writeUps &&
     writeUps.filter(
-      (write) => write.employee.emp_id.toLowerCase() === search.toLowerCase()
+      (write) =>
+        write.employee.employeeId.toLowerCase() === search.toLowerCase()
     )
 
   return loading || writeUpLoading ? (

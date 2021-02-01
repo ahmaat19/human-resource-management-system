@@ -59,7 +59,7 @@ const HomeScreen = ({ match }) => {
               {currentItems &&
                 currentItems.map((leave) => (
                   <tr key={leave._id}>
-                    <td>{leave.employee && leave.employee.name}</td>
+                    <td>{leave.employee && leave.employee.employeeName}</td>
                     <td>{leave.employee && leave.employee.department.name}</td>
                     <td>{leave.leave}</td>
                     <td>

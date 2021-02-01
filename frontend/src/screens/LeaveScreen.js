@@ -189,7 +189,7 @@ const LeaveScreen = ({ match }) => {
                                     key={employee._id}
                                     value={employee._id}
                                   >
-                                    {employee.emp_id}
+                                    {employee.employeeId}
                                   </option>
                                 )
                             )
@@ -199,7 +199,7 @@ const LeaveScreen = ({ match }) => {
                               (emp) =>
                                 emp._id === values.employee && (
                                   <option key={emp._id} value={emp._id}>
-                                    {emp.emp_id}
+                                    {emp.employeeId}
                                   </option>
                                 )
                             )}
@@ -363,8 +363,8 @@ const LeaveScreen = ({ match }) => {
                   currentItems.map((leave) => {
                     return (
                       <tr key={leave._id}>
-                        <td>{leave.employee.emp_id}</td>
-                        <td>{leave.employee.name}</td>
+                        <td>{leave.employee.employeeId}</td>
+                        <td>{leave.employee.employeeName}</td>
                         <td>{leave.leave}</td>
                         <td>
                           <Moment format='YYYY-MM-DD'>

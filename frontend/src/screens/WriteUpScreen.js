@@ -186,7 +186,7 @@ const WriteUpScreen = ({ match }) => {
                                     key={employee._id}
                                     value={employee._id}
                                   >
-                                    {employee.emp_id}
+                                    {employee.employeeId}
                                   </option>
                                 )
                             )
@@ -196,7 +196,7 @@ const WriteUpScreen = ({ match }) => {
                               (emp) =>
                                 emp._id === values.employee && (
                                   <option key={emp._id} value={emp._id}>
-                                    {emp.emp_id}
+                                    {emp.employeeId}
                                   </option>
                                 )
                             )}
@@ -228,7 +228,7 @@ const WriteUpScreen = ({ match }) => {
                               (emp) =>
                                 emp._id === values.employee && (
                                   <option key={emp._id} value={emp._id}>
-                                    {emp.name}
+                                    {emp.employeeName}
                                   </option>
                                 )
                             )}
@@ -368,7 +368,7 @@ const WriteUpScreen = ({ match }) => {
                             {moment(writeUp.createdAt)}
                           </Moment>
                         </td>
-                        <td>{writeUp.employee.emp_id}</td>
+                        <td>{writeUp.employee.employeeId}</td>
                         <td>{writeUp.employee.name}</td>
                         <td>{writeUp.offenseCommitted}</td>
 

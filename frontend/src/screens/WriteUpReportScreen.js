@@ -17,7 +17,7 @@ const WriteUpReportScreen = ({ newSearchedWriteUpArray, Moment, moment }) => {
               </label>
             </div>
             <div className='col-8 text-primary'>
-              {data.employee && data.employee.emp_id}
+              {data.employee && data.employee.employeeId}
             </div>
 
             <div className='col-4'>
