@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
+import { FaEdit, FaTrash } from 'react-icons/fa'
 import {
   listUsers,
   deleteUser,
@@ -279,14 +280,14 @@ const UserListScreen = () => {
                         data-bs-toggle='modal'
                         data-bs-target='#editUserModal'
                       >
-                        <i className='fas fa-edit'></i> Edit
+                        <FaEdit /> Edit
                       </button>
 
                       <button
                         className='btn btn-danger btn-sm'
                         onClick={() => deleteHandler(user._id)}
                       >
-                        <i className='fas fa-trash'></i> Delete
+                        <FaTrash /> Delete
                       </button>
                     </td>
                   </tr>

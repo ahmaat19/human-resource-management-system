@@ -13,12 +13,6 @@ const Header = () => {
 
   const authLinks = (
     <ul className='navbar-nav mr-right mb-2 mb-lg-0'>
-      <li className='nav-item'>
-        <Link to='/discount' className='nav-link'>
-          Discount
-        </Link>
-      </li>
-
       <li className='nav-item dropdown'>
         <span
           className='nav-link dropdown-toggle'
@@ -36,11 +30,26 @@ const Header = () => {
             </Link>
           </li>
           <li>
+            <Link to='/position' className='dropdown-item'>
+              Position
+            </Link>
+          </li>
+          <li>
             <Link to='/employee' className='dropdown-item'>
               Employee
             </Link>
           </li>
+          <li>
+            <Link to='/resign' className='dropdown-item'>
+              Resign
+            </Link>
+          </li>
         </ul>
+      </li>
+      <li className='nav-item'>
+        <Link to='/discount' className='nav-link'>
+          Discount
+        </Link>
       </li>
       <li className='nav-item'>
         <Link to='/report' className='nav-link'>

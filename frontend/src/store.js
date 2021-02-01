@@ -20,6 +20,13 @@ import {
 } from './reducers/departmentReducers'
 
 import {
+  positionListReducer,
+  positionCreateReducer,
+  positionUpdateReducer,
+  positionDeleteReducer,
+} from './reducers/positionReducers'
+
+import {
   discountListReducer,
   discountCreateReducer,
   discountUpdateReducer,
@@ -61,6 +68,11 @@ const reducer = combineReducers({
   departmentCreate: departmentCreateReducer,
   departmentUpdate: departmentUpdateReducer,
   departmentDelete: departmentDeleteReducer,
+
+  positionList: positionListReducer,
+  positionCreate: positionCreateReducer,
+  positionUpdate: positionUpdateReducer,
+  positionDelete: positionDeleteReducer,
 
   discountList: discountListReducer,
   discountCreate: discountCreateReducer,

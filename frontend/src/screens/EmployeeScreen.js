@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import ReactPaginate from 'react-paginate'
-import Moment from 'react-moment'
-import moment from 'moment'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
+import { FaEdit, FaExclamationTriangle, FaShare, FaTrash } from 'react-icons/fa'
 import {
   listEmployee,
   createEmployee,
@@ -354,14 +353,14 @@ const EmployeeScreen = () => {
                           data-bs-toggle='modal'
                           data-bs-target='#employeeModal'
                         >
-                          <i className='fas fa-edit'></i> Edit
+                          <FaEdit /> Edit
                         </button>{' '}
                         {userInfo && userInfo.isAdmin && (
                           <button
                             className='btn btn-danger btn-sm'
                             onClick={() => deleteHandler(employee._id)}
                           >
-                            <i className='fas fa-trash'></i> Delete
+                            <FaTrash /> Delete
                           </button>
                         )}
                         {employee.active && (
@@ -370,14 +369,13 @@ const EmployeeScreen = () => {
                               to={`/leave/${employee._id}`}
                               className='btn btn-dark btn-sm'
                             >
-                              <i className='fas fa-share'></i> L. Request
+                              <FaShare /> L. Request
                             </Link>
                             <Link
                               to={`/write-up/${employee._id}`}
                               className='btn btn-warning btn-sm'
                             >
-                              <i className='fas fa-exclamation-triangle'></i>{' '}
-                              Write Up
+                              <FaExclamationTriangle /> Write Up
                             </Link>
                           </>
                         )}

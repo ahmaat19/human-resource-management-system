@@ -9,6 +9,7 @@ import userRoutes from './routes/userRoutes.js'
 import leaveRoutes from './routes/leaveRoutes.js'
 import discountRoutes from './routes/discountRoutes.js'
 import departmentRoutes from './routes/departmentRoutes.js'
+import positionRoutes from './routes/positionRoutes.js'
 import employeeRoutes from './routes/employeeRoutes.js'
 import writeUpRoutes from './routes/writeUpRoutes.js'
 
@@ -27,6 +28,7 @@ app.use(express.json())
 app.use('/api/users', userRoutes)
 app.use('/api/leaves', leaveRoutes)
 app.use('/api/departments', departmentRoutes)
+app.use('/api/positions', positionRoutes)
 app.use('/api/discounts', discountRoutes)
 app.use('/api/employees', employeeRoutes)
 app.use('/api/writeUp', writeUpRoutes)

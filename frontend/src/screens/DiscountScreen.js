@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import ReactPaginate from 'react-paginate'
+import Pagination from '../components/Pagination'
 import Moment from 'react-moment'
 import moment from 'moment'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
+import { FaEdit, FaInfoCircle, FaTrash } from 'react-icons/fa'
 import {
   listDiscount,
   createDiscount,
@@ -214,7 +215,7 @@ const DiscountScreen = () => {
                                     data-bs-placement='top'
                                     title='Edit Info'
                                   >
-                                    <i className='fa fa-edit'></i> Edit
+                                    <FaEdit /> Edit
                                   </button>
                                   <button
                                     onClick={() => deleteHandler(discount._id)}
@@ -222,7 +223,7 @@ const DiscountScreen = () => {
                                     data-bs-placement='top'
                                     title='Delete employee '
                                   >
-                                    <i className='fa fa-trash'></i> Delete
+                                    <FaTrash /> Delete
                                   </button>
                                 </>
                               )}
@@ -234,7 +235,7 @@ const DiscountScreen = () => {
                                 data-bs-placement='top'
                                 title='Employee Info'
                               >
-                                <i className='fa fa-info'></i> View
+                                <FaInfoCircle /> View
                               </button>
                             </td>
                           </tr>
@@ -249,25 +250,11 @@ const DiscountScreen = () => {
                   </span>
                 )}
                 <div className='d-flex justify-content-center'>
-                  <ReactPaginate
-                    previousLabel='previous'
-                    previousClassName='page-item'
-                    previousLinkClassName='page-link'
-                    nextLabel='next'
-                    nextClassName='page-item'
-                    nextLinkClassName='page-link'
-                    pageClassName='page-item'
-                    pageLinkClassName='page-link'
-                    activeClassName='page-item active'
-                    activeLinkClassName={'page-link'}
-                    breakLabel={'...'}
-                    breakClassName={'page-item'}
-                    breakLinkClassName={'page-link'}
-                    pageCount={totalItems && totalItems}
-                    marginPagesDisplayed={2}
-                    pageRangeDisplayed={2}
-                    onPageChange={(e) => setCurrentPage(e.selected + 1)}
-                    containerClassName={'page pagination'}
+                  <Pagination
+                    setCurrentPage={setCurrentPage}
+                    totalItems={totalItems}
+                    arrayLength={discounts && discounts.length}
+                    itemsPerPage={itemsPerPage}
                   />
                 </div>
               </div>

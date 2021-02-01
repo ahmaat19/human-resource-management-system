@@ -7,43 +7,43 @@ import Message from '../components/Message'
 import Loader from '../components/Loader'
 import { FaEdit, FaTrash } from 'react-icons/fa'
 import {
-  listDepartment,
-  createDepartment,
-  updateDepartment,
-  deleteDepartment,
-} from '../actions/departmentActions'
+  listPosition,
+  createPosition,
+  updatePosition,
+  deletePosition,
+} from '../actions/positionActions'
 import { confirmAlert } from 'react-confirm-alert'
 import { Confirm } from '../components/Confirm'
 
-const DepartmentScreen = () => {
+const PositionScreen = () => {
   const [id, setId] = useState(null)
   const [name, setName] = useState('')
   const [edit, setEdit] = useState(false)
 
   const dispatch = useDispatch()
-  const departmentList = useSelector((state) => state.departmentList)
-  const { departments, error, loading } = departmentList
+  const positionList = useSelector((state) => state.positionList)
+  const { positions, error, loading } = positionList
 
-  const departmentCreate = useSelector((state) => state.departmentCreate)
+  const positionCreate = useSelector((state) => state.positionCreate)
   const {
     error: errorCreate,
     loading: loadingCreate,
     success: successCreate,
-  } = departmentCreate
+  } = positionCreate
 
-  const departmentUpdate = useSelector((state) => state.departmentUpdate)
+  const positionUpdate = useSelector((state) => state.positionUpdate)
   const {
     error: errorUpdate,
     loading: loadingUpdate,
     success: successUpdate,
-  } = departmentUpdate
+  } = positionUpdate
 
-  const departmentDelete = useSelector((state) => state.departmentDelete)
+  const positionDelete = useSelector((state) => state.positionDelete)
   const {
     error: errorDelete,
     loading: loadingDelete,
     success: successDelete,
-  } = departmentDelete
+  } = positionDelete
 
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
@@ -54,7 +54,7 @@ const DepartmentScreen = () => {
   }
 
   useEffect(() => {
-    dispatch(listDepartment())
+    dispatch(listPosition())
     if (successCreate || successUpdate) {
       formCleanHandler()
     }
@@ -62,15 +62,15 @@ const DepartmentScreen = () => {
   }, [dispatch, successCreate, successUpdate, successDelete])
 
   const deleteHandler = (id) => {
-    confirmAlert(Confirm(() => dispatch(deleteDepartment(id))))
+    confirmAlert(Confirm(() => dispatch(deletePosition(id))))
   }
 
   const submitHandler = (e) => {
     e.preventDefault()
 
     edit
-      ? dispatch(updateDepartment({ name, id }))
-      : dispatch(createDepartment({ name }))
+      ? dispatch(updatePosition({ name, id }))
+      : dispatch(createPosition({ name }))
   }
 
   const editHandler = (e) => {
@@ -85,25 +85,25 @@ const DepartmentScreen = () => {
   const indexOfLastItem = currentPage * itemsPerPage
   const indexOfFirstItem = indexOfLastItem - itemsPerPage
   const currentItems =
-    departments && departments.slice(indexOfFirstItem, indexOfLastItem)
-  const totalItems = departments && Math.ceil(departments.length / itemsPerPage)
+    positions && positions.slice(indexOfFirstItem, indexOfLastItem)
+  const totalItems = positions && Math.ceil(positions.length / itemsPerPage)
 
   return (
     <>
       <div
         className='modal fade'
-        id='departmentModal'
+        id='positionModal'
         data-bs-backdrop='static'
         data-bs-keyboard='false'
         tabIndex='-1'
-        aria-labelledby='departmentModalLabel'
+        aria-labelledby='positionModalLabel'
         aria-hidden='true'
       >
         <div className='modal-dialog'>
           <div className='modal-content modal-background'>
             <div className='modal-header'>
-              <h5 className='modal-title' id='departmentModalLabel'>
-                {edit ? 'Edit Department' : 'Add Department'}
+              <h5 className='modal-title' id='positionModalLabel'>
+                {edit ? 'Edit Position' : 'Add Position'}
               </h5>
               <button
                 type='button'
@@ -116,7 +116,7 @@ const DepartmentScreen = () => {
             <div className='modal-body'>
               {successCreate && (
                 <Message variant='success'>
-                  Department Registered Successfully
+                  Position Registered Successfully
                 </Message>
               )}
               {loadingCreate ? (
@@ -127,7 +127,7 @@ const DepartmentScreen = () => {
 
               {successUpdate && (
                 <Message variant='success'>
-                  Department Updated Successfully
+                  Position Updated Successfully
                 </Message>
               )}
               {loadingUpdate ? (
@@ -143,7 +143,7 @@ const DepartmentScreen = () => {
                 <form onSubmit={submitHandler}>
                   <div className='row gy-2'>
                     <div className='form-group'>
-                      <label htmlFor='name'>Department Name</label>
+                      <label htmlFor='name'>Position Name</label>
                       <input
                         required
                         name='name'
@@ -151,7 +151,7 @@ const DepartmentScreen = () => {
                         type='text'
                         value={name}
                         className='form-control '
-                        placeholder='Enter department name'
+                        placeholder='Enter position name'
                       />
                     </div>
 
@@ -177,19 +177,19 @@ const DepartmentScreen = () => {
       </div>
 
       <div className='d-flex justify-content-between align-items-center'>
-        <h1>Department</h1>
+        <h1>Position</h1>
         <button
           className='btn btn-light btn-sm'
           data-bs-toggle='modal'
-          data-bs-target='#departmentModal'
+          data-bs-target='#positionModal'
         >
           {' '}
-          <i className='fas fa-plus'></i> REGISTER NEW DEPARTMENT
+          <i className='fas fa-plus'></i> REGISTER NEW POSITION
         </button>
       </div>
 
       {successDelete && (
-        <Message variant='success'>Department Deleted Successfully</Message>
+        <Message variant='success'>Position Deleted Successfully</Message>
       )}
       {loadingDelete ? (
         <Loader />
@@ -207,7 +207,7 @@ const DepartmentScreen = () => {
               <thead>
                 <tr>
                   <th>DATE & TIME</th>
-                  <th>DEPARTMENT</th>
+                  <th>POSITION</th>
 
                   <th></th>
                 </tr>
@@ -228,7 +228,7 @@ const DepartmentScreen = () => {
                           className='btn btn-light btn-sm'
                           onClick={(e) => editHandler(dep)}
                           data-bs-toggle='modal'
-                          data-bs-target='#departmentModal'
+                          data-bs-target='#positionModal'
                         >
                           <FaEdit /> Edit
                         </button>
@@ -245,7 +245,7 @@ const DepartmentScreen = () => {
                   ))}
               </tbody>
             </table>
-            {departments && !loading && departments.length === 0 && (
+            {positions && !loading && positions.length === 0 && (
               <span className='text-danger d-flex justify-content-center'>
                 No data found!
               </span>
@@ -254,7 +254,7 @@ const DepartmentScreen = () => {
               <Pagination
                 setCurrentPage={setCurrentPage}
                 totalItems={totalItems}
-                arrayLength={departments && departments.length}
+                arrayLength={positions && positions.length}
                 itemsPerPage={itemsPerPage}
               />
             </div>
@@ -265,4 +265,4 @@ const DepartmentScreen = () => {
   )
 }
 
-export default DepartmentScreen
+export default PositionScreen

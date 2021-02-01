@@ -11,18 +11,21 @@ import NotFound from '../NotFound'
 import PrivateRoute from '../routes/PrivateRoute'
 import AdminPrivateRoute from '../routes/AdminPrivateRoute'
 import DepartmentScreen from '../../screens/DepartmentScreen'
+import PositionScreen from '../../screens/PositionScreen'
 import DiscountScreen from '../../screens/DiscountScreen'
 import EmployeeScreen from '../../screens/EmployeeScreen'
 import LeaveScreen from '../../screens/LeaveScreen'
 import ReportScreen from '../../screens/ReportScreen'
 import UserLogHistoryScreen from '../../screens/LogHistoryScreen'
 import WriteUpScreen from '../../screens/WriteUpScreen'
+import EmpScreen from '../../screens/EmpScreen'
 
 const Routes = () => {
   return (
     <section className='container'>
       <Switch>
         <Route path='/login' component={LoginScreen} />
+        <Route path='/emp' component={EmpScreen} />
         <PrivateRoute
           path='/admin/users/logs'
           component={UserLogHistoryScreen}
@@ -30,6 +33,7 @@ const Routes = () => {
         <PrivateRoute path='/register' component={RegisterScreen} />
         <PrivateRoute path='/profile' component={ProfileScreen} />
         <AdminPrivateRoute path='/department' component={DepartmentScreen} />
+        <AdminPrivateRoute path='/position' component={PositionScreen} />
         <AdminPrivateRoute path='/report' component={ReportScreen} />
         <AdminPrivateRoute path='/leave/:id' component={LeaveScreen} />
         <AdminPrivateRoute path='/write-up/:id' component={WriteUpScreen} />

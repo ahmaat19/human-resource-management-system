@@ -5,6 +5,7 @@ import moment from 'moment'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
+import { FaEdit, FaTrash } from 'react-icons/fa'
 import {
   listLeave,
   createLeave,
@@ -382,13 +383,13 @@ const LeaveScreen = ({ match }) => {
                             data-bs-toggle='modal'
                             data-bs-target='#leaveModal'
                           >
-                            <i className='fa fa-edit'></i> Edit
+                            <FaEdit /> Edit
                           </button>{' '}
                           <button
                             className='btn btn-danger btn-sm'
                             onClick={() => deleteHandler(leave._id)}
                           >
-                            <i className='fa fa-trash'></i> Delete
+                            <FaTrash /> Delete
                           </button>
                         </td>
                       </tr>
