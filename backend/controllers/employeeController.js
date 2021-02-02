@@ -28,16 +28,27 @@ export const postEmployee = asyncHandler(async (req, res) => {
   } = req.body
   const employeeId = req.body.employeeId.toUpperCase()
   const user = req.user.id
-  const document = req.files.document
+  const document = req.files && req.files.document
 
-  console.log(req.files)
+  if (!document) {
+    res.status(400)
+    throw new Error('Please, upload a document')
+  }
 
-  const documentExt = document.name.slice(-4)
-  const documentName = `${document.name.slice(
-    0,
-    -4
-  )}-${Date.now()}${documentExt}`
+  const documentFullName = document && document.name.split('.').shift()
+  const documentExtension = document && document.name.split('.').pop()
+  const documentName =
+    document && `${documentFullName}-${Date.now()}.${documentExtension}`
   const documentPath = `/uploads/${documentName}`
+
+  const allowedExtensions = /(\.pdf|\.docx|\.doc)$/i
+
+  if (document) {
+    if (!allowedExtensions.exec(document && documentName)) {
+      res.status(400)
+      throw new Error('Invalid document type')
+    }
+  }
 
   let employee = await EmployeeModel.findOne({ employeeId })
 
@@ -86,40 +97,124 @@ export const postEmployee = asyncHandler(async (req, res) => {
 })
 
 export const putEmployee = asyncHandler(async (req, res) => {
-  const { name, gender, mobile, department } = req.body
-  const emp_id = req.body.emp_id.toUpperCase()
+  const {
+    employeeName,
+    gender,
+    mobile,
+    employmentType,
+    hiredDate,
+    national,
+    birthday,
+    position,
+    address,
+    email,
+    department,
+    active,
+  } = req.body
+  const employeeId = req.body.employeeId.toUpperCase()
   const user = req.user.id
-  const active = req.body.active
+  const document = req.files && req.files.document
+
+  const documentFullName = document && document.name.split('.').shift()
+  const documentExtension = document && document.name.split('.').pop()
+  const documentName =
+    document && `${documentFullName}-${Date.now()}.${documentExtension}`
+  const documentPath = `/uploads/${documentName}`
+
+  const allowedExtensions = /(\.pdf|\.docx|\.doc)$/i
+
+  if (document) {
+    if (!allowedExtensions.exec(document && documentName)) {
+      res.status(400)
+      throw new Error('Invalid document type')
+    }
+  }
 
   let employee = await EmployeeModel.findById(req.params.id)
 
   if (employee) {
-    employee.user = user
-    employee.emp_id = emp_id
-    employee.name = name
-    employee.gender = gender
-    employee.mobile = mobile
-    employee.department = department
-    employee.active = active
+    employee.document.documentPath &&
+      req.files &&
+      req.files.document &&
+      fs.unlink(path.join(__dirname, employee.document.documentPath), (err) => {
+        if (err) {
+          res.status(500)
+          throw new Error(err)
+        }
+      })
   }
 
-  const emp = await employee.save()
+  if (employee) {
+    document &&
+      document.mv(path.join(__dirname, documentPath), (err) => {
+        if (err) {
+          res.status(500)
+          throw new Error(err)
+        }
+      })
+  }
+  const documentData = document && {
+    documentName,
+    documentPath,
+  }
 
-  if (emp) {
-    res.status(201).json(emp)
+  if (employee) {
+    if (document) {
+      employee.user = user
+      employee.employeeId = employeeId
+      employee.employeeName = employeeName
+      employee.gender = gender
+      employee.mobile = mobile
+      employee.employmentType = employmentType
+      employee.hiredDate = hiredDate
+      employee.national = national
+      employee.birthday = birthday
+      employee.position = position
+      employee.address = address
+      employee.email = email
+      employee.department = department
+      employee.active = active
+      employee.document = document && documentData
+    }
+    if (document === null) {
+      employee.user = user
+      employee.employeeId = employeeId
+      employee.employeeName = employeeName
+      employee.gender = gender
+      employee.mobile = mobile
+      employee.employmentType = employmentType
+      employee.hiredDate = hiredDate
+      employee.national = national
+      employee.birthday = birthday
+      employee.position = position
+      employee.address = address
+      employee.email = email
+      employee.department = department
+      employee.active = active
+    }
+
+    const updatedEmployee = await employee.save()
+    res.status(201).json(updatedEmployee)
   } else {
-    res.status(400)
-    throw new Error('Internal Server Error')
+    res.status(404)
+    throw new Error('Employee not found')
   }
 })
 
 export const deleteEmployee = asyncHandler(async (req, res) => {
-  const Employee = await EmployeeModel.findOneAndRemove({
+  const employee = await EmployeeModel.findOneAndRemove({
     _id: req.params.id,
   })
 
-  if (Employee) {
-    res.json(Employee)
+  if (employee) {
+    fs.unlink(path.join(__dirname, employee.document.documentPath), (err) => {
+      if (err) {
+        res.status(500)
+        throw new Error(err)
+      }
+    })
+
+    res.json(employee)
   } else {
     res.status(400)
     throw new Error('Invalid ID')

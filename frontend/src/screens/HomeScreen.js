@@ -2,10 +2,10 @@ import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
-import ReactPaginate from 'react-paginate'
 import Moment from 'react-moment'
 import moment from 'moment'
 import { listLeave } from '../actions/leaveActions'
+import Pagination from '../components/Pagination'
 
 const HomeScreen = ({ match }) => {
   const dispatch = useDispatch()
@@ -84,25 +84,11 @@ const HomeScreen = ({ match }) => {
             </span>
           )}
           <div className='d-flex justify-content-center'>
-            <ReactPaginate
-              previousLabel='previous'
-              previousClassName='page-item'
-              previousLinkClassName='page-link'
-              nextLabel='next'
-              nextClassName='page-item'
-              nextLinkClassName='page-link'
-              pageClassName='page-item'
-              pageLinkClassName='page-link'
-              activeClassName='page-item active'
-              activeLinkClassName={'page-link'}
-              breakLabel={'...'}
-              breakClassName={'page-item'}
-              breakLinkClassName={'page-link'}
-              pageCount={totalItems && totalItems}
-              marginPagesDisplayed={2}
-              pageRangeDisplayed={2}
-              onPageChange={(e) => setCurrentPage(e.selected + 1)}
-              containerClassName={'page pagination'}
+            <Pagination
+              setCurrentPage={setCurrentPage}
+              totalItems={totalItems}
+              arrayLength={leaves && leaves.length}
+              itemsPerPage={itemsPerPage}
             />
           </div>
         </div>

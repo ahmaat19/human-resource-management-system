@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import ReactPaginate from 'react-paginate'
 import Moment from 'react-moment'
 import moment from 'moment'
 import { useDispatch, useSelector } from 'react-redux'
@@ -15,6 +14,7 @@ import {
 import { listEmployee } from '../actions/employeeActions'
 import { confirmAlert } from 'react-confirm-alert'
 import { Confirm } from '../components/Confirm'
+import Pagination from '../components/Pagination'
 
 const LeaveScreen = ({ match }) => {
   const [values, setValues] = useState({
@@ -54,9 +54,6 @@ const LeaveScreen = ({ match }) => {
     loading: loadingDelete,
     success: successDelete,
   } = leaveDelete
-
-  const userLogin = useSelector((state) => state.userLogin)
-  const { userInfo } = userLogin
 
   const formCleanHandler = () => {
     setValues({
@@ -221,7 +218,7 @@ const LeaveScreen = ({ match }) => {
                                     key={employee._id}
                                     value={employee._id}
                                   >
-                                    {employee.name}
+                                    {employee.employeeName}
                                   </option>
                                 )
                             )
@@ -403,25 +400,11 @@ const LeaveScreen = ({ match }) => {
               </span>
             )}
             <div className='d-flex justify-content-center'>
-              <ReactPaginate
-                previousLabel='previous'
-                previousClassName='page-item'
-                previousLinkClassName='page-link'
-                nextLabel='next'
-                nextClassName='page-item'
-                nextLinkClassName='page-link'
-                pageClassName='page-item'
-                pageLinkClassName='page-link'
-                activeClassName='page-item active'
-                activeLinkClassName={'page-link'}
-                breakLabel={'...'}
-                breakClassName={'page-item'}
-                breakLinkClassName={'page-link'}
-                pageCount={totalItems && totalItems}
-                marginPagesDisplayed={2}
-                pageRangeDisplayed={2}
-                onPageChange={(e) => setCurrentPage(e.selected + 1)}
-                containerClassName={'page pagination'}
+              <Pagination
+                setCurrentPage={setCurrentPage}
+                totalItems={totalItems}
+                arrayLength={leaves && leaves.length}
+                itemsPerPage={itemsPerPage}
               />
             </div>
           </div>

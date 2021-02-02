@@ -20,8 +20,8 @@ import Pagination from '../components/Pagination'
 
 const EmployeeScreen = () => {
   const [activeProfile, setActiveProfile] = useState(true)
-  const [activePrivate, setActivePrivate] = useState(false)
-  const [activeDocuments, setActiveDocuments] = useState(false)
+  const [activePrivate, setActivePrivate] = useState(true)
+  const [activeDocuments, setActiveDocuments] = useState(true)
 
   const [employeeId, setEmployeeId] = useState('')
   const [employeeName, setEmployeeName] = useState('')
@@ -130,11 +130,9 @@ const EmployeeScreen = () => {
     edit
       ? dispatch(updateEmployee(formData, _id))
       : dispatch(createEmployee(formData))
-    console.log('form submitted')
   }
 
   const editHandler = (e) => {
-    console.log(e)
     setEmployeeId(e.employeeId)
     setEmployeeName(e.employeeName)
     setEmploymentType(e.employmentType)

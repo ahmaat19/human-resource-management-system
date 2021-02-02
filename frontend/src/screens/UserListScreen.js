@@ -9,9 +9,9 @@ import {
   updateUser,
   register,
 } from '../actions/userActions'
-import ReactPaginate from 'react-paginate'
 import { confirmAlert } from 'react-confirm-alert'
 import { Confirm } from '../components/Confirm'
+import Pagination from '../components/Pagination'
 
 const UserListScreen = () => {
   const [id, setId] = useState(null)
@@ -295,28 +295,12 @@ const UserListScreen = () => {
               </tbody>
             </table>
           </div>
-          <div className='d-flex justify-content-center'>
-            <ReactPaginate
-              previousLabel='previous'
-              previousClassName='page-item'
-              previousLinkClassName='page-link'
-              nextLabel='next'
-              nextClassName='page-item'
-              nextLinkClassName='page-link'
-              pageClassName='page-item'
-              pageLinkClassName='page-link'
-              activeClassName='page-item active'
-              activeLinkClassName={'page-link'}
-              breakLabel={'...'}
-              breakClassName={'page-item'}
-              breakLinkClassName={'page-link'}
-              pageCount={totalItems && totalItems}
-              marginPagesDisplayed={2}
-              pageRangeDisplayed={2}
-              onPageChange={(e) => setCurrentPage(e.selected + 1)}
-              containerClassName={'page pagination'}
-            />
-          </div>
+          <Pagination
+            setCurrentPage={setCurrentPage}
+            totalItems={totalItems}
+            arrayLength={users && users.length}
+            itemsPerPage={itemsPerPage}
+          />
         </>
       )}
     </>
