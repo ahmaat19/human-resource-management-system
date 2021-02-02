@@ -18,6 +18,7 @@ import LeaveScreen from '../../screens/LeaveScreen'
 import ReportScreen from '../../screens/ReportScreen'
 import UserLogHistoryScreen from '../../screens/LogHistoryScreen'
 import WriteUpScreen from '../../screens/WriteUpScreen'
+import ResignScreen from '../../screens/ResignScreen'
 
 const Routes = () => {
   return (
@@ -33,8 +34,9 @@ const Routes = () => {
         <AdminPrivateRoute path='/department' component={DepartmentScreen} />
         <AdminPrivateRoute path='/position' component={PositionScreen} />
         <AdminPrivateRoute path='/report' component={ReportScreen} />
-        <AdminPrivateRoute path='/leave/:id' component={LeaveScreen} />
-        <AdminPrivateRoute path='/write-up/:id' component={WriteUpScreen} />
+        <AdminPrivateRoute path='/resign/:id?' component={ResignScreen} />
+        <AdminPrivateRoute path='/leave/:id?' component={LeaveScreen} />
+        <AdminPrivateRoute path='/write-up/:id?' component={WriteUpScreen} />
         <Route path='/discount' component={DiscountScreen} />
         <AdminPrivateRoute path='/employee' component={EmployeeScreen} />
         <AdminPrivateRoute

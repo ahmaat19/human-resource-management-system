@@ -180,14 +180,17 @@ const DiscountScreen = () => {
           {userInfo && userInfo && (
             <>
               <div className='table-responsive'>
-                <table className='table table-sm hover bordered striped'>
+                <table className='table table-sm hover bordered striped caption-top'>
+                  <caption>
+                    {discounts && discounts.length} records were found
+                  </caption>
                   <thead>
                     <tr>
                       <th>Date & Time</th>
                       <th>Employee ID</th>
                       <th>Employee Name</th>
                       <th>Department</th>
-                      <th></th>
+                      <th>Action</th>
                     </tr>
                   </thead>
                   <tbody>

@@ -16,7 +16,7 @@ import { confirmAlert } from 'react-confirm-alert'
 import { Confirm } from '../components/Confirm'
 import Pagination from '../components/Pagination'
 
-const LeaveScreen = ({ match }) => {
+const LeaveScreen = () => {
   const [values, setValues] = useState({
     employee: '',
     leave: '',
@@ -25,7 +25,6 @@ const LeaveScreen = ({ match }) => {
     description: '',
   })
   const [edit, setEdit] = useState(false)
-  const employee_id = match.params.id
 
   const dispatch = useDispatch()
   const leaveList = useSelector((state) => state.leaveList)
@@ -167,72 +166,27 @@ const LeaveScreen = ({ match }) => {
                   <div className='row gy-2'>
                     <div className='form-group'>
                       <label htmlFor='employee'>Employee ID</label>
-                      <select
+                      <input
                         name='employee'
-                        onChange={handleChange}
                         value={values.employee}
+                        onChange={handleChange}
                         className='form-control py-2'
                         required
-                      >
-                        <option value='' disabled>
-                          Employee ID...
-                        </option>
-                        {!edit && employees
-                          ? employees.map(
-                              (employee) =>
-                                employee.active &&
-                                employee._id === employee_id && (
-                                  <option
-                                    key={employee._id}
-                                    value={employee._id}
-                                  >
-                                    {employee.employeeId}
-                                  </option>
-                                )
-                            )
-                          : edit &&
-                            employees &&
-                            employees.map(
-                              (emp) =>
-                                emp._id === values.employee && (
-                                  <option key={emp._id} value={emp._id}>
-                                    {emp.employeeId}
-                                  </option>
-                                )
-                            )}
-                      </select>
-                    </div>
-
-                    <div className='form-group'>
-                      <label htmlFor='employee'>Employee Name</label>
-                      <select className='form-control py-2' disabled>
-                        <option value='' disabled>
-                          Employee Name...
-                        </option>
-                        {!edit && employees
-                          ? employees.map(
-                              (employee) =>
-                                employee.active &&
-                                employee._id === employee_id && (
-                                  <option
-                                    key={employee._id}
-                                    value={employee._id}
-                                  >
-                                    {employee.employeeName}
-                                  </option>
-                                )
-                            )
-                          : edit &&
-                            employees &&
-                            employees.map(
-                              (emp) =>
-                                emp._id === values.employee && (
-                                  <option key={emp._id} value={emp._id}>
-                                    {emp.name}
-                                  </option>
-                                )
-                            )}
-                      </select>
+                        list='employeeOptions'
+                        id='exampleDataList'
+                        placeholder='Type to search employee by name...'
+                      />
+                      <datalist id='employeeOptions'>
+                        {employees &&
+                          employees.map(
+                            (employee) =>
+                              employee.active && (
+                                <option key={employee._id} value={employee._id}>
+                                  {employee.employeeName}
+                                </option>
+                              )
+                          )}
+                      </datalist>
                     </div>
 
                     <div className='form-group'>

@@ -54,6 +54,13 @@ import {
   writeUpDeleteReducer,
 } from './reducers/writeUpReducers'
 
+import {
+  resignListReducer,
+  resignCreateReducer,
+  resignUpdateReducer,
+  resignDeleteReducer,
+} from './reducers/resignReducers'
+
 const reducer = combineReducers({
   userLogin: userLoginReducer,
   userRegister: userRegisterReducer,
@@ -93,6 +100,11 @@ const reducer = combineReducers({
   writeUpCreate: writeUpCreateReducer,
   writeUpUpdate: writeUpUpdateReducer,
   writeUpDelete: writeUpDeleteReducer,
+
+  resignList: resignListReducer,
+  resignCreate: resignCreateReducer,
+  resignUpdate: resignUpdateReducer,
+  resignDelete: resignDeleteReducer,
 })
 
 const userInfoFromStorage = localStorage.getItem('userInfo')

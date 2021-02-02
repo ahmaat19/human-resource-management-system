@@ -21,9 +21,14 @@ const Header = () => {
           data-bs-toggle='dropdown'
           aria-expanded='false'
         >
-          Basic Settings
+          Personnel
         </span>
         <ul className='dropdown-menu' aria-labelledby='navbarDropdown'>
+          <li>
+            <Link to='/employee' className='dropdown-item'>
+              Employee
+            </Link>
+          </li>
           <li>
             <Link to='/department' className='dropdown-item'>
               Department
@@ -35,8 +40,13 @@ const Header = () => {
             </Link>
           </li>
           <li>
-            <Link to='/employee' className='dropdown-item'>
-              Employee
+            <Link to='/leave' className='dropdown-item'>
+              Leave
+            </Link>
+          </li>
+          <li>
+            <Link to='/write-up' className='dropdown-item'>
+              Write Up
             </Link>
           </li>
           <li>
@@ -49,11 +59,6 @@ const Header = () => {
       <li className='nav-item'>
         <Link to='/discount' className='nav-link'>
           Discount
-        </Link>
-      </li>
-      <li className='nav-item'>
-        <Link to='/report' className='nav-link'>
-          Report
         </Link>
       </li>
 
@@ -93,6 +98,11 @@ const Header = () => {
             Admin
           </span>
           <ul className='dropdown-menu' aria-labelledby='navbarDropdown'>
+            <li className='nav-item'>
+              <Link to='/report' className='dropdown-item'>
+                Report
+              </Link>
+            </li>
             <li>
               <Link to='/admin/users' className='dropdown-item'>
                 Users

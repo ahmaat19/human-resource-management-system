@@ -3,7 +3,9 @@ import ResignModel from '../models/resignModel.js'
 import EmployeeModel from '../models/employeeModel.js'
 
 export const getResign = asyncHandler(async (req, res) => {
-  const resign = await ResignModel.find({}).sort({ createdAt: -1 })
+  const resign = await ResignModel.find({})
+    .sort({ createdAt: -1 })
+    .populate({ path: 'employee', populate: { path: 'department' } })
   res.json(resign)
 })
 
@@ -12,7 +14,7 @@ export const postResign = asyncHandler(async (req, res) => {
   const { employee, resignDate, resignType, resignReason } = req.body
 
   let resign = await ResignModel.findOne({ employee })
-  let employee = await ResignModel.findById(employee)
+  let emp = await EmployeeModel.findById(employee)
 
   if (resign) {
     res.status(400)
@@ -28,9 +30,9 @@ export const postResign = asyncHandler(async (req, res) => {
   })
   const resi = await resign.save()
 
-  if (employee) {
-    employee.active = false
-    employee.save()
+  if (emp) {
+    emp.active = false
+    emp.save()
   }
 
   if (resi) {
@@ -69,7 +71,7 @@ export const deleteResign = asyncHandler(async (req, res) => {
   const resign = await ResignModel.findById(req.params.id)
 
   if (resign) {
-    let employee = await ResignModel.findById(resign.employee)
+    let employee = await EmployeeModel.findById(resign.employee)
     if (employee) {
       employee.active = true
       employee.save()

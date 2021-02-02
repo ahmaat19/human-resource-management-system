@@ -242,7 +242,8 @@ const UserListScreen = () => {
       ) : (
         <>
           <div className='table-responsive'>
-            <table className='table table-sm hover bordered striped'>
+            <table className='table table-sm hover bordered striped caption-top'>
+              <caption>{users && users.length} records were found</caption>
               <thead>
                 <tr>
                   <th>ID</th>

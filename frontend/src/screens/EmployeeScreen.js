@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
 import moment from 'moment'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
-import { FaEdit, FaExclamationTriangle, FaShare, FaTrash } from 'react-icons/fa'
+import { FaEdit, FaTrash } from 'react-icons/fa'
 import {
   listEmployee,
   createEmployee,
@@ -239,6 +238,7 @@ const EmployeeScreen = () => {
                               placeholder='Employee ID'
                               name='employeeId'
                               value={employeeId}
+                              required
                               onChange={(e) => setEmployeeId(e.target.value)}
                             />
                           </div>
@@ -251,6 +251,7 @@ const EmployeeScreen = () => {
                               placeholder='Employee Name'
                               name='employeeName'
                               value={employeeName}
+                              required
                               onChange={(e) => setEmployeeName(e.target.value)}
                             />
                           </div>
@@ -281,6 +282,7 @@ const EmployeeScreen = () => {
                               className='form-control'
                               name='department'
                               value={department}
+                              required
                               onChange={(e) => setDepartment(e.target.value)}
                             >
                               <option value=''>---------</option>
@@ -303,6 +305,7 @@ const EmployeeScreen = () => {
                               className='form-control'
                               name='position'
                               value={position}
+                              required
                               onChange={(e) => setPosition(e.target.value)}
                             >
                               <option value=''>---------</option>
@@ -325,6 +328,7 @@ const EmployeeScreen = () => {
                               className='form-control'
                               name='hiredDate'
                               value={hiredDate}
+                              required
                               onChange={(e) => setHiredDate(e.target.value)}
                             />
                           </div>
@@ -355,6 +359,7 @@ const EmployeeScreen = () => {
                               placeholder='National'
                               name='national'
                               value={national}
+                              required
                               onChange={(e) => setNational(e.target.value)}
                             />
                           </div>
@@ -366,6 +371,7 @@ const EmployeeScreen = () => {
                               className='form-control'
                               name='birthday'
                               value={birthday}
+                              required
                               onChange={(e) => setBirthday(e.target.value)}
                             />
                           </div>
@@ -378,6 +384,7 @@ const EmployeeScreen = () => {
                               placeholder='Address'
                               name='address'
                               value={address}
+                              required
                               onChange={(e) => setAddress(e.target.value)}
                             />
                           </div>
@@ -391,6 +398,7 @@ const EmployeeScreen = () => {
                               placeholder='Mobile'
                               name='mobile'
                               value={mobile}
+                              required
                               onChange={(e) => setMobile(e.target.value)}
                             />
                           </div>
@@ -403,6 +411,7 @@ const EmployeeScreen = () => {
                               placeholder='Email'
                               name='email'
                               value={email}
+                              required
                               onChange={(e) => setEmail(e.target.value)}
                             />
                           </div>
@@ -414,6 +423,7 @@ const EmployeeScreen = () => {
                               className='form-control'
                               name='gender'
                               value={gender}
+                              required
                               onChange={(e) => setGender(e.target.value)}
                             >
                               <option value=''>---------</option>
@@ -449,6 +459,7 @@ const EmployeeScreen = () => {
                             className='form-control'
                             id='formFile'
                             name='document'
+                            required
                             onChange={(e) => setDocument(e.target.files[0])}
                           />
                         </div>
@@ -493,13 +504,15 @@ const EmployeeScreen = () => {
       ) : (
         <>
           <div className='table-responsive'>
-            <table className='table table-sm hover bordered striped'>
+            <table className='table table-sm hover bordered striped caption-top'>
+              <caption>
+                {employees && employees.length} records were found
+              </caption>
               <thead>
                 <tr>
                   <th>Emp. ID</th>
                   <th>Name</th>
                   <th>Department</th>
-                  <th>Mobile</th>
                   <th>Action</th>
                 </tr>
               </thead>
@@ -514,7 +527,6 @@ const EmployeeScreen = () => {
                       <td>{employee.employeeId}</td>
                       <td>{employee.employeeName}</td>
                       <td>{employee.department.name}</td>
-                      <td>{employee.mobile}</td>
                       <td className='btn-group'>
                         <button
                           onClick={() => editHandler(employee)}
@@ -531,22 +543,6 @@ const EmployeeScreen = () => {
                           >
                             <FaTrash /> Delete
                           </button>
-                        )}
-                        {employee.active && (
-                          <>
-                            <Link
-                              to={`/leave/${employee._id}`}
-                              className='btn btn-dark btn-sm'
-                            >
-                              <FaShare /> L. Request
-                            </Link>
-                            <Link
-                              to={`/write-up/${employee._id}`}
-                              className='btn btn-warning btn-sm'
-                            >
-                              <FaExclamationTriangle /> Write Up
-                            </Link>
-                          </>
                         )}
                       </td>
                     </tr>

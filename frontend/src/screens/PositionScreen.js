@@ -203,13 +203,15 @@ const PositionScreen = () => {
       ) : (
         <>
           <div className='table-responsive'>
-            <table className='table table-sm hover bordered striped'>
+            <table className='table table-sm hover bordered striped caption-top'>
+              <caption>
+                {positions && positions.length} records were found
+              </caption>
               <thead>
                 <tr>
                   <th>DATE & TIME</th>
                   <th>POSITION</th>
-
-                  <th></th>
+                  <th>Action</th>
                 </tr>
               </thead>
               <tbody>

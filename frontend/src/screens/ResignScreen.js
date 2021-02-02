@@ -1,70 +1,70 @@
 import React, { useEffect, useState } from 'react'
+import Pagination from '../components/Pagination'
 import Moment from 'react-moment'
 import moment from 'moment'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
+import { FaEdit, FaTrash } from 'react-icons/fa'
 import {
-  listWriteUp,
-  createWriteUp,
-  updateWriteUp,
-  deleteWriteUp,
-} from '../actions/writeUpActions'
+  listResign,
+  createResign,
+  updateResign,
+  deleteResign,
+} from '../actions/resignActions'
 import { listEmployee } from '../actions/employeeActions'
 import { confirmAlert } from 'react-confirm-alert'
 import { Confirm } from '../components/Confirm'
-import Pagination from '../components/Pagination'
 
-const WriteUpScreen = () => {
-  const [values, setValues] = useState({
-    employee: '',
-    offenseCommitted: '',
-    offenseCommittedDetails: '',
-    actionPlan: '',
-  })
+const ResignScreen = () => {
+  const [id, setId] = useState(null)
+  const [employee, setEmployee] = useState('')
+  const [resignDate, setResignDate] = useState('')
+  const [resignType, setResignType] = useState('')
+  const [resignReason, setResignReason] = useState('')
   const [edit, setEdit] = useState(false)
 
   const dispatch = useDispatch()
-  const writeUpList = useSelector((state) => state.writeUpList)
-  const { writeUps, error, loading } = writeUpList
+  const resignList = useSelector((state) => state.resignList)
+  const { resigns, error, loading } = resignList
 
-  const employeeList = useSelector((state) => state.employeeList)
-  const { employees } = employeeList
-
-  const writeUpCreate = useSelector((state) => state.writeUpCreate)
+  const resignCreate = useSelector((state) => state.resignCreate)
   const {
     error: errorCreate,
     loading: loadingCreate,
     success: successCreate,
-  } = writeUpCreate
+  } = resignCreate
 
-  const writeUpUpdate = useSelector((state) => state.writeUpUpdate)
+  const resignUpdate = useSelector((state) => state.resignUpdate)
   const {
     error: errorUpdate,
     loading: loadingUpdate,
     success: successUpdate,
-  } = writeUpUpdate
+  } = resignUpdate
 
-  const writeUpDelete = useSelector((state) => state.writeUpDelete)
+  const resignDelete = useSelector((state) => state.resignDelete)
   const {
     error: errorDelete,
     loading: loadingDelete,
     success: successDelete,
-  } = writeUpDelete
+  } = resignDelete
+
+  const userLogin = useSelector((state) => state.userLogin)
+  const { userInfo } = userLogin
+
+  const employeeList = useSelector((state) => state.employeeList)
+  const { employees } = employeeList
 
   const formCleanHandler = () => {
-    setValues({
-      ...values,
-      employee: '',
-      offenseCommitted: '',
-      offenseCommittedDetails: '',
-      actionPlan: '',
-    })
+    setEmployee('')
+    setResignReason('')
+    setResignReason('')
+    setResignType('')
     setEdit(false)
   }
 
   useEffect(() => {
-    dispatch(listWriteUp())
+    dispatch(listResign())
     dispatch(listEmployee())
     if (successCreate || successUpdate) {
       formCleanHandler()
@@ -73,29 +73,28 @@ const WriteUpScreen = () => {
   }, [dispatch, successCreate, successUpdate, successDelete])
 
   const deleteHandler = (id) => {
-    confirmAlert(Confirm(() => dispatch(deleteWriteUp(id))))
+    confirmAlert(Confirm(() => dispatch(deleteResign(id))))
   }
 
   const submitHandler = (e) => {
     e.preventDefault()
 
-    edit ? dispatch(updateWriteUp(values)) : dispatch(createWriteUp(values))
+    edit
+      ? dispatch(
+          updateResign({ employee, resignDate, resignType, resignReason, id })
+        )
+      : dispatch(
+          createResign({ employee, resignDate, resignType, resignReason })
+        )
   }
 
   const editHandler = (e) => {
-    setValues({
-      ...values,
-      _id: e._id,
-      employee: e.employee._id,
-      offenseCommitted: e.offenseCommitted,
-      offenseCommittedDetails: e.offenseCommittedDetails,
-      actionPlan: e.actionPlan,
-    })
+    setEmployee(e.employee._id)
+    setResignDate(moment(e.resignDate).format('YYYY-MM-DD'))
+    setResignReason(e.resignReason)
+    setResignType(e.resignType)
+    setId(e._id)
     setEdit(true)
-  }
-
-  const handleChange = (e) => {
-    setValues({ ...values, [e.target.name]: e.target.value })
   }
 
   const [currentPage, setCurrentPage] = useState(1)
@@ -104,25 +103,25 @@ const WriteUpScreen = () => {
   const indexOfLastItem = currentPage * itemsPerPage
   const indexOfFirstItem = indexOfLastItem - itemsPerPage
   const currentItems =
-    writeUps && writeUps.slice(indexOfFirstItem, indexOfLastItem)
-  const totalItems = writeUps && Math.ceil(writeUps.length / itemsPerPage)
+    resigns && resigns.slice(indexOfFirstItem, indexOfLastItem)
+  const totalItems = resigns && Math.ceil(resigns.length / itemsPerPage)
 
   return (
     <>
       <div
         className='modal fade'
-        id='writeUpModal'
+        id='resignModal'
         data-bs-backdrop='static'
         data-bs-keyboard='false'
         tabIndex='-1'
-        aria-labelledby='writeUpModalLabel'
+        aria-labelledby='resignModalLabel'
         aria-hidden='true'
       >
         <div className='modal-dialog'>
           <div className='modal-content modal-background'>
             <div className='modal-header'>
-              <h5 className='modal-title' id='writeUpModalLabel'>
-                {edit ? 'Edit Write Up' : 'Add Write Up'}
+              <h5 className='modal-title' id='resignModalLabel'>
+                {edit ? 'Edit Resign' : 'Add Resign'}
               </h5>
               <button
                 type='button'
@@ -135,7 +134,7 @@ const WriteUpScreen = () => {
             <div className='modal-body'>
               {successCreate && (
                 <Message variant='success'>
-                  Write Up Registered Successfully
+                  Resign Registered Successfully
                 </Message>
               )}
               {loadingCreate ? (
@@ -145,9 +144,7 @@ const WriteUpScreen = () => {
               )}
 
               {successUpdate && (
-                <Message variant='success'>
-                  Write Up Updated Successfully
-                </Message>
+                <Message variant='success'>Resign Updated Successfully</Message>
               )}
               {loadingUpdate ? (
                 <Loader />
@@ -165,8 +162,8 @@ const WriteUpScreen = () => {
                       <label htmlFor='employee'>Employee ID</label>
                       <input
                         name='employee'
-                        value={values.employee}
-                        onChange={handleChange}
+                        onChange={(e) => setEmployee(e.target.value)}
+                        value={employee}
                         className='form-control py-2'
                         required
                         list='employeeOptions'
@@ -187,65 +184,48 @@ const WriteUpScreen = () => {
                     </div>
 
                     <div className='form-group'>
-                      <label htmlFor='offenseCommitted'>
-                        Offense Committed
-                      </label>
+                      <label htmlFor='employee'>Resign Type</label>
                       <select
-                        name='offenseCommitted'
-                        onChange={handleChange}
-                        value={values.offenseCommitted}
+                        name='resignType'
+                        onChange={(e) => setResignType(e.target.value)}
+                        value={resignType}
                         className='form-control py-2'
                         required
                       >
-                        <option value='' disabled>
-                          Offense Committed Type...
+                        <option value=''>Resign Type...</option>
+                        <option value='Quit'>Quit</option>
+                        <option value='Dismissed'>Dismissed</option>
+                        <option value='Resign'>Resign</option>
+                        <option value='Transfer'>Transfer</option>
+                        <option value='Retain Job Without Salary'>
+                          Retain Job Without Salary
                         </option>
-                        <option value='Absenteeism'>Absenteeism</option>
-                        <option value='AWOL'>AWOL</option>
-                        <option value='Conduct Unbecoming'>
-                          Conduct Unbecoming
-                        </option>
-                        <option value='Dereliction of Duty'>
-                          Dereliction of Duty
-                        </option>
-                        <option value='Habitual Tardiness'>
-                          Habitual Tardiness
-                        </option>
-                        <option value='Habitual Undertime'>
-                          Habitual Undertime
-                        </option>
-                        <option value='Insubordination'>Insubordination</option>
-                        <option value='Other'>Other</option>
                       </select>
                     </div>
 
                     <div className='form-group'>
-                      <label htmlFor='offenseCommittedDetails'>
-                        Offense Committed Details
-                      </label>
-                      <textarea
-                        rows='5'
-                        cols='30'
-                        name='offenseCommittedDetails'
-                        onChange={handleChange}
+                      <label htmlFor='employee'>Resign Date</label>
+                      <input
+                        name='resignDate'
+                        onChange={(e) => setResignDate(e.target.value)}
                         type='date'
-                        value={values.offenseCommittedDetails}
+                        value={resignDate}
                         className='form-control py-2'
-                        placeholder='Enter offense committed details'
+                        required
                       />
                     </div>
 
                     <div className='form-group'>
-                      <label htmlFor='actionPlan'>Action Plan</label>
+                      <label htmlFor='employee'>Resign Reason</label>
                       <textarea
                         rows='5'
                         cols='30'
-                        name='actionPlan'
-                        onChange={handleChange}
+                        name='resignReason'
+                        onChange={(e) => setResignReason(e.target.value)}
                         type='date'
-                        value={values.actionPlan}
+                        value={resignReason}
                         className='form-control py-2'
-                        placeholder='Enter action plan'
+                        placeholder='Enter resign reason'
                       />
                     </div>
 
@@ -271,18 +251,19 @@ const WriteUpScreen = () => {
       </div>
 
       <div className='d-flex justify-content-between align-items-center'>
-        <h1>Employee Write Up Form</h1>
+        <h1>Resign</h1>
         <button
           className='btn btn-light btn-sm'
           data-bs-toggle='modal'
-          data-bs-target='#writeUpModal'
+          data-bs-target='#resignModal'
         >
-          <i className='fas fa-plus'></i> REGISTER NEW WRITE UP REQUEST
+          {' '}
+          <i className='fas fa-plus'></i> REGISTER NEW RESIGN
         </button>
       </div>
 
       {successDelete && (
-        <Message variant='success'>Write Up Deleted Successfully</Message>
+        <Message variant='success'>Resign Deleted Successfully</Message>
       )}
       {loadingDelete ? (
         <Loader />
@@ -297,54 +278,55 @@ const WriteUpScreen = () => {
         <>
           <div className='table-responsive'>
             <table className='table table-sm hover bordered striped caption-top'>
-              <caption>
-                {writeUps && writeUps.length} records were found
-              </caption>
+              <caption>{resigns && resigns.length} records were found</caption>
               <thead>
                 <tr>
-                  <th>Date & Time</th>
-                  <th>Emp. ID</th>
-                  <th>Emp. Name</th>
-                  <th>Offense Committed</th>
+                  <th>Employee ID</th>
+                  <th>Employee Name</th>
+                  <th>Department</th>
+                  <th>Resign Type</th>
+                  <th>Resign Date</th>
                   <th>Action</th>
                 </tr>
               </thead>
               <tbody>
                 {currentItems &&
-                  currentItems.map((writeUp) => {
-                    return (
-                      <tr key={writeUp._id}>
-                        <td>
-                          <Moment format='YYYY-MM-DD HH:mm'>
-                            {moment(writeUp.createdAt)}
-                          </Moment>
-                        </td>
-                        <td>{writeUp.employee.employeeId}</td>
-                        <td>{writeUp.employee.name}</td>
-                        <td>{writeUp.offenseCommitted}</td>
+                  currentItems.map((resi) => (
+                    <tr key={resi._id}>
+                      <td>{resi.employee.employeeId}</td>
+                      <td>{resi.employee.employeeName}</td>
+                      <td>{resi.employee.department.name}</td>
+                      <td>{resi.resignType}</td>
 
-                        <td className='btn-group'>
-                          <button
-                            onClick={() => editHandler(writeUp)}
-                            className='btn btn-light btn-sm'
-                            data-bs-toggle='modal'
-                            data-bs-target='#writeUpModal'
-                          >
-                            <i className='fa fa-edit'></i> Edit
-                          </button>{' '}
+                      <td>
+                        <Moment format='YYYY-MM-DD'>
+                          {moment(resi.resignDate)}
+                        </Moment>
+                      </td>
+
+                      <td className='btn-group' role='group'>
+                        <button
+                          className='btn btn-light btn-sm'
+                          onClick={(e) => editHandler(resi)}
+                          data-bs-toggle='modal'
+                          data-bs-target='#resignModal'
+                        >
+                          <FaEdit /> Edit
+                        </button>
+                        {userInfo && userInfo.isAdmin && (
                           <button
                             className='btn btn-danger btn-sm'
-                            onClick={() => deleteHandler(writeUp._id)}
+                            onClick={() => deleteHandler(resi._id)}
                           >
-                            <i className='fa fa-trash'></i> Delete
+                            <FaTrash /> Delete
                           </button>
-                        </td>
-                      </tr>
-                    )
-                  })}
+                        )}
+                      </td>
+                    </tr>
+                  ))}
               </tbody>
             </table>
-            {writeUps && !loading && writeUps.length === 0 && (
+            {resigns && !loading && resigns.length === 0 && (
               <span className='text-danger d-flex justify-content-center'>
                 No data found!
               </span>
@@ -353,7 +335,7 @@ const WriteUpScreen = () => {
               <Pagination
                 setCurrentPage={setCurrentPage}
                 totalItems={totalItems}
-                arrayLength={writeUps && writeUps.length}
+                arrayLength={resigns && resigns.length}
                 itemsPerPage={itemsPerPage}
               />
             </div>
@@ -364,4 +346,4 @@ const WriteUpScreen = () => {
   )
 }
 
-export default WriteUpScreen
+export default ResignScreen
