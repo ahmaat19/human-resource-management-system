@@ -63,7 +63,9 @@ const WriteUpReportScreen = ({ newSearchedWriteUpArray, Moment, moment }) => {
           </div>
         ))
       ) : (
-        <p className='text-center text-danger'>No leave records was found!</p>
+        <p className='text-center text-danger'>
+          No write-up records was found!
+        </p>
       )}
     </div>
   )

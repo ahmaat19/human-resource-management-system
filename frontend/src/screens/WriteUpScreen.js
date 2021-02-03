@@ -14,6 +14,7 @@ import { listEmployee } from '../actions/employeeActions'
 import { confirmAlert } from 'react-confirm-alert'
 import { Confirm } from '../components/Confirm'
 import Pagination from '../components/Pagination'
+import { FaPlus } from 'react-icons/fa'
 
 const WriteUpScreen = () => {
   const [values, setValues] = useState({
@@ -277,7 +278,7 @@ const WriteUpScreen = () => {
           data-bs-toggle='modal'
           data-bs-target='#writeUpModal'
         >
-          <i className='fas fa-plus'></i> REGISTER NEW WRITE UP REQUEST
+          <FaPlus /> REGISTER NEW WRITE UP REQUEST
         </button>
       </div>
 
@@ -320,7 +321,7 @@ const WriteUpScreen = () => {
                           </Moment>
                         </td>
                         <td>{writeUp.employee.employeeId}</td>
-                        <td>{writeUp.employee.name}</td>
+                        <td>{writeUp.employee.employeeName}</td>
                         <td>{writeUp.offenseCommitted}</td>
 
                         <td className='btn-group'>

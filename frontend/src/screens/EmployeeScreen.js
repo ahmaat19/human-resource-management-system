@@ -3,7 +3,7 @@ import moment from 'moment'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
-import { FaEdit, FaTrash } from 'react-icons/fa'
+import { FaEdit, FaInfoCircle, FaTrash } from 'react-icons/fa'
 import {
   listEmployee,
   createEmployee,
@@ -16,11 +16,14 @@ import { listDepartment } from '../actions/departmentActions'
 import { listPosition } from '../actions/positionActions'
 import { FaMinus, FaPlus } from 'react-icons/fa'
 import Pagination from '../components/Pagination'
+import EmployeeDetailsScreen from './EmployeeDetailsScreen'
 
 const EmployeeScreen = () => {
   const [activeProfile, setActiveProfile] = useState(true)
   const [activePrivate, setActivePrivate] = useState(true)
   const [activeDocuments, setActiveDocuments] = useState(true)
+
+  const [employeeDetails, setEmployeeDetails] = useState({})
 
   const [employeeId, setEmployeeId] = useState('')
   const [employeeName, setEmployeeName] = useState('')
@@ -459,7 +462,6 @@ const EmployeeScreen = () => {
                             className='form-control'
                             id='formFile'
                             name='document'
-                            required
                             onChange={(e) => setDocument(e.target.files[0])}
                           />
                         </div>
@@ -485,7 +487,7 @@ const EmployeeScreen = () => {
           data-bs-target='#employeeModal'
         >
           {' '}
-          <i className='fas fa-plus'></i> REGISTER NEW EMPLOYEE
+          <FaPlus /> REGISTER NEW EMPLOYEE
         </button>
       </div>
 
@@ -529,6 +531,14 @@ const EmployeeScreen = () => {
                       <td>{employee.department.name}</td>
                       <td className='btn-group'>
                         <button
+                          onClick={() => setEmployeeDetails(employee)}
+                          className='btn btn-info btn-sm'
+                          data-bs-toggle='modal'
+                          data-bs-target='#employeeDetailsModal'
+                        >
+                          <FaInfoCircle /> Details
+                        </button>{' '}
+                        <button
                           onClick={() => editHandler(employee)}
                           className='btn btn-light btn-sm'
                           data-bs-toggle='modal'
@@ -549,6 +559,40 @@ const EmployeeScreen = () => {
                   ))}
               </tbody>
             </table>
+
+            {/* Employee Details */}
+            <div
+              className='modal fade'
+              id='employeeDetailsModal'
+              data-bs-backdrop='static'
+              data-bs-keyboard='false'
+              tabIndex='-1'
+              aria-labelledby='employeeDetailsModalLabel'
+              aria-hidden='true'
+            >
+              <div className='modal-dialog  '>
+                <div className='modal-content modal-background'>
+                  <div className='modal-header'>
+                    <h5
+                      className='modal-title fw-bold fs-6 text-info '
+                      id='employeeDetailsModalLabel'
+                    >
+                      {employeeDetails.employeeName}
+                    </h5>
+                    <button
+                      type='button'
+                      className='btn-close'
+                      data-bs-dismiss='modal'
+                      aria-label='Close'
+                    ></button>
+                  </div>
+                  <div className='modal-body'>
+                    <EmployeeDetailsScreen employeeDetails={employeeDetails} />
+                  </div>
+                </div>
+              </div>
+            </div>
+
             {departments && !loading && departments.length === 0 && (
               <span className='text-danger d-flex justify-content-center'>
                 No data found!

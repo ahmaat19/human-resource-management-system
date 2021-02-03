@@ -5,7 +5,7 @@ import moment from 'moment'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
-import { FaEdit, FaTrash } from 'react-icons/fa'
+import { FaEdit, FaPlus, FaTrash } from 'react-icons/fa'
 import {
   listDepartment,
   createDepartment,
@@ -184,7 +184,7 @@ const DepartmentScreen = () => {
           data-bs-target='#departmentModal'
         >
           {' '}
-          <i className='fas fa-plus'></i> REGISTER NEW DEPARTMENT
+          <FaPlus /> REGISTER NEW DEPARTMENT
         </button>
       </div>
 

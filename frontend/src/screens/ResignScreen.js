@@ -5,7 +5,7 @@ import moment from 'moment'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
-import { FaEdit, FaTrash } from 'react-icons/fa'
+import { FaEdit, FaPlus, FaTrash } from 'react-icons/fa'
 import {
   listResign,
   createResign,
@@ -258,7 +258,7 @@ const ResignScreen = () => {
           data-bs-target='#resignModal'
         >
           {' '}
-          <i className='fas fa-plus'></i> REGISTER NEW RESIGN
+          <FaPlus /> REGISTER NEW RESIGN
         </button>
       </div>
 

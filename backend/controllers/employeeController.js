@@ -1,5 +1,8 @@
 import asyncHandler from 'express-async-handler'
 import EmployeeModel from '../models/employeeModel.js'
+import ResignModel from '../models/resignModel.js'
+import LeaveModel from '../models/leaveModel.js'
+import WriteUpModel from '../models/writeUpModel.js'
 import fs from 'fs'
 import path from 'path'
 const __dirname = path.resolve()
@@ -202,9 +205,7 @@ export const putEmployee = asyncHandler(async (req, res) => {
 })
 
 export const deleteEmployee = asyncHandler(async (req, res) => {
-  const employee = await EmployeeModel.findOneAndRemove({
-    _id: req.params.id,
-  })
+  const employee = await EmployeeModel.findById(req.params.id)
 
   if (employee) {
     fs.unlink(path.join(__dirname, employee.document.documentPath), (err) => {
@@ -213,6 +214,11 @@ export const deleteEmployee = asyncHandler(async (req, res) => {
         throw new Error(err)
       }
     })
+
+    await ResignModel.deleteOne({ employee: employee._id })
+    await LeaveModel.deleteOne({ employee: employee._id })
+    await WriteUpModel.deleteOne({ employee: employee._id })
+    await employee.deleteOne()
 
     res.json(employee)
   } else {
