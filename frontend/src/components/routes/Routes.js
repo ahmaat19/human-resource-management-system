@@ -19,6 +19,7 @@ import ReportScreen from '../../screens/ReportScreen'
 import UserLogHistoryScreen from '../../screens/LogHistoryScreen'
 import WriteUpScreen from '../../screens/WriteUpScreen'
 import ResignScreen from '../../screens/ResignScreen'
+import PayrollScreen from '../../screens/PayrollScreen'
 
 const Routes = () => {
   return (
@@ -39,6 +40,7 @@ const Routes = () => {
         <AdminPrivateRoute path='/write-up/:id?' component={WriteUpScreen} />
         <Route path='/discount' component={DiscountScreen} />
         <AdminPrivateRoute path='/employee' component={EmployeeScreen} />
+        <AdminPrivateRoute path='/payroll' component={PayrollScreen} />
         <AdminPrivateRoute
           exact
           path='/admin/users'

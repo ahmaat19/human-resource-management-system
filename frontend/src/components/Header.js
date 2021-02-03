@@ -56,6 +56,24 @@ const Header = () => {
           </li>
         </ul>
       </li>
+      <li className='nav-item dropdown'>
+        <span
+          className='nav-link dropdown-toggle'
+          id='navbarDropdown'
+          role='button'
+          data-bs-toggle='dropdown'
+          aria-expanded='false'
+        >
+          Payroll
+        </span>
+        <ul className='dropdown-menu' aria-labelledby='navbarDropdown'>
+          <li>
+            <Link to='/payroll' className='dropdown-item'>
+              Payroll
+            </Link>
+          </li>
+        </ul>
+      </li>
       <li className='nav-item'>
         <Link to='/discount' className='nav-link'>
           Discount

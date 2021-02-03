@@ -28,6 +28,8 @@ export const postEmployee = asyncHandler(async (req, res) => {
     address,
     email,
     department,
+    bankName,
+    bankAccount,
   } = req.body
   const employeeId = req.body.employeeId.toUpperCase()
   const user = req.user.id
@@ -88,6 +90,8 @@ export const postEmployee = asyncHandler(async (req, res) => {
     department,
     active: true,
     document: documentData,
+    bankName,
+    bankAccount,
   })
   const emp = await employee.save()
 
@@ -113,6 +117,8 @@ export const putEmployee = asyncHandler(async (req, res) => {
     email,
     department,
     active,
+    bankName,
+    bankAccount,
   } = req.body
   const employeeId = req.body.employeeId.toUpperCase()
   const user = req.user.id
@@ -178,6 +184,8 @@ export const putEmployee = asyncHandler(async (req, res) => {
       employee.department = department
       employee.active = active
       employee.document = document && documentData
+      employee.bankName = bankName
+      employee.bankAccount = bankAccount
     }
     if (document === null) {
       employee.user = user
@@ -194,6 +202,8 @@ export const putEmployee = asyncHandler(async (req, res) => {
       employee.email = email
       employee.department = department
       employee.active = active
+      employee.bankName = bankName
+      employee.bankAccount = bankAccount
     }
 
     const updatedEmployee = await employee.save()

@@ -22,6 +22,7 @@ const EmployeeScreen = () => {
   const [activeProfile, setActiveProfile] = useState(true)
   const [activePrivate, setActivePrivate] = useState(true)
   const [activeDocuments, setActiveDocuments] = useState(true)
+  const [activePayroll, setActivePayroll] = useState(true)
 
   const [employeeDetails, setEmployeeDetails] = useState({})
 
@@ -40,6 +41,8 @@ const EmployeeScreen = () => {
   const [document, setDocument] = useState('')
   const [edit, setEdit] = useState(false)
   const [active, setActive] = useState(true)
+  const [bankName, setBankName] = useState('')
+  const [bankAccount, setBankAccount] = useState('')
   const [_id, set_id] = useState(null)
 
   const dispatch = useDispatch()
@@ -91,6 +94,8 @@ const EmployeeScreen = () => {
     setEmail('')
     setGender('')
     setDocument('')
+    setBankName('')
+    setBankAccount('')
     setActive(true)
     setEdit(false)
   }
@@ -127,6 +132,8 @@ const EmployeeScreen = () => {
     formData.append('email', email)
     formData.append('department', department)
     formData.append('active', active)
+    formData.append('bankName', bankName)
+    formData.append('bankAccount', bankAccount)
     formData.append('document', document)
 
     edit
@@ -139,7 +146,7 @@ const EmployeeScreen = () => {
     setEmployeeName(e.employeeName)
     setEmploymentType(e.employmentType)
     setDepartment(e.department._id)
-    setPosition(e.position._id)
+    setPosition(e.position && e.position._id)
     setHiredDate(moment(e.hiredDate).format('YYYY-MM-DD'))
     setNational(e.national)
     setBirthday(moment(e.birthday).format('YYYY-MM-DD'))
@@ -147,6 +154,8 @@ const EmployeeScreen = () => {
     setMobile(e.mobile)
     setEmail(e.email)
     setGender(e.gender)
+    setBankAccount(e.bankAccount)
+    setBankName(e.bankName)
     set_id(e._id)
 
     setActive(e.active)
@@ -465,6 +474,48 @@ const EmployeeScreen = () => {
                             onChange={(e) => setDocument(e.target.files[0])}
                           />
                         </div>
+                      )}
+
+                      <div className='col-12'>
+                        <span className='form-control text-center bg-dark text-light fs-6 fw-light'>
+                          PRIVATE INFO
+                          <span className='float-end'>
+                            {activePayroll ? (
+                              <FaMinus
+                                onClick={() => setActivePayroll(false)}
+                              />
+                            ) : (
+                              <FaPlus onClick={() => setActivePayroll(true)} />
+                            )}
+                          </span>
+                        </span>
+                      </div>
+
+                      {activePayroll && (
+                        <>
+                          <div className='col-lg-6 col-md-6 col-sm-12 col-12'>
+                            <label htmlFor='national'>Bank Name</label>
+                            <input
+                              type='text'
+                              className='form-control'
+                              placeholder='Bank Name'
+                              name='bankName'
+                              value={bankName}
+                              onChange={(e) => setBankName(e.target.value)}
+                            />
+                          </div>
+                          <div className='col-lg-6 col-md-6 col-sm-12 col-12'>
+                            <label htmlFor='national'>Bank Account</label>
+                            <input
+                              type='number'
+                              className='form-control'
+                              placeholder='Bank Account'
+                              name='bankAccount'
+                              value={bankAccount}
+                              onChange={(e) => setBankAccount(e.target.value)}
+                            />
+                          </div>
+                        </>
                       )}
 
                       <div className='col-12 text-right'>
