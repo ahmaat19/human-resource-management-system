@@ -5,6 +5,8 @@ import {
   FaEnvelope,
   FaFlag,
   FaMobile,
+  FaMoneyCheck,
+  FaUniversity,
 } from 'react-icons/fa'
 
 const EmployeeDetailsScreen = ({ employeeDetails }) => {
@@ -20,6 +22,8 @@ const EmployeeDetailsScreen = ({ employeeDetails }) => {
     national,
     position,
     document,
+    bankName,
+    bankAccount,
   } = employeeDetails
   return (
     <>
@@ -49,6 +53,16 @@ const EmployeeDetailsScreen = ({ employeeDetails }) => {
         <FaAddressCard /> {address}
       </span>
       <br /> <br />
+      <span className='fw-light fs-5 text-info '>Bank Info</span> <br />
+      <span>
+        <FaUniversity /> {bankName}
+      </span>
+      <br />
+      <span>
+        <FaMoneyCheck /> {bankAccount}
+      </span>
+      <br />
+      <br />
       <span className='fw-light fs-5 text-info '>Curriculum Vitae (CV)</span>
       <br />
       <span>
