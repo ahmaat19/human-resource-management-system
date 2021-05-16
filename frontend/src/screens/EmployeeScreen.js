@@ -478,7 +478,11 @@ const EmployeeScreen = () => {
 
                       <div className='col-12'>
                         <span className='form-control text-center bg-dark text-light fs-6 fw-light'>
+<<<<<<< HEAD
                           PRIVATE INFO
+=======
+                          SALARY INFO
+>>>>>>> d088f89bfd7ba62bad31c9e87f3c315b97d05572
                           <span className='float-end'>
                             {activePayroll ? (
                               <FaMinus
