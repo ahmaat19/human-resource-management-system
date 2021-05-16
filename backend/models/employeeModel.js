@@ -63,6 +63,12 @@ const employeeScheme = mongoose.Schema(
         type: String,
       },
     },
+    bankName: {
+      type: String,
+    },
+    bankAccount: {
+      type: Number,
+    },
     active: {
       type: Boolean,
       default: true,
